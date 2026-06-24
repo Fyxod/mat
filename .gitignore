@@ -1,0 +1,29 @@
+# Python and editor state
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.vscode/
+
+# Local environments and model caches
+.venv/
+.venv-linux-gpu/
+.micromamba/
+venv/
+env/
+.env
+.env.*
+hf_cache/
+models/
+checkpoints/
+
+# Runtime noise. Reports, CSV/JSON summaries, best images, final validation,
+# and debug bundles remain trackable.
+phase1/outputs/logs/*.log
+phase1/outputs/**/checkpoints/**/theta.pt
+phase1/outputs/**/checkpoints/**/optimizer_state.pt
+*.tmp
+*.bak

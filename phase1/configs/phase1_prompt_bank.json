@@ -1,0 +1,38 @@
+{
+  "primary_prompts": [
+    "add black sunglasses",
+    "add round glasses",
+    "add thin eyeglasses",
+    "add a black baseball cap",
+    "add a small black cap",
+    "add a red beanie",
+    "add a blue beanie",
+    "add light stubble",
+    "add a small beard",
+    "add a short beard",
+    "make the person smile slightly",
+    "make the person smile",
+    "make the person look slightly angry",
+    "make the person look surprised",
+    "change hair color to black",
+    "change hair color to blonde",
+    "change hair color to brown",
+    "add a black jacket",
+    "add a red scarf",
+    "add a small earring",
+    "add headphones",
+    "add a hoodie",
+    "make the photo look like studio lighting",
+    "make the person wear a suit",
+    "add a white shirt",
+    "add a black turtleneck",
+    "add a small silver nose stud",
+    "add a subtle necklace"
+  ],
+  "experimental_risky_prompts": [
+    "make the person older",
+    "make the person look angry",
+    "add makeup",
+    "change the hairstyle"
+  ]
+}

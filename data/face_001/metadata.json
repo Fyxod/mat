@@ -1,0 +1,7 @@
+{
+  "face_id": "face_001",
+  "master": "master_1024.png",
+  "instruct_input": "instruct_512.png",
+  "flux_input": "flux_768.png",
+  "notes": "Same source face resized/cropped for each model."
+}

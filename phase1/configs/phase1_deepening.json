@@ -1,0 +1,11 @@
+{
+  "top_combinations": 4,
+  "starts": 12,
+  "iterations": 400,
+  "learning_rate": 0.06,
+  "checkpoint_every": 25,
+  "fallback_starts": 8,
+  "fallback_iterations": 300,
+  "fallback_checkpoint_every": 50,
+  "fallback_first_start_seconds": 3600
+}

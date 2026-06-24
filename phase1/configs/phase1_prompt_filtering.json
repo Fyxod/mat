@@ -1,0 +1,30 @@
+{
+  "model": {
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "image_guidance_scale": 1.5,
+    "height": 512,
+    "width": 512,
+    "torch_dtype": "float16",
+    "seed": 1234
+  },
+  "primary_grid": {
+    "image_guidance_scales": [1.0, 1.5, 2.0, 2.5],
+    "guidance_scales": [7.5]
+  },
+  "secondary_grid": {
+    "image_guidance_scales": [1.5, 2.0],
+    "guidance_scales": [6.5, 8.5],
+    "top_weak_prompts": 10
+  },
+  "selection": {
+    "min_selected": 3,
+    "max_selected": 6,
+    "minimum_ssim": 0.35,
+    "minimum_contrast": 0.06,
+    "minimum_identity_similarity_when_available": 0.25
+  },
+  "discovery_slow_case_seconds": 180,
+  "discovery_fallback_steps": 10
+}

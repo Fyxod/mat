@@ -1,0 +1,5 @@
+{
+  "selected_prompts": [],
+  "generated_by": "run_prompt_discovery.py",
+  "note": "This file is overwritten only after prompt discovery finds at least three usable clean baselines."
+}

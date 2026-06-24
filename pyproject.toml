@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mat-geometric-whitebox"
+version = "0.1.0"
+description = "Phase 1 geometric white-box attacks against InstructPix2Pix"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["phase1", "phase1.src", "phase1.scripts"]

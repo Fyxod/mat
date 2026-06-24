@@ -1,0 +1,24 @@
+{
+  "objectives": ["edit_direction", "unet_prediction", "vae_conditioning"],
+  "budgets": [
+    {"name": "medium", "max_disp_px": 4.0, "target_input_ssim": 0.94},
+    {"name": "strong", "max_disp_px": 6.0, "target_input_ssim": 0.9}
+  ],
+  "starts": 3,
+  "iterations": 150,
+  "learning_rate": 0.08,
+  "checkpoint_every": 50,
+  "fallback_checkpoint_every": 75,
+  "fallback_first_start_seconds": 1800,
+  "objective_scale": 1.0,
+  "fallback_objective_scale": 3.0,
+  "lambda_visual": 30.0,
+  "lambda_disp": 0.2,
+  "lambda_smooth": 0.4,
+  "lambda_fold": 10.0,
+  "geometry_method": "combined_tps_dct",
+  "dct_size": 4,
+  "tps_size": 5,
+  "face_mask": {"center_x": 0.5, "center_y": 0.52, "radius_x": 0.34, "radius_y": 0.42, "edge_falloff": 0.12},
+  "objective_timestep_index": 10
+}
