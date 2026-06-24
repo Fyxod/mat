@@ -32,7 +32,18 @@ class Tee:
 
     def flush(self) -> None:
         self.console.flush()
-        self.file.flush()
+        if not self.file.closed:
+            self.file.flush()
+
+    def close(self) -> None:
+        """Compatibility with logging handlers that retain this tee at exit.
+
+        The surrounding context manager owns and closes the underlying log
+        stream.  At interpreter shutdown absl/TensorFlow may subsequently call
+        ``close`` on the stale tee; treating that as a no-op avoids a harmless
+        but distracting atexit traceback.
+        """
+        return None
 
 
 def _run_one(root: Path, mode: str, force: bool, identity: bool) -> object:
