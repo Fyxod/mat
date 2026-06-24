@@ -1,0 +1,12 @@
+{
+  "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_black_sunglasses/igs_1p5_gs_7p5/edited.png",
+  "clean_quality_score": 2.75,
+  "discovery_num_inference_steps": 20,
+  "guidance_scale": 7.5,
+  "image_guidance_scale": 1.5,
+  "num_inference_steps": 20,
+  "prompt": "add black sunglasses",
+  "prompt_slug": "add_black_sunglasses",
+  "reason_selected": "Manual visual audit: localized sunglasses edit with the original face and hair structure largely retained.",
+  "seed": 1234
+}

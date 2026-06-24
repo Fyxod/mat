@@ -1,0 +1,12 @@
+{
+  "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_a_small_earring/igs_2p0_gs_7p5/edited.png",
+  "clean_quality_score": 2.75,
+  "discovery_num_inference_steps": 20,
+  "guidance_scale": 7.5,
+  "image_guidance_scale": 2.0,
+  "num_inference_steps": 20,
+  "prompt": "add a small earring",
+  "prompt_slug": "add_a_small_earring",
+  "reason_selected": "Manual visual audit: small accessory edit, face identity retained, and no global color or person replacement.",
+  "seed": 1234
+}
