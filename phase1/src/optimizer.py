@@ -78,7 +78,11 @@ def optimize_geometry(
         objective, terms = internal_objective(pipe, perturbed, reference, settings.objective)
         visual_mse = (perturbed - original_tensor).square().mean()
         normalized_visual = visual_mse / blank_mse.clamp_min(1e-8)
-        magnitude = displacement.square().sum(dim=1).sqrt()
+        # The face/border masks intentionally create exact zero displacement
+        # pixels. Add epsilon *inside* sqrt so their derivative remains finite;
+        # clamping after sqrt leaves a 0 * infinity backward path and causes
+        # every otherwise-valid geometry gradient to become NaN.
+        magnitude = torch.sqrt(displacement.square().sum(dim=1) + 1e-12)
         disp_penalty = magnitude.square().mean() / (settings.max_disp_px**2)
         smooth_penalty = total_variation(displacement) / settings.max_disp_px
         fold_penalty, jacobian = jacobian_penalty(displacement)
@@ -91,8 +95,19 @@ def optimize_geometry(
             + settings.lambda_fold * fold_penalty
         )
         if not bool(torch.isfinite(loss).item()):
-            history.append({"iter": iteration, "stopped": True, "reason": "non_finite_loss"})
-            break
+            finite_terms = {
+                "perturbed": bool(torch.isfinite(perturbed).all().item()),
+                "displacement": bool(torch.isfinite(displacement).all().item()),
+                "objective": bool(torch.isfinite(objective).all().item()),
+                "edit_direction_mse": bool(torch.isfinite(terms["edit_direction_mse"]).all().item()),
+                "unet_prediction_mse": bool(torch.isfinite(terms["unet_prediction_mse"]).all().item()),
+                "vae_conditioning_mse": bool(torch.isfinite(terms["vae_conditioning_mse"]).all().item()),
+                "visual_mse": bool(torch.isfinite(visual_mse).all().item()),
+                "disp_penalty": bool(torch.isfinite(disp_penalty).all().item()),
+                "smooth_penalty": bool(torch.isfinite(smooth_penalty).all().item()),
+                "fold_penalty": bool(torch.isfinite(fold_penalty).all().item()),
+            }
+            raise FloatingPointError(f"Non-finite white-box loss at iteration {iteration}: {finite_terms}")
 
         loss.backward()
         grad_norm = _gradient_norm(geometry.parameters())
@@ -101,8 +116,15 @@ def optimize_geometry(
             for parameter in geometry.parameters()
         )
         if not gradients_finite:
-            history.append({"iter": iteration, "stopped": True, "reason": "non_finite_gradient"})
-            break
+            bad_parameters = [
+                name for name, parameter in geometry.named_parameters()
+                if parameter.grad is not None and not bool(torch.isfinite(parameter.grad).all().item())
+            ]
+            raise FloatingPointError(
+                f"Non-finite geometry gradient at iteration {iteration}; "
+                f"parameters={bad_parameters}, loss={float(loss.detach().float().cpu())}, "
+                f"objective={float(objective.detach().float().cpu())}"
+            )
         torch.nn.utils.clip_grad_norm_(geometry.parameters(), 1.0)
         optimizer.step()
         geometry.project_()
