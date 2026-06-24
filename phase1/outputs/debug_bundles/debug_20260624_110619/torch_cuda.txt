@@ -1,0 +1,4 @@
+2.5.1+cu121
+12.1
+True
+NVIDIA RTX A6000

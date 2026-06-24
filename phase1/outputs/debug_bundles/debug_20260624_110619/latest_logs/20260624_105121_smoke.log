@@ -1,0 +1,7 @@
+MAT A6000 mode=smoke root=/home/interns/Desktop/mat force=False
+
+=== Starting smoke ===
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:01<00:07,  1.56s/it]Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  2.73it/s]Loading pipeline components...:  83%|████████▎ | 5/6 [00:03<00:00,  1.61it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:08<00:00,  2.04s/it]Loading pipeline components...: 100%|██████████| 6/6 [00:08<00:00,  1.45s/it]
+
+FAILED: No finite geometry optimization step completed.
+Run: python -m phase1.scripts.a6000_collect_debug_bundle --root /home/interns/Desktop/mat

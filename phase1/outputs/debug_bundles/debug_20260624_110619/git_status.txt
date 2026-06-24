@@ -1,0 +1,16 @@
+## main...origin/main
+ D phase1/outputs/run_markers/smoke/FAILED.json
+ D phase1/outputs/smoke/whitebox/FAILED.json
+?? bug.txt
+?? phase1/outputs/debug_bundles/debug_20260624_110619/
+?? phase1/outputs/run_markers/smoke/DONE.json
+?? phase1/outputs/run_markers/smoke/result.json
+?? phase1/outputs/smoke/DONE.json
+?? phase1/outputs/smoke/smoke_summary.json
+?? phase1/outputs/smoke/whitebox/DONE.json
+?? phase1/outputs/smoke/whitebox/best/
+?? phase1/outputs/smoke/whitebox/config_resolved.json
+?? phase1/outputs/smoke/whitebox/history.csv
+?? phase1/outputs/smoke/whitebox/original.png
+?? phase1/outputs/smoke/whitebox/original_edited.png
+?? phase1/outputs/smoke/whitebox/start_result.json

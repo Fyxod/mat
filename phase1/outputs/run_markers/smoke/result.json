@@ -1,0 +1,50 @@
+{
+  "log_path": "/home/interns/Desktop/mat/phase1/outputs/logs/20260624_110303_smoke.log",
+  "mode": "smoke",
+  "results": {
+    "smoke": {
+      "best": {
+        "attack_score": 0.0909358003360008,
+        "best_folder": "phase1/outputs/smoke/whitebox/best",
+        "budget": "custom",
+        "elapsed_seconds": 24.010120261460543,
+        "foldover_fraction_det_below_0": 0.0,
+        "input_damage_penalty": 0.0,
+        "input_l2": 0.007298883937016082,
+        "input_psnr": 42.7348708443057,
+        "input_ssim": 0.9911490082740784,
+        "iter": 0,
+        "jacobian_det_mean": 1.0,
+        "jacobian_det_min": 0.9820502996444702,
+        "low_det_fraction_below_0p2": 0.0,
+        "max_disp_px": 0.5592038035392761,
+        "mean_disp_px": 0.10499947518110275,
+        "normalized_output_l2": 0.05742946650802839,
+        "objective": "edit_direction",
+        "objective_scale_used": 1.0,
+        "output_disruption": 0.0909358003360008,
+        "output_l2": 0.014357366627007097,
+        "output_psnr": 36.85850418827548,
+        "output_ssim": 0.9664936661720276,
+        "p95_disp_px": 0.45061954855918884,
+        "path_flow": "phase1/outputs/smoke/whitebox/checkpoints/iter_000/flow.png",
+        "path_perturbed": "phase1/outputs/smoke/whitebox/checkpoints/iter_000/perturbed.png",
+        "path_perturbed_edited": "phase1/outputs/smoke/whitebox/checkpoints/iter_000/perturbed_edited.png",
+        "prompt": "add black sunglasses",
+        "prompt_slug": "add_black_sunglasses",
+        "start": 0,
+        "target_input_ssim": 0.98
+      },
+      "checkpoint_count": 4,
+      "gradients_reached_geometry": true,
+      "optimizer_iterations": 3,
+      "status": "passed",
+      "whitebox_contract": {
+        "model_weights_frozen": true,
+        "objective_mode": "true_instruct_pix2pix_internal_whitebox",
+        "unet_in_channels": 8,
+        "vae_latent_channels": 4
+      }
+    }
+  }
+}
