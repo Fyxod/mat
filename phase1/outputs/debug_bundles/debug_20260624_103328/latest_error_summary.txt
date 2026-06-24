@@ -1,0 +1,7 @@
+Latest failure: phase1/outputs/run_markers/smoke/FAILED.json
+
+{
+  "error": "No finite geometry optimization step completed.",
+  "failed_at": "2026-06-24T05:00:29.743287+00:00",
+  "status": "failed"
+}

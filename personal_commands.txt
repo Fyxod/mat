@@ -1,0 +1,18 @@
+Use this exact runner prefix on the A6000:
+  /home/interns/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python
+
+Example:
+  /home/interns/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode smoke
+
+
+ENV="/home/interns/Desktop/mat/.micromamba/envs/mat-a6000"
+MM="$HOME/.local/bin/micromamba"
+
+
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode smoke
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode prompt_discovery
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode baselines
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1a
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1b
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode final_validation
+$MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode summarize
