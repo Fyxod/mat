@@ -18,14 +18,20 @@
     "learning_rate": 0.08,
     "max_disp_px": 6.0,
     "objective": "unet_prediction",
+    "objective_gradient_balance": 1.25,
     "objective_scale": 3.0,
+    "objective_scale_max": 100000000.0,
+    "objective_scale_min": 1e-06,
     "objective_timestep_index": 10,
     "seed": 2243,
     "target_input_ssim": 0.9,
     "tps_size": 5
   },
   "budget_name": "strong",
+  "effective_objective_scale": 1005.8987132769242,
   "face_mask_source": "opencv_haar",
+  "initial_objective_grad_norm": 3.755023193359375e-05,
+  "initial_regularizer_grad_norm": 0.01007246132940054,
   "model": {
     "guidance_scale": 7.5,
     "height": 512,
@@ -36,6 +42,7 @@
     "torch_dtype": "float16",
     "width": 512
   },
+  "objective_gradient_probe_multiplier": 1000000.0,
   "objective_scale_fallback_used": true,
   "selection": {
     "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_black_sunglasses/igs_1p5_gs_7p5/edited.png",
