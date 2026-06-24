@@ -1,0 +1,12 @@
+{
+  "guidance_scale": 7.5,
+  "height": 512,
+  "image_guidance_scale": 2.0,
+  "model_id": "timbrooks/instruct-pix2pix",
+  "num_inference_steps": 20,
+  "prompt": "make the person wear a suit",
+  "prompt_group": "primary",
+  "seed": 1234,
+  "torch_dtype": "float16",
+  "width": 512
+}

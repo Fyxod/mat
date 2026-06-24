@@ -1,0 +1,80 @@
+{
+  "log_path": "/home/interns/Desktop/mat/phase1/outputs/logs/20260624_111502_prompt_discovery.log",
+  "mode": "prompt_discovery",
+  "results": {
+    "prompt_discovery": [
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_black_sunglasses/igs_1p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 1.0,
+        "num_inference_steps": 20,
+        "prompt": "add black sunglasses",
+        "prompt_slug": "add_black_sunglasses",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      },
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_thin_eyeglasses/igs_1p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 1.0,
+        "num_inference_steps": 20,
+        "prompt": "add thin eyeglasses",
+        "prompt_slug": "add_thin_eyeglasses",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      },
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_a_black_baseball_cap/igs_1p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 1.0,
+        "num_inference_steps": 20,
+        "prompt": "add a black baseball cap",
+        "prompt_slug": "add_a_black_baseball_cap",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      },
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_a_red_beanie/igs_2p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 2.0,
+        "num_inference_steps": 20,
+        "prompt": "add a red beanie",
+        "prompt_slug": "add_a_red_beanie",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      },
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_a_blue_beanie/igs_1p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 1.0,
+        "num_inference_steps": 20,
+        "prompt": "add a blue beanie",
+        "prompt_slug": "add_a_blue_beanie",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      },
+      {
+        "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_light_stubble/igs_1p0_gs_7p5/edited.png",
+        "clean_quality_score": 2.75,
+        "discovery_num_inference_steps": 20,
+        "guidance_scale": 7.5,
+        "image_guidance_scale": 1.0,
+        "num_inference_steps": 20,
+        "prompt": "add light stubble",
+        "prompt_slug": "add_light_stubble",
+        "reason_selected": "Clean edit passed face/health/identity heuristics and ranked highly for identity preservation plus visible localized edit.",
+        "seed": 1234
+      }
+    ]
+  }
+}

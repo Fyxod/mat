@@ -1,0 +1,15 @@
+{
+  "contrast": 0.20298705995082855,
+  "face_detected_edited": true,
+  "face_detected_original": true,
+  "identity_distance_sface_if_available": null,
+  "identity_similarity_sface_if_available": null,
+  "l2": 0.028427229475152367,
+  "max_abs": 0.6117647290229797,
+  "mean_abs": 0.017784979194402695,
+  "mean_brightness": 0.42852315306663513,
+  "near_black_fraction": 0.030063629150390625,
+  "near_white_fraction": 0.0,
+  "psnr": 30.925309293904583,
+  "ssim": 0.8434199690818787
+}
