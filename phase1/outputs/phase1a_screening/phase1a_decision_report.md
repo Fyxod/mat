@@ -4,4 +4,4 @@
 - Checkpoint rows: 432
 - Effective checkpoint interval after timing: 50
 
-Phase 1B will take the top four unique prompt/objective/budget combinations ranked by attack score.
+Phase 1B will take the top four unique prompt/objective/budget combinations ranked by optimized attack score.

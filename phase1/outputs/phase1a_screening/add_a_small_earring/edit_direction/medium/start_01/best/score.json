@@ -1,6 +1,6 @@
 {
-  "attack_score": 0.09374208084970906,
+  "attack_score": 0.16499949114175333,
   "input_damage_penalty": 0.0,
-  "normalized_output_l2": 0.05650246970087484,
-  "output_disruption": 0.09374208084970906
+  "normalized_output_l2": 0.08525485412927165,
+  "output_disruption": 0.16499949114175333
 }

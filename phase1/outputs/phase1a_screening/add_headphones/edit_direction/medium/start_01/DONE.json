@@ -1,6 +1,6 @@
 {
-  "best_attack_score": 0.10225903571009141,
-  "best_iter": 0,
-  "completed_at": "2026-06-24T09:09:07.476697+00:00",
+  "best_attack_score": 0.13588158374319356,
+  "best_iter": 100,
+  "completed_at": "2026-06-24T14:35:04.374747+00:00",
   "status": "completed"
 }
