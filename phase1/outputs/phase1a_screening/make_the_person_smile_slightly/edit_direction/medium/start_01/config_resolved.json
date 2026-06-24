@@ -1,0 +1,58 @@
+{
+  "attack": {
+    "checkpoint_every": 50,
+    "dct_size": 4,
+    "face_mask": {
+      "center_x": 0.623046875,
+      "center_y": 0.5625,
+      "edge_falloff": 0.12,
+      "radius_x": 0.36640625,
+      "radius_y": 0.42921875
+    },
+    "geometry_method": "combined_tps_dct",
+    "iterations": 150,
+    "lambda_disp": 0.2,
+    "lambda_fold": 10.0,
+    "lambda_smooth": 0.4,
+    "lambda_visual": 30.0,
+    "learning_rate": 0.08,
+    "max_disp_px": 4.0,
+    "objective": "edit_direction",
+    "objective_scale": 3.0,
+    "objective_timestep_index": 10,
+    "seed": 2243,
+    "target_input_ssim": 0.94,
+    "tps_size": 5
+  },
+  "budget_name": "medium",
+  "face_mask_source": "opencv_haar",
+  "model": {
+    "guidance_scale": 7.5,
+    "height": 512,
+    "image_guidance_scale": 2.0,
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "seed": 1234,
+    "torch_dtype": "float16",
+    "width": 512
+  },
+  "objective_scale_fallback_used": true,
+  "selection": {
+    "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/make_the_person_smile_slightly/igs_2p0_gs_7p5/edited.png",
+    "clean_quality_score": 2.75,
+    "discovery_num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "image_guidance_scale": 2.0,
+    "num_inference_steps": 20,
+    "prompt": "make the person smile slightly",
+    "prompt_slug": "make_the_person_smile_slightly",
+    "reason_selected": "Manual visual audit: visible mild expression edit with the original identity retained.",
+    "seed": 1234
+  },
+  "whitebox_contract": {
+    "model_weights_frozen": true,
+    "objective_mode": "true_instruct_pix2pix_internal_whitebox",
+    "unet_in_channels": 8,
+    "vae_latent_channels": 4
+  }
+}
