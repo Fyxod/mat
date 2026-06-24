@@ -31,6 +31,7 @@ class OptimizationResult:
     effective_objective_scale: float
     initial_objective_grad_norm: float
     initial_regularizer_grad_norm: float
+    objective_gradient_probe_multiplier: float
 
 
 def _clone_state(model: torch.nn.Module) -> dict[str, torch.Tensor]:
@@ -70,6 +71,7 @@ def optimize_geometry(
     effective_objective_scale: float | None = None
     initial_objective_grad_norm = 0.0
     initial_regularizer_grad_norm = 0.0
+    objective_gradient_probe_multiplier = 1.0
 
     def snapshot(iteration: int, objective_value: float) -> Snapshot:
         with torch.no_grad():
@@ -112,8 +114,24 @@ def optimize_geometry(
             # a scale-invariant way.
             parameters = tuple(geometry.parameters())
             objective_gradients = torch.autograd.grad(objective, parameters, retain_graph=True, allow_unused=True)
-            regularizer_gradients = torch.autograd.grad(regularizer, parameters, retain_graph=True, allow_unused=True)
             initial_objective_grad_norm = _gradient_norm_from_tensors(objective_gradients)
+            # The frozen VAE/UNet run in fp16.  For the small direction and
+            # UNet MSE objectives, an otherwise-valid gradient can underflow
+            # to zero *only while we measure it*.  Re-evaluate a scaled copy
+            # of that scalar, then undo the factor in the reported norm.
+            # This does not alter the optimization objective itself.
+            if initial_objective_grad_norm <= 1e-12:
+                objective_gradient_probe_multiplier = 1e6
+                probed_gradients = torch.autograd.grad(
+                    objective * objective_gradient_probe_multiplier,
+                    parameters,
+                    retain_graph=True,
+                    allow_unused=True,
+                )
+                initial_objective_grad_norm = (
+                    _gradient_norm_from_tensors(probed_gradients) / objective_gradient_probe_multiplier
+                )
+            regularizer_gradients = torch.autograd.grad(regularizer, parameters, retain_graph=True, allow_unused=True)
             initial_regularizer_grad_norm = _gradient_norm_from_tensors(regularizer_gradients)
             raw_scale = (
                 settings.objective_scale
@@ -169,6 +187,7 @@ def optimize_geometry(
             "effective_objective_scale": effective_objective_scale,
             "initial_objective_grad_norm": initial_objective_grad_norm,
             "initial_regularizer_grad_norm": initial_regularizer_grad_norm,
+            "objective_gradient_probe_multiplier": objective_gradient_probe_multiplier,
             "edit_direction_mse": float(terms["edit_direction_mse"].detach().float().cpu()),
             "edit_direction_cosine": float(terms["edit_direction_cosine"].detach().float().cpu()),
             "unet_prediction_mse": float(terms["unet_prediction_mse"].detach().float().cpu()),
@@ -208,4 +227,5 @@ def optimize_geometry(
         effective_objective_scale=float(effective_objective_scale or settings.objective_scale),
         initial_objective_grad_norm=initial_objective_grad_norm,
         initial_regularizer_grad_norm=initial_regularizer_grad_norm,
+        objective_gradient_probe_multiplier=objective_gradient_probe_multiplier,
     )

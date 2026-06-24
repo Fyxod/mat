@@ -14,7 +14,7 @@
   "fallback_objective_scale": 3.0,
   "objective_gradient_balance": 1.25,
   "objective_scale_min": 1e-6,
-  "objective_scale_max": 1000000.0,
+  "objective_scale_max": 100000000.0,
   "lambda_visual": 30.0,
   "lambda_disp": 0.2,
   "lambda_smooth": 0.4,

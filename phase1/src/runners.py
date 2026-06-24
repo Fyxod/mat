@@ -482,6 +482,7 @@ def _run_attack_start(
                 "effective_objective_scale": optimization.effective_objective_scale,
                 "initial_objective_grad_norm": optimization.initial_objective_grad_norm,
                 "initial_regularizer_grad_norm": optimization.initial_regularizer_grad_norm,
+                "objective_gradient_probe_multiplier": optimization.objective_gradient_probe_multiplier,
             },
         )
         write_csv(folder / "history.csv", optimization.history)
@@ -520,7 +521,13 @@ def _run_attack_start(
         # poorly calibrated objective look less disruptive.
         initial_row = next(row for row in checkpoint_rows if int(row["iter"]) == 0)
         optimized_rows = [row for row in checkpoint_rows if int(row["iter"]) > 0]
-        best_row = max(optimized_rows or checkpoint_rows, key=lambda row: float(row["attack_score"]))
+        budget_admissible_rows = [
+            row for row in optimized_rows
+            if float(row["input_ssim"]) >= attack.target_input_ssim
+            and float(row["max_disp_px"]) <= attack.max_disp_px + 1e-4
+            and float(row["foldover_fraction_det_below_0"]) == 0.0
+        ]
+        best_row = max(budget_admissible_rows or optimized_rows or checkpoint_rows, key=lambda row: float(row["attack_score"]))
         best_checkpoint = root / best_row["path_perturbed"].replace("perturbed.png", "")
         best_folder = folder / "best"
         best_folder.mkdir(parents=True, exist_ok=True)
@@ -549,6 +556,7 @@ def _run_attack_start(
             "objective_scale_used": optimization.effective_objective_scale,
             "initial_attack_score": initial_row["attack_score"],
             "attack_score_gain_from_initial": float(best_row["attack_score"]) - float(initial_row["attack_score"]),
+            "budget_admissible": bool(budget_admissible_rows),
         }
         write_json(result_path, {"best_row": best_row, "checkpoint_rows": checkpoint_rows})
         mark_done(folder, {"best_attack_score": best_row["attack_score"], "best_iter": best_row["iter"]})
@@ -781,16 +789,22 @@ def run_phase1b(root: Path, force: bool = False) -> list[dict[str, Any]]:
     all_rows = phase1a.get("best_rows", [])
     if not all_rows:
         raise RuntimeError("Phase 1A results are missing. Run phase1a before phase1b.")
+    valid_rows = [row for row in all_rows if bool(row.get("budget_admissible", False))]
     if any(int(row.get("iter", 0)) == 0 for row in all_rows):
         raise RuntimeError(
             "Phase 1A contains iteration-0 selections and is not valid for deepening. "
             "Run --mode scale_probe, then rerun --mode phase1a --force."
         )
+    if len({(row["prompt_slug"], row["objective"], row["budget"]) for row in valid_rows}) < 4:
+        raise RuntimeError(
+            "Phase 1A does not contain four budget-admissible combinations for deepening. "
+            "Inspect the screening report and retune before Phase 1B."
+        )
     deep = read_json(root / "phase1" / "configs" / "phase1_deepening.json")
     screen = read_json(root / "phase1" / "configs" / "phase1_screening.json")
     selected = {item["prompt_slug"]: item for item in require_selected_prompts(root)}
     baseline = {row["prompt_slug"]: row for row in read_json(outputs_root(root) / "baselines" / "baseline_summary.json", {}).get("baselines", [])}
-    combinations = _unique_phase1b_combinations(all_rows, int(deep["top_combinations"]))
+    combinations = _unique_phase1b_combinations(valid_rows, int(deep["top_combinations"]))
     write_json(output / "phase1b_selected_combinations.json", {"combinations": combinations})
 
     original = _original(root)
