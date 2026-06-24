@@ -28,6 +28,9 @@ class OptimizationResult:
     history: list[dict[str, Any]]
     snapshots: dict[int, Snapshot]
     best: Snapshot
+    effective_objective_scale: float
+    initial_objective_grad_norm: float
+    initial_regularizer_grad_norm: float
 
 
 def _clone_state(model: torch.nn.Module) -> dict[str, torch.Tensor]:
@@ -36,6 +39,11 @@ def _clone_state(model: torch.nn.Module) -> dict[str, torch.Tensor]:
 
 def _gradient_norm(parameters) -> float:
     pieces = [parameter.grad.detach().float().square().sum() for parameter in parameters if parameter.grad is not None]
+    return 0.0 if not pieces else float(torch.stack(pieces).sum().sqrt().cpu())
+
+
+def _gradient_norm_from_tensors(gradients: tuple[torch.Tensor | None, ...]) -> float:
+    pieces = [gradient.detach().float().square().sum() for gradient in gradients if gradient is not None]
     return 0.0 if not pieces else float(torch.stack(pieces).sum().sqrt().cpu())
 
 
@@ -59,6 +67,9 @@ def optimize_geometry(
     best: Snapshot | None = None
     started = time.monotonic()
     blank_mse = original_tensor.square().mean().detach()
+    effective_objective_scale: float | None = None
+    initial_objective_grad_norm = 0.0
+    initial_regularizer_grad_norm = 0.0
 
     def snapshot(iteration: int, objective_value: float) -> Snapshot:
         with torch.no_grad():
@@ -86,14 +97,35 @@ def optimize_geometry(
         disp_penalty = magnitude.square().mean() / (settings.max_disp_px**2)
         smooth_penalty = total_variation(displacement) / settings.max_disp_px
         fold_penalty, jacobian = jacobian_penalty(displacement)
-        scaled_objective = settings.objective_scale * objective
-        loss = (
-            -scaled_objective
-            + settings.lambda_visual * visual_mse
+        regularizer = (
+            settings.lambda_visual * visual_mse
             + settings.lambda_disp * disp_penalty
             + settings.lambda_smooth * smooth_penalty
             + settings.lambda_fold * fold_penalty
         )
+        if effective_objective_scale is None:
+            # The three internal objectives differ by orders of magnitude.  A
+            # fixed scalar therefore either erases the geometry (direction / UNet)
+            # or drives it straight into the projection bound (VAE).  Match their
+            # *initial geometry-gradient* to the regularizer once per start; the
+            # configured balance then states the intended adversarial pressure in
+            # a scale-invariant way.
+            parameters = tuple(geometry.parameters())
+            objective_gradients = torch.autograd.grad(objective, parameters, retain_graph=True, allow_unused=True)
+            regularizer_gradients = torch.autograd.grad(regularizer, parameters, retain_graph=True, allow_unused=True)
+            initial_objective_grad_norm = _gradient_norm_from_tensors(objective_gradients)
+            initial_regularizer_grad_norm = _gradient_norm_from_tensors(regularizer_gradients)
+            raw_scale = (
+                settings.objective_scale
+                * settings.objective_gradient_balance
+                * initial_regularizer_grad_norm
+                / max(initial_objective_grad_norm, 1e-12)
+            )
+            effective_objective_scale = min(
+                max(raw_scale, settings.objective_scale_min), settings.objective_scale_max
+            )
+        scaled_objective = effective_objective_scale * objective
+        loss = -scaled_objective + regularizer
         if not bool(torch.isfinite(loss).item()):
             finite_terms = {
                 "perturbed": bool(torch.isfinite(perturbed).all().item()),
@@ -134,6 +166,9 @@ def optimize_geometry(
             "loss": float(loss.detach().float().cpu()),
             "objective": float(objective.detach().float().cpu()),
             "scaled_objective": float(scaled_objective.detach().float().cpu()),
+            "effective_objective_scale": effective_objective_scale,
+            "initial_objective_grad_norm": initial_objective_grad_norm,
+            "initial_regularizer_grad_norm": initial_regularizer_grad_norm,
             "edit_direction_mse": float(terms["edit_direction_mse"].detach().float().cpu()),
             "edit_direction_cosine": float(terms["edit_direction_cosine"].detach().float().cpu()),
             "unet_prediction_mse": float(terms["unet_prediction_mse"].detach().float().cpu()),
@@ -165,4 +200,12 @@ def optimize_geometry(
         raise RuntimeError("No finite geometry optimization step completed.")
     if settings.iterations not in snapshots:
         snapshots[settings.iterations] = best
-    return OptimizationResult(geometry=geometry, history=history, snapshots=snapshots, best=best)
+    return OptimizationResult(
+        geometry=geometry,
+        history=history,
+        snapshots=snapshots,
+        best=best,
+        effective_objective_scale=float(effective_objective_scale or settings.objective_scale),
+        initial_objective_grad_norm=initial_objective_grad_norm,
+        initial_regularizer_grad_norm=initial_regularizer_grad_norm,
+    )

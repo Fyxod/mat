@@ -24,9 +24,9 @@ The real smoke test and all heavy runs belong on the A6000.
 On the Ubuntu workstation:
 
 ```bash
-cd /workspace
+cd /home/interns/Desktop
 git clone https://github.com/fyxod/mat.git
-cd /workspace/mat
+cd /home/interns/Desktop/mat
 
 bash scripts/install_linux_a6000.sh
 ```
@@ -34,15 +34,16 @@ bash scripts/install_linux_a6000.sh
 The install script prints the exact micromamba command prefix. With the default location, run:
 
 ```bash
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python scripts/check_env.py
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python scripts/check_env.py
 
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode smoke
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode prompt_discovery
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode baselines
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode phase1a
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode phase1b
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode final_validation
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /workspace/mat --mode summarize
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode smoke
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode prompt_discovery
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode baselines
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode scale_probe
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1a --force
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1b
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode final_validation
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode summarize
 ```
 
 Each mode records a timestamped log and a success/failure marker. It skips completed work until called with `--force`.
@@ -50,7 +51,7 @@ Each mode records a timestamped log and a success/failure marker. It skips compl
 If a mode fails:
 
 ```bash
-$HOME/.local/bin/micromamba run -p /workspace/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_collect_debug_bundle --root /workspace/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_collect_debug_bundle --root /home/interns/Desktop/mat
 ```
 
 Then push the reports and artifacts:

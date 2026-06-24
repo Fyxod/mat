@@ -49,6 +49,9 @@ class AttackSettings:
     iterations: int
     learning_rate: float
     objective_scale: float = 1.0
+    objective_gradient_balance: float = 1.25
+    objective_scale_min: float = 1e-6
+    objective_scale_max: float = 1e6
     lambda_visual: float = 30.0
     lambda_disp: float = 0.2
     lambda_smooth: float = 0.4

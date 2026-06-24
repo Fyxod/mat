@@ -14,6 +14,7 @@ from phase1.src.runners import (
     run_phase1a,
     run_phase1b,
     run_prompt_discovery,
+    run_scale_probe,
     run_smoke,
     run_summary,
 )
@@ -52,6 +53,7 @@ def _run_one(root: Path, mode: str, force: bool, identity: bool) -> object:
         "prompt_discovery": lambda: run_prompt_discovery(root, force=force, identity_enabled=identity),
         "baselines": lambda: run_clean_baselines(root, force=force, identity_enabled=identity),
         "phase1a": lambda: run_phase1a(root, force=force),
+        "scale_probe": lambda: run_scale_probe(root, force=force),
         "phase1b": lambda: run_phase1b(root, force=force),
         "final_validation": lambda: run_final_validation(root, force=force),
         "summarize": lambda: run_summary(root),
@@ -67,7 +69,7 @@ def main() -> None:
     parser.add_argument(
         "--mode",
         required=True,
-        choices=("smoke", "prompt_discovery", "baselines", "phase1a", "phase1b", "final_validation", "summarize", "all"),
+        choices=("smoke", "prompt_discovery", "baselines", "scale_probe", "phase1a", "phase1b", "final_validation", "summarize", "all"),
     )
     parser.add_argument("--force", action="store_true", help="Recompute otherwise-completed work")
     parser.add_argument("--identity", action="store_true", help="Try optional SFace during discovery and baselines")
@@ -98,6 +100,7 @@ def main() -> None:
                 "smoke": "Run --mode prompt_discovery.",
                 "prompt_discovery": "Inspect prompt_discovery_sheet.jpg, then run --mode baselines.",
                 "baselines": "Run --mode phase1a.",
+                "scale_probe": "Push the scale-probe outputs for review before rerunning Phase 1A.",
                 "phase1a": "Run --mode phase1b.",
                 "phase1b": "Run --mode final_validation.",
                 "final_validation": "Run --mode summarize.",

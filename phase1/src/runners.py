@@ -479,6 +479,9 @@ def _run_attack_start(
                 "model": model_settings.payload(),
                 "whitebox_contract": assert_whitebox_contract(pipe),
                 "objective_scale_fallback_used": retry_used,
+                "effective_objective_scale": optimization.effective_objective_scale,
+                "initial_objective_grad_norm": optimization.initial_objective_grad_norm,
+                "initial_regularizer_grad_norm": optimization.initial_regularizer_grad_norm,
             },
         )
         write_csv(folder / "history.csv", optimization.history)
@@ -511,7 +514,13 @@ def _run_attack_start(
             write_json(checkpoint / "score.json", score)
             checkpoint_rows.append(row)
 
-        best_row = max(checkpoint_rows, key=lambda row: float(row["attack_score"]))
+        # Iteration 0 is a random geometric initialization, not an optimized
+        # attack.  Keep it for the baseline comparison, but never let it win a
+        # screening/deepening result simply because regularization later made a
+        # poorly calibrated objective look less disruptive.
+        initial_row = next(row for row in checkpoint_rows if int(row["iter"]) == 0)
+        optimized_rows = [row for row in checkpoint_rows if int(row["iter"]) > 0]
+        best_row = max(optimized_rows or checkpoint_rows, key=lambda row: float(row["attack_score"]))
         best_checkpoint = root / best_row["path_perturbed"].replace("perturbed.png", "")
         best_folder = folder / "best"
         best_folder.mkdir(parents=True, exist_ok=True)
@@ -537,7 +546,9 @@ def _run_attack_start(
             **best_row,
             "elapsed_seconds": time.monotonic() - started,
             "best_folder": relative_path(best_folder, root),
-            "objective_scale_used": attack.objective_scale,
+            "objective_scale_used": optimization.effective_objective_scale,
+            "initial_attack_score": initial_row["attack_score"],
+            "attack_score_gain_from_initial": float(best_row["attack_score"]) - float(initial_row["attack_score"]),
         }
         write_json(result_path, {"best_row": best_row, "checkpoint_rows": checkpoint_rows})
         mark_done(folder, {"best_attack_score": best_row["attack_score"], "best_iter": best_row["iter"]})
@@ -563,6 +574,9 @@ def _attack_settings(
         iterations=int(iterations or screen["iterations"]),
         learning_rate=float(learning_rate or screen["learning_rate"]),
         objective_scale=float(screen["objective_scale"]),
+        objective_gradient_balance=float(screen.get("objective_gradient_balance", 1.25)),
+        objective_scale_min=float(screen.get("objective_scale_min", 1e-6)),
+        objective_scale_max=float(screen.get("objective_scale_max", 1e6)),
         lambda_visual=float(screen["lambda_visual"]),
         lambda_disp=float(screen["lambda_disp"]),
         lambda_smooth=float(screen["lambda_smooth"]),
@@ -602,7 +616,13 @@ def run_phase1a(root: Path, force: bool = False) -> list[dict[str, Any]]:
     selected = require_selected_prompts(root)
     output = outputs_root(root) / "phase1a_screening"
     if is_complete(output) and not force:
-        return read_json(output / "phase1a_summary.json", {}).get("best_rows", [])
+        cached = read_json(output / "phase1a_summary.json", {}).get("best_rows", [])
+        if cached and all(int(row.get("iter", 0)) == 0 for row in cached):
+            raise RuntimeError(
+                "This Phase 1A run selected only iteration-0 initializations. "
+                "Run --mode scale_probe, then rerun --mode phase1a --force."
+            )
+        return cached
 
     screen = read_json(root / "phase1" / "configs" / "phase1_screening.json")
     baseline = {row["prompt_slug"]: row for row in read_json(outputs_root(root) / "baselines" / "baseline_summary.json", {}).get("baselines", [])}
@@ -656,10 +676,86 @@ def run_phase1a(root: Path, force: bool = False) -> list[dict[str, Any]]:
         f"- Checkpoint rows: {len(all_checkpoint_rows)}",
         f"- Effective checkpoint interval after timing: {effective_checkpoint_every}",
         "",
-        "Phase 1B will take the top four unique prompt/objective/budget combinations ranked by attack score.",
+        "Phase 1B will take the top four unique prompt/objective/budget combinations ranked by optimized attack score.",
     ]
     (output / "phase1a_decision_report.md").write_text("\n".join(decision) + "\n", encoding="utf-8")
     mark_done(output, {"starts": len(best_rows)})
+    return ranked
+
+
+def run_scale_probe(root: Path, force: bool = False) -> list[dict[str, Any]]:
+    """Run one short real-model start per objective before an expensive screening rerun."""
+    output = outputs_root(root) / "scale_probe"
+    if is_complete(output) and not force:
+        return read_json(output / "scale_probe_summary.json", {}).get("best_rows", [])
+
+    selected = require_selected_prompts(root)
+    if not selected:
+        raise RuntimeError("No selected prompts are available for the objective-scale probe.")
+    screen = read_json(root / "phase1" / "configs" / "phase1_screening.json")
+    baseline = {
+        row["prompt_slug"]: row
+        for row in read_json(outputs_root(root) / "baselines" / "baseline_summary.json", {}).get("baselines", [])
+    }
+    selection = selected[0]
+    if selection["prompt_slug"] not in baseline:
+        raise RuntimeError("The selected probe prompt has no clean baseline. Run baselines first.")
+    strong_budget = next((item for item in screen["budgets"] if item["name"] == "strong"), screen["budgets"][-1])
+    original = _original(root)
+    clean_edit = load_rgb(root / baseline[selection["prompt_slug"]]["path_original_edited"])
+    pipe = load_instruct_pix2pix(_model_settings(root), _device())
+    best_rows: list[dict[str, Any]] = []
+    checkpoints: list[dict[str, Any]] = []
+
+    for objective in screen["objectives"]:
+        attack = _attack_settings(
+            screen,
+            objective,
+            strong_budget,
+            start=0,
+            checkpoint_every=25,
+            iterations=50,
+        )
+        folder = output / selection["prompt_slug"] / objective / strong_budget["name"] / "start_00"
+        best, rows = _run_attack_start(
+            root,
+            pipe,
+            original,
+            clean_edit,
+            selection,
+            attack,
+            0,
+            folder,
+            force,
+            fallback_objective_scale=float(screen["fallback_objective_scale"]),
+            budget_name=strong_budget["name"],
+        )
+        best_rows.append(best)
+        checkpoints.extend(rows)
+
+    ranked = sorted(best_rows, key=lambda row: float(row["attack_score"]), reverse=True)
+    write_csv(output / "scale_probe_candidates.csv", ranked)
+    write_csv(output / "scale_probe_checkpoints.csv", checkpoints)
+    write_json(output / "scale_probe_summary.json", {"best_rows": ranked, "checkpoint_count": len(checkpoints)})
+    _attack_top_sheet(root, ranked, output / "scale_probe_sheet.jpg")
+    report = [
+        "# Objective-scale probe",
+        "",
+        "One 50-iteration strong-budget start per white-box objective.",
+        "Use this to verify that objective calibration produces non-initialized candidates before rerunning Phase 1A.",
+        "",
+    ]
+    for row in ranked:
+        report.extend([
+            f"## {row['objective']}",
+            f"- Selected iteration: {row['iter']}",
+            f"- Attack-score change from iteration 0: {float(row['attack_score_gain_from_initial']):.5f}",
+            f"- Effective objective scale: {float(row['objective_scale_used']):.6g}",
+            f"- Input SSIM: {float(row['input_ssim']):.5f}",
+            "",
+        ])
+    (output / "scale_probe_report.md").write_text("\n".join(report), encoding="utf-8")
+    mark_done(output, {"starts": len(best_rows), "prompt_slug": selection["prompt_slug"]})
     return ranked
 
 
@@ -685,6 +781,11 @@ def run_phase1b(root: Path, force: bool = False) -> list[dict[str, Any]]:
     all_rows = phase1a.get("best_rows", [])
     if not all_rows:
         raise RuntimeError("Phase 1A results are missing. Run phase1a before phase1b.")
+    if any(int(row.get("iter", 0)) == 0 for row in all_rows):
+        raise RuntimeError(
+            "Phase 1A contains iteration-0 selections and is not valid for deepening. "
+            "Run --mode scale_probe, then rerun --mode phase1a --force."
+        )
     deep = read_json(root / "phase1" / "configs" / "phase1_deepening.json")
     screen = read_json(root / "phase1" / "configs" / "phase1_screening.json")
     selected = {item["prompt_slug"]: item for item in require_selected_prompts(root)}
