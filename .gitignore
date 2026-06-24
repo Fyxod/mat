@@ -23,7 +23,11 @@ checkpoints/
 # Runtime noise. Reports, CSV/JSON summaries, best images, final validation,
 # and debug bundles remain trackable.
 phase1/outputs/logs/*.log
-phase1/outputs/**/checkpoints/**/theta.pt
-phase1/outputs/**/checkpoints/**/optimizer_state.pt
+# Checkpoint folders are recovery/debug intermediates.  The graph-ready CSVs,
+# summary JSON/Markdown, top sheets, final-validation artifacts, and PNGs in
+# each `best/` folder remain trackable.
+phase1/outputs/**/checkpoints/
+phase1/outputs/**/best/theta.pt
+phase1/outputs/**/optimizer_state.pt
 *.tmp
 *.bak
