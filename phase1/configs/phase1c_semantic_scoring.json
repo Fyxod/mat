@@ -1,6 +1,7 @@
 {
   "clip_enabled": true,
   "clip_model_id": "openai/clip-vit-base-patch32",
+  "clip_revision": "d15b5f29721ca72dac15f8526b284be910de18be",
   "clip_use_safetensors": true,
   "clip_device": "cuda",
   "require_clip_for_phase1c": true,
@@ -8,6 +9,7 @@
   "weak_semantic_drop": 0.015,
   "notes": [
     "CLIP is used only for checkpoint scoring and ranking, not as a gradient objective.",
+    "The configured revision contains the safetensors conversion for openai/clip-vit-base-patch32, avoiding torch.load on torch<2.6.",
     "If CLIP dependencies or weights are unavailable, scoring falls back to metric-only labels rather than strong semantic labels."
   ]
 }

@@ -62,6 +62,7 @@ def _semantic_scorer(root: Path) -> ClipSemanticScorer | None:
         model_id=str(semantic.get("clip_model_id", "openai/clip-vit-base-patch32")),
         device=semantic.get("clip_device"),
         use_safetensors=bool(semantic.get("clip_use_safetensors", True)),
+        revision=semantic.get("clip_revision"),
         diagnostics=diagnostics,
     )
     if scorer is None:
@@ -89,6 +90,7 @@ def check_clip_semantic_preflight(root: Path, *, require_available: bool = False
         model_id=str(semantic.get("clip_model_id", "openai/clip-vit-base-patch32")),
         device=semantic.get("clip_device"),
         use_safetensors=bool(semantic.get("clip_use_safetensors", True)),
+        revision=semantic.get("clip_revision"),
     )
     write_json(output, payload)
     if payload.get("available"):
