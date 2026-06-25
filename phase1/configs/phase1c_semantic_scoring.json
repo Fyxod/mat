@@ -1,6 +1,7 @@
 {
   "clip_enabled": true,
   "clip_model_id": "openai/clip-vit-base-patch32",
+  "clip_use_safetensors": true,
   "clip_device": "cuda",
   "require_clip_for_phase1c": true,
   "strong_semantic_drop": 0.04,

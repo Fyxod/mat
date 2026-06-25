@@ -120,6 +120,7 @@ class ClipSemanticScorer:
         model_id: str = "openai/clip-vit-base-patch32",
         device: str | None = None,
         diagnostics: dict[str, Any] | None = None,
+        use_safetensors: bool = True,
     ) -> "ClipSemanticScorer | None":
         try:
             import torch
@@ -127,7 +128,7 @@ class ClipSemanticScorer:
 
             resolved_device = device or ("cuda" if torch.cuda.is_available() else "cpu")
             processor = CLIPProcessor.from_pretrained(model_id)
-            model = CLIPModel.from_pretrained(model_id).to(resolved_device)
+            model = CLIPModel.from_pretrained(model_id, use_safetensors=use_safetensors).to(resolved_device)
             model.eval()
             if diagnostics is not None:
                 diagnostics.update({
@@ -135,6 +136,7 @@ class ClipSemanticScorer:
                     "model_id": model_id,
                     "requested_device": device,
                     "resolved_device": resolved_device,
+                    "use_safetensors": use_safetensors,
                     "error": None,
                 })
             return cls(model=model, processor=processor, device=resolved_device)
@@ -144,6 +146,7 @@ class ClipSemanticScorer:
                     "available": False,
                     "model_id": model_id,
                     "requested_device": device,
+                    "use_safetensors": use_safetensors,
                     "error_type": type(error).__name__,
                     "error": str(error),
                     "traceback": traceback.format_exc(),
@@ -290,6 +293,7 @@ def score_final_edit_case(
 def diagnose_clip_load(
     model_id: str = "openai/clip-vit-base-patch32",
     device: str | None = None,
+    use_safetensors: bool = True,
 ) -> dict[str, Any]:
     """Load CLIP with explicit step-by-step diagnostics.
 
@@ -301,6 +305,7 @@ def diagnose_clip_load(
         "available": False,
         "model_id": model_id,
         "requested_device": device,
+        "use_safetensors": use_safetensors,
         "python_executable": sys.executable,
         "python_version": sys.version.replace("\n", " "),
         "platform": platform.platform(),
@@ -344,7 +349,7 @@ def diagnose_clip_load(
     try:
         processor = CLIPProcessor.from_pretrained(model_id)
         step("load_processor", "ok")
-        model = CLIPModel.from_pretrained(model_id).to(result["resolved_device"])
+        model = CLIPModel.from_pretrained(model_id, use_safetensors=use_safetensors).to(result["resolved_device"])
         model.eval()
         step("load_model", "ok")
         # Tiny real forward pass catches tokenizer/image-processor/device errors.
