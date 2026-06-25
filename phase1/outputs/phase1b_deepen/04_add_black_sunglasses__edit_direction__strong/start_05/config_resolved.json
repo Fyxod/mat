@@ -1,0 +1,65 @@
+{
+  "attack": {
+    "checkpoint_every": 25,
+    "dct_size": 4,
+    "face_mask": {
+      "center_x": 0.623046875,
+      "center_y": 0.5625,
+      "edge_falloff": 0.12,
+      "radius_x": 0.36640625,
+      "radius_y": 0.42921875
+    },
+    "geometry_method": "combined_tps_dct",
+    "iterations": 400,
+    "lambda_disp": 0.2,
+    "lambda_fold": 10.0,
+    "lambda_smooth": 0.4,
+    "lambda_visual": 30.0,
+    "learning_rate": 0.06,
+    "max_disp_px": 6.0,
+    "objective": "edit_direction",
+    "objective_gradient_balance": 1.25,
+    "objective_scale": 1.0,
+    "objective_scale_max": 100000000.0,
+    "objective_scale_min": 1e-06,
+    "objective_timestep_index": 10,
+    "seed": 409879,
+    "target_input_ssim": 0.9,
+    "tps_size": 5
+  },
+  "budget_name": "strong",
+  "effective_objective_scale": 1151969.4881550276,
+  "face_mask_source": "opencv_haar",
+  "initial_objective_grad_norm": 1.552568282932043e-08,
+  "initial_regularizer_grad_norm": 0.014308090321719646,
+  "model": {
+    "guidance_scale": 7.5,
+    "height": 512,
+    "image_guidance_scale": 1.5,
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "seed": 1234,
+    "torch_dtype": "float16",
+    "width": 512
+  },
+  "objective_gradient_probe_multiplier": 1000000.0,
+  "objective_scale_fallback_used": false,
+  "selection": {
+    "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_black_sunglasses/igs_1p5_gs_7p5/edited.png",
+    "clean_quality_score": 2.75,
+    "discovery_num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "image_guidance_scale": 1.5,
+    "num_inference_steps": 20,
+    "prompt": "add black sunglasses",
+    "prompt_slug": "add_black_sunglasses",
+    "reason_selected": "Manual visual audit: localized sunglasses edit with the original face and hair structure largely retained.",
+    "seed": 1234
+  },
+  "whitebox_contract": {
+    "model_weights_frozen": true,
+    "objective_mode": "true_instruct_pix2pix_internal_whitebox",
+    "unet_in_channels": 8,
+    "vae_latent_channels": 4
+  }
+}
