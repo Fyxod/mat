@@ -1,8 +1,6 @@
 {
-  "available": false,
+  "available": true,
   "cuda_available": true,
-  "error": "Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.\nSee the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434",
-  "error_type": "ValueError",
   "gpu_name": "NVIDIA RTX A6000",
   "model_id": "openai/clip-vit-base-patch32",
   "platform": "Linux-6.8.0-45-generic-x86_64-with-glibc2.35",
@@ -10,6 +8,7 @@
   "python_version": "3.10.20 | packaged by conda-forge | (main, Jun 11 2026, 03:31:56) [GCC 14.3.0]",
   "requested_device": "cuda",
   "resolved_device": "cuda",
+  "revision": "d15b5f29721ca72dac15f8526b284be910de18be",
   "steps": [
     {
       "name": "import_torch",
@@ -24,14 +23,24 @@
       "status": "ok"
     },
     {
-      "error": "Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.\nSee the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434",
-      "error_type": "ValueError",
-      "name": "load_or_forward",
-      "status": "failed"
+      "name": "load_model",
+      "status": "ok"
+    },
+    {
+      "name": "test_forward",
+      "status": "ok"
     }
+  ],
+  "test_image_feature_shape": [
+    1,
+    512
+  ],
+  "test_text_feature_shape": [
+    2,
+    512
   ],
   "torch_cuda_version": "12.1",
   "torch_version": "2.5.1+cu121",
-  "traceback": "Traceback (most recent call last):\n  File \"/home/interns/Desktop/mat/phase1/src/semantic_scoring.py\", line 347, in diagnose_clip_load\n    model = CLIPModel.from_pretrained(model_id).to(result[\"resolved_device\"])\n  File \"/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 277, in _wrapper\n    return func(*args, **kwargs)\n  File \"/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 5048, in from_pretrained\n    ) = cls._load_pretrained_model(\n  File \"/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 5316, in _load_pretrained_model\n    load_state_dict(checkpoint_files[0], map_location=\"meta\", weights_only=weights_only).keys()\n  File \"/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/site-packages/transformers/modeling_utils.py\", line 508, in load_state_dict\n    check_torch_load_is_safe()\n  File \"/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/site-packages/transformers/utils/import_utils.py\", line 1647, in check_torch_load_is_safe\n    raise ValueError(\nValueError: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.\nSee the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434\n",
-  "transformers_version": "4.57.6"
+  "transformers_version": "4.57.6",
+  "use_safetensors": true
 }

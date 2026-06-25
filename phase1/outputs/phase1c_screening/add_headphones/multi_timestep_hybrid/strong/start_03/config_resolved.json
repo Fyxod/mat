@@ -1,0 +1,74 @@
+{
+  "attack": {
+    "checkpoint_every": 45,
+    "dct_size": 4,
+    "face_mask": {
+      "center_x": 0.623046875,
+      "center_y": 0.5625,
+      "edge_falloff": 0.12,
+      "radius_x": 0.36640625,
+      "radius_y": 0.42921875
+    },
+    "geometry_method": "combined_tps_dct",
+    "iterations": 180,
+    "lambda_disp": 0.2,
+    "lambda_fold": 10.0,
+    "lambda_smooth": 0.4,
+    "lambda_visual": 30.0,
+    "learning_rate": 0.06,
+    "max_disp_px": 6.0,
+    "objective": "multi_timestep_hybrid",
+    "objective_gradient_balance": 1.25,
+    "objective_scale": 3.0,
+    "objective_scale_max": 100000000.0,
+    "objective_scale_min": 1e-06,
+    "objective_timestep_index": 10,
+    "objective_timestep_indices": [
+      3,
+      6,
+      10,
+      14,
+      18
+    ],
+    "seed": 7168161,
+    "target_input_ssim": 0.9,
+    "tps_size": 5
+  },
+  "budget_name": "strong",
+  "combo_id": "add_headphones__multi_timestep_hybrid__strong",
+  "effective_objective_scale": 0.03575526382050805,
+  "face_mask_source": "opencv_haar",
+  "initial_objective_grad_norm": 1.192983865737915,
+  "initial_regularizer_grad_norm": 0.01137478742748499,
+  "model": {
+    "guidance_scale": 7.5,
+    "height": 512,
+    "image_guidance_scale": 1.5,
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "seed": 1234,
+    "torch_dtype": "float16",
+    "width": 512
+  },
+  "objective_gradient_probe_multiplier": 1.0,
+  "objective_scale_fallback_used": true,
+  "selection": {
+    "baseline_output_path": "phase1/outputs/prompt_discovery/all_runs/add_headphones/igs_1p5_gs_7p5/edited.png",
+    "clean_quality_score": 2.75,
+    "discovery_num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "image_guidance_scale": 1.5,
+    "num_inference_steps": 20,
+    "prompt": "add headphones",
+    "prompt_slug": "add_headphones",
+    "reason_selected": "Manual visual audit: clear localized headphone edit with stable source-face identity.",
+    "seed": 1234
+  },
+  "semantic_clip_available": true,
+  "whitebox_contract": {
+    "model_weights_frozen": true,
+    "objective_mode": "true_instruct_pix2pix_internal_whitebox",
+    "unet_in_channels": 8,
+    "vae_latent_channels": 4
+  }
+}

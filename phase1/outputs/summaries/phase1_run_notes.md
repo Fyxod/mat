@@ -43,3 +43,18 @@
 - Time: 2026-06-25T06:03:10.311646+00:00
 - CLIP semantic scoring is unavailable: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
 See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434. Diagnostics: phase1/outputs/summaries/clip_semantic_diagnostics.json
+
+## Phase 1C semantic preflight
+
+- Time: 2026-06-25T06:14:32.062623+00:00
+- CLIP semantic scoring is available with openai/clip-vit-base-patch32 on cuda.
+
+## Phase 1C semantic preflight
+
+- Time: 2026-06-25T06:15:10.316650+00:00
+- CLIP semantic scoring is available with openai/clip-vit-base-patch32 on cuda.
+
+## Phase 1C screening
+
+- Time: 2026-06-25T11:31:31.315376+00:00
+- Process-level parallel execution completed with 2 worker processes and 96 jobs.

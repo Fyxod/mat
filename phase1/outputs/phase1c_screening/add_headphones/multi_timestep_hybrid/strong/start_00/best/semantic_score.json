@@ -1,0 +1,23 @@
+{
+  "clean_clip_positive_margin": 0.027772068977355957,
+  "clean_semantic_success_score": 0.027772068977355957,
+  "clip_available": true,
+  "clip_semantic_drop": 0.01315799355506897,
+  "clip_warning": null,
+  "decision_label": "metric_only_candidate",
+  "decision_reasons": [
+    "semantic_drop_small:0.0132"
+  ],
+  "edit_failure_score": 0.01315799355506897,
+  "final_attack_score": 0.12068855407878595,
+  "geometry_excess_penalty": 0.0,
+  "identity_or_face_health_available": false,
+  "input_damage_penalty": 0.0,
+  "input_preservation_score": 0.9535751342773438,
+  "max_disp_px_budget": 6.0,
+  "output_disruption_score": 0.09437256696864801,
+  "perturbed_clip_positive_margin": 0.014614075422286987,
+  "perturbed_semantic_success_score": 0.014614075422286987,
+  "semantic_drop": 0.01315799355506897,
+  "target_input_ssim": 0.9
+}

@@ -1,0 +1,21 @@
+{
+  "clean_clip_positive_margin": 0.027772068977355957,
+  "clean_semantic_success_score": 0.027772068977355957,
+  "clip_available": true,
+  "clip_semantic_drop": 0.02530205249786377,
+  "clip_warning": null,
+  "decision_label": "weak_candidate",
+  "decision_reasons": [],
+  "edit_failure_score": 0.02530205249786377,
+  "final_attack_score": 0.16302205605937253,
+  "geometry_excess_penalty": 0.0,
+  "identity_or_face_health_available": false,
+  "input_damage_penalty": 0.0,
+  "input_preservation_score": 0.8590230941772462,
+  "max_disp_px_budget": 4.0,
+  "output_disruption_score": 0.11241795106364501,
+  "perturbed_clip_positive_margin": 0.0024700164794921875,
+  "perturbed_semantic_success_score": 0.0024700164794921875,
+  "semantic_drop": 0.02530205249786377,
+  "target_input_ssim": 0.94
+}
