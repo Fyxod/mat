@@ -1,0 +1,58 @@
+{
+  "prompts": [
+    "add_black_sunglasses",
+    "add_round_glasses",
+    "add_a_small_beard",
+    "add_headphones"
+  ],
+  "objectives": [
+    "multi_timestep_edit_direction",
+    "multi_timestep_unet_prediction",
+    "multi_timestep_hybrid"
+  ],
+  "budgets": [
+    {
+      "name": "medium",
+      "max_disp_px": 4.0,
+      "target_input_ssim": 0.94
+    },
+    {
+      "name": "strong",
+      "max_disp_px": 6.0,
+      "target_input_ssim": 0.9
+    }
+  ],
+  "starts": 4,
+  "iterations": 180,
+  "learning_rate": 0.06,
+  "checkpoint_every": 45,
+  "objective_timestep_indices": [3, 6, 10, 14, 18],
+  "objective_timestep_indices_fallback": [6, 10, 14],
+  "objective_timestep_index": 10,
+  "objective_scale": 1.0,
+  "fallback_objective_scale": 3.0,
+  "objective_gradient_balance": 1.25,
+  "objective_scale_min": 1e-6,
+  "objective_scale_max": 100000000.0,
+  "lambda_visual": 30.0,
+  "lambda_disp": 0.2,
+  "lambda_smooth": 0.4,
+  "lambda_fold": 10.0,
+  "geometry_method": "combined_tps_dct",
+  "dct_size": 4,
+  "tps_size": 5,
+  "face_mask": {
+    "center_x": 0.5,
+    "center_y": 0.52,
+    "radius_x": 0.34,
+    "radius_y": 0.42,
+    "edge_falloff": 0.12
+  },
+  "phase1d": {
+    "top_combinations": 4,
+    "starts": 8,
+    "iterations": 300,
+    "checkpoint_every": 50,
+    "learning_rate": 0.05
+  }
+}

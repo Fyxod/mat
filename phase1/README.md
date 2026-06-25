@@ -45,6 +45,32 @@ python -m phase1.scripts.summarize_phase1 --root /workspace/mat
 
 For normal A6000 work, use `a6000_run` instead; it creates timestamped logs and outer run markers.
 
+## Phase 1C: final-edit-aligned follow-up
+
+Phase 1A/1B are preserved as legacy internal-surrogate diagnostics. Their old `attack_score` measures output pixel disruption and is not sufficient evidence of attack success when clean and perturbed edits look semantically the same.
+
+Phase 1C keeps the same geometry-only white-box setup, but adds:
+
+- multi-timestep internal objectives:
+  - `multi_timestep_edit_direction`
+  - `multi_timestep_unet_prediction`
+  - `multi_timestep_hybrid`
+- checkpoint-level final edit generation and semantic scoring,
+- optional CLIP prompt-margin scoring for clean-edit success versus perturbed-edit weakening,
+- process-level parallel workers for A6000 runs,
+- legacy Phase 1A/1B semantic rescoring.
+
+Run the new flow on the A6000:
+
+```bash
+python -m phase1.scripts.rescore_legacy_phase1ab --root /home/interns/Desktop/mat
+python -m phase1.scripts.run_phase1c_screening --root /home/interns/Desktop/mat
+python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat
+python -m phase1.scripts.summarize_phase1c --root /home/interns/Desktop/mat
+```
+
+Phase 1D automatically skips if Phase 1C finds only metric-only candidates.
+
 ## Resumption and artifacts
 
 Every prompt case, baseline, attack start, validation candidate, and A6000 mode writes `DONE.json` or `FAILED.json`. A rerun skips complete work unless `--force` is explicitly passed.
@@ -53,6 +79,11 @@ Every prompt case, baseline, attack start, validation candidate, and A6000 mode 
 - `outputs/baselines`: clean edits for only selected settings.
 - `outputs/phase1a_screening`: 3 objectives × 2 budgets × 3 starts; 150 iterations each.
 - `outputs/phase1b_deepen`: top four distinct combinations; 12 starts × 400 iterations unless the logged timing fallback activates.
+- `outputs/legacy_internal_surrogate_phase1b`: label/report for preserved Phase 1B diagnostics.
+- `outputs/semantic_rescore`: semantic rescoring of old Phase 1A/1B candidates.
+- `outputs/phase1c_screening`: focused final-edit-aligned multi-timestep screening.
+- `outputs/phase1d_deepen`: deepening only for semantic Phase 1C candidates.
+- `outputs/final_validation_phase1c`: optional identity validation for strong Phase 1D candidates.
 - `outputs/final_validation`: top candidate panels and optional DeepFace identity comparisons.
 - `outputs/summaries`: graph-ready CSV/JSON/Markdown handoff.
 - `outputs/debug_bundles`: environment, logs, tree, configuration and error archive.

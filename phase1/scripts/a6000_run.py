@@ -18,6 +18,12 @@ from phase1.src.runners import (
     run_smoke,
     run_summary,
 )
+from phase1.src.phase1c_runner import (
+    rescore_legacy_phase1ab,
+    run_phase1c_screening,
+    run_phase1d_deepen,
+    summarize_phase1c,
+)
 from phase1.src.utils import mark_done, mark_failed, outputs_root, project_root, timestamp_slug, write_json
 
 
@@ -55,8 +61,12 @@ def _run_one(root: Path, mode: str, force: bool, identity: bool) -> object:
         "phase1a": lambda: run_phase1a(root, force=force),
         "scale_probe": lambda: run_scale_probe(root, force=force),
         "phase1b": lambda: run_phase1b(root, force=force),
+        "rescore_legacy_phase1ab": lambda: rescore_legacy_phase1ab(root, force=force),
+        "phase1c": lambda: run_phase1c_screening(root, force=force),
+        "phase1d": lambda: run_phase1d_deepen(root, force=force),
         "final_validation": lambda: run_final_validation(root, force=force),
         "summarize": lambda: run_summary(root),
+        "summarize_phase1c": lambda: summarize_phase1c(root),
     }
     if mode not in steps:
         raise ValueError(f"Unsupported mode: {mode}")
@@ -69,7 +79,21 @@ def main() -> None:
     parser.add_argument(
         "--mode",
         required=True,
-        choices=("smoke", "prompt_discovery", "baselines", "scale_probe", "phase1a", "phase1b", "final_validation", "summarize", "all"),
+        choices=(
+            "smoke",
+            "prompt_discovery",
+            "baselines",
+            "scale_probe",
+            "phase1a",
+            "phase1b",
+            "rescore_legacy_phase1ab",
+            "phase1c",
+            "phase1d",
+            "final_validation",
+            "summarize",
+            "summarize_phase1c",
+            "all",
+        ),
     )
     parser.add_argument("--force", action="store_true", help="Recompute otherwise-completed work")
     parser.add_argument("--identity", action="store_true", help="Try optional SFace during discovery and baselines")
@@ -103,8 +127,12 @@ def main() -> None:
                 "scale_probe": "Push the scale-probe outputs for review before rerunning Phase 1A.",
                 "phase1a": "Run --mode phase1b.",
                 "phase1b": "Run --mode final_validation.",
+                "rescore_legacy_phase1ab": "Inspect semantic_rescore_report.md, then run --mode phase1c.",
+                "phase1c": "Inspect phase1c_semantic_top_sheet.jpg, then run --mode phase1d only if semantic candidates exist.",
+                "phase1d": "Inspect phase1d_decision_report.md, then run --mode summarize_phase1c.",
                 "final_validation": "Run --mode summarize.",
                 "summarize": "Commit the selected outputs and push them to GitHub.",
+                "summarize_phase1c": "Commit the selected Phase 1C outputs and push them to GitHub.",
                 "all": "Commit the selected outputs and push them to GitHub.",
             }
             print(next_step[args.mode])

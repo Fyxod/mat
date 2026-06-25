@@ -1,0 +1,11 @@
+{
+  "clip_enabled": true,
+  "clip_model_id": "openai/clip-vit-base-patch32",
+  "clip_device": "cuda",
+  "strong_semantic_drop": 0.04,
+  "weak_semantic_drop": 0.015,
+  "notes": [
+    "CLIP is used only for checkpoint scoring and ranking, not as a gradient objective.",
+    "If CLIP dependencies or weights are unavailable, scoring falls back to metric-only labels rather than strong semantic labels."
+  ]
+}

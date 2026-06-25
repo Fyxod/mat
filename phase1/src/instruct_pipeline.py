@@ -167,6 +167,11 @@ def prepare_internal_reference(
 
 def internal_objective(pipe, perturbed: torch.Tensor, reference: InternalReference, objective_name: str) -> tuple[torch.Tensor, dict[str, torch.Tensor]]:
     """Return an objective to maximize and all primary white-box terms."""
+    if objective_name.startswith("multi_timestep_"):
+        from .phase1c_objectives import multi_timestep_internal_objective
+
+        return multi_timestep_internal_objective(pipe, perturbed, reference, objective_name)
+
     perturbed_latent = encode_image_latent(pipe, perturbed)
     prompt_prediction = _unet_prediction(pipe, perturbed_latent, reference.prompt_embedding, reference)
     empty_prediction = _unet_prediction(pipe, perturbed_latent, reference.empty_embedding, reference)

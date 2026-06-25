@@ -58,6 +58,7 @@ class AttackSettings:
     lambda_fold: float = 10.0
     checkpoint_every: int = 50
     objective_timestep_index: int = 10
+    objective_timestep_indices: tuple[int, ...] | None = None
     geometry_method: str = "combined_tps_dct"
     dct_size: int = 4
     tps_size: int = 5
