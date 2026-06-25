@@ -1,0 +1,29 @@
+      Phase 1C screening rows: 96
+Inspect phase1/outputs/phase1c_screening/phase1c_semantic_top_sheet.jpg
+/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+^Cinterns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ ^C
+interns@workstation003:~/Desktop/mat$ $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat
+Phase 1D deepening rows: 0
+Inspect phase1/outputs/phase1d_deepen/phase1d_decision_report.md
+interns@workstation003:~/Desktop/mat$ 
