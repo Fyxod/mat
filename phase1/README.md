@@ -64,12 +64,13 @@ Run the new flow on the A6000:
 
 ```bash
 python -m phase1.scripts.rescore_legacy_phase1ab --root /home/interns/Desktop/mat
+python -m phase1.scripts.check_clip_semantic --root /home/interns/Desktop/mat --require
 python -m phase1.scripts.run_phase1c_screening --root /home/interns/Desktop/mat
 python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat
 python -m phase1.scripts.summarize_phase1c --root /home/interns/Desktop/mat
 ```
 
-Phase 1D automatically skips if Phase 1C finds only metric-only candidates.
+Phase 1C now refuses to start if CLIP semantic scoring cannot load. Phase 1D automatically skips if Phase 1C finds only metric-only candidates.
 
 ## Resumption and artifacts
 

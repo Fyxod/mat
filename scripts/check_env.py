@@ -33,6 +33,11 @@ def main() -> None:
         print("InstructPix2Pix import:", "ok")
     except Exception as error:
         print("InstructPix2Pix import:", f"failed ({error})")
+    try:
+        from transformers import CLIPModel, CLIPProcessor  # noqa: F401
+        print("CLIP import:", "ok")
+    except Exception as error:
+        print("CLIP import:", f"failed ({error})")
 
 
 if __name__ == "__main__":

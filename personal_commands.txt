@@ -19,6 +19,7 @@ $MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Deskto
 
 new
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python scripts/check_env.py
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.check_clip_semantic --root /home/interns/Desktop/mat --require
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.rescore_legacy_phase1ab --root /home/interns/Desktop/mat
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1c_screening --root /home/interns/Desktop/mat
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat

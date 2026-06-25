@@ -7,6 +7,10 @@ alone.
 """
 from __future__ import annotations
 
+import gc
+import platform
+import sys
+import traceback
 from dataclasses import dataclass
 from typing import Any
 
@@ -115,6 +119,7 @@ class ClipSemanticScorer:
         cls,
         model_id: str = "openai/clip-vit-base-patch32",
         device: str | None = None,
+        diagnostics: dict[str, Any] | None = None,
     ) -> "ClipSemanticScorer | None":
         try:
             import torch
@@ -124,8 +129,25 @@ class ClipSemanticScorer:
             processor = CLIPProcessor.from_pretrained(model_id)
             model = CLIPModel.from_pretrained(model_id).to(resolved_device)
             model.eval()
+            if diagnostics is not None:
+                diagnostics.update({
+                    "available": True,
+                    "model_id": model_id,
+                    "requested_device": device,
+                    "resolved_device": resolved_device,
+                    "error": None,
+                })
             return cls(model=model, processor=processor, device=resolved_device)
-        except Exception:
+        except Exception as error:
+            if diagnostics is not None:
+                diagnostics.update({
+                    "available": False,
+                    "model_id": model_id,
+                    "requested_device": device,
+                    "error_type": type(error).__name__,
+                    "error": str(error),
+                    "traceback": traceback.format_exc(),
+                })
             return None
 
     def positive_margin(self, image: Image.Image, prompt: str) -> float:
@@ -265,9 +287,102 @@ def score_final_edit_case(
     }
 
 
+def diagnose_clip_load(
+    model_id: str = "openai/clip-vit-base-patch32",
+    device: str | None = None,
+) -> dict[str, Any]:
+    """Load CLIP with explicit step-by-step diagnostics.
+
+    This is intentionally separate from the scorer's permissive fallback path:
+    Phase 1C uses it as a preflight gate so expensive GPU work does not proceed
+    with semantic scoring silently disabled.
+    """
+    result: dict[str, Any] = {
+        "available": False,
+        "model_id": model_id,
+        "requested_device": device,
+        "python_executable": sys.executable,
+        "python_version": sys.version.replace("\n", " "),
+        "platform": platform.platform(),
+        "steps": [],
+    }
+
+    def step(name: str, status: str, **extra: Any) -> None:
+        result["steps"].append({"name": name, "status": status, **extra})
+
+    try:
+        import torch
+
+        result["torch_version"] = getattr(torch, "__version__", "unknown")
+        result["torch_cuda_version"] = getattr(torch.version, "cuda", None)
+        result["cuda_available"] = bool(torch.cuda.is_available())
+        resolved_device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        result["resolved_device"] = resolved_device
+        if resolved_device.startswith("cuda") and not torch.cuda.is_available():
+            raise RuntimeError("Requested CUDA CLIP scoring, but torch.cuda.is_available() is false.")
+        if torch.cuda.is_available():
+            result["gpu_name"] = torch.cuda.get_device_name(0)
+        step("import_torch", "ok")
+    except Exception as error:
+        step("import_torch", "failed", error_type=type(error).__name__, error=str(error))
+        result.update({"error_type": type(error).__name__, "error": str(error), "traceback": traceback.format_exc()})
+        return result
+
+    try:
+        import transformers
+        from transformers import CLIPModel, CLIPProcessor
+
+        result["transformers_version"] = getattr(transformers, "__version__", "unknown")
+        step("import_transformers_clip", "ok")
+    except Exception as error:
+        step("import_transformers_clip", "failed", error_type=type(error).__name__, error=str(error))
+        result.update({"error_type": type(error).__name__, "error": str(error), "traceback": traceback.format_exc()})
+        return result
+
+    processor = None
+    model = None
+    try:
+        processor = CLIPProcessor.from_pretrained(model_id)
+        step("load_processor", "ok")
+        model = CLIPModel.from_pretrained(model_id).to(result["resolved_device"])
+        model.eval()
+        step("load_model", "ok")
+        # Tiny real forward pass catches tokenizer/image-processor/device errors.
+        from PIL import Image
+        import torch
+
+        image = Image.new("RGB", (224, 224), "white")
+        inputs = processor(text=["a portrait", "a landscape"], images=image, return_tensors="pt", padding=True)
+        inputs = {key: value.to(result["resolved_device"]) for key, value in inputs.items()}
+        with torch.no_grad():
+            image_features = model.get_image_features(pixel_values=inputs["pixel_values"])
+            text_features = model.get_text_features(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"])
+        result["test_image_feature_shape"] = list(image_features.shape)
+        result["test_text_feature_shape"] = list(text_features.shape)
+        step("test_forward", "ok")
+        result["available"] = True
+        return result
+    except Exception as error:
+        step("load_or_forward", "failed", error_type=type(error).__name__, error=str(error))
+        result.update({"error_type": type(error).__name__, "error": str(error), "traceback": traceback.format_exc()})
+        return result
+    finally:
+        del processor
+        del model
+        gc.collect()
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
+
+
 __all__ = [
     "ClipSemanticScorer",
     "PROMPT_TEXT_PAIRS",
+    "diagnose_clip_load",
     "prompt_text_pairs",
     "score_final_edit_case",
 ]

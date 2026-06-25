@@ -28,7 +28,7 @@ from .parallel_jobs import run_serial_or_parallel
 from .phase1c_objectives import PHASE1C_OBJECTIVES, prepare_multi_timestep_reference
 from .reporting import attack_sheet, copy_if_exists, image_sheet, save_rgb, write_csv, write_json
 from .runners import _device, _model_settings, _original, _settings_for_selection
-from .semantic_scoring import ClipSemanticScorer, score_final_edit_case
+from .semantic_scoring import ClipSemanticScorer, diagnose_clip_load, score_final_edit_case
 from .utils import (
     append_run_note,
     is_complete,
@@ -57,17 +57,57 @@ def _semantic_scorer(root: Path) -> ClipSemanticScorer | None:
     semantic = _load_semantic_config(root)
     if not bool(semantic.get("clip_enabled", True)):
         return None
+    diagnostics: dict[str, Any] = {}
     scorer = ClipSemanticScorer.load_optional(
         model_id=str(semantic.get("clip_model_id", "openai/clip-vit-base-patch32")),
         device=semantic.get("clip_device"),
+        diagnostics=diagnostics,
     )
     if scorer is None:
+        write_json(outputs_root(root) / "summaries" / "clip_semantic_load_failure.json", diagnostics)
+        error = diagnostics.get("error", "unknown error")
         append_run_note(
             root,
             "Phase 1C semantic scoring",
-            "CLIP could not be loaded; semantic scoring will mark rows as metric-only fallback instead of strong.",
+            f"CLIP could not be loaded ({error}); semantic scoring will mark rows as metric-only fallback instead of strong.",
         )
     return scorer
+
+
+def check_clip_semantic_preflight(root: Path, *, require_available: bool = False) -> dict[str, Any]:
+    """Diagnose CLIP scoring and optionally fail before expensive Phase 1C work."""
+    semantic = _load_semantic_config(root)
+    output = outputs_root(root) / "summaries" / "clip_semantic_diagnostics.json"
+    if not bool(semantic.get("clip_enabled", True)):
+        payload = {"available": False, "disabled": True, "reason": "clip_enabled=false"}
+        write_json(output, payload)
+        if require_available:
+            raise RuntimeError("CLIP semantic scoring is disabled in phase1c_semantic_scoring.json.")
+        return payload
+    payload = diagnose_clip_load(
+        model_id=str(semantic.get("clip_model_id", "openai/clip-vit-base-patch32")),
+        device=semantic.get("clip_device"),
+    )
+    write_json(output, payload)
+    if payload.get("available"):
+        append_run_note(
+            root,
+            "Phase 1C semantic preflight",
+            f"CLIP semantic scoring is available with {payload.get('model_id')} on {payload.get('resolved_device')}.",
+        )
+    else:
+        append_run_note(
+            root,
+            "Phase 1C semantic preflight",
+            f"CLIP semantic scoring is unavailable: {payload.get('error', 'unknown error')}. Diagnostics: phase1/outputs/summaries/clip_semantic_diagnostics.json",
+        )
+        if require_available:
+            raise RuntimeError(
+                "CLIP semantic scoring is unavailable; refusing to run expensive Phase 1C screening. "
+                "Inspect phase1/outputs/summaries/clip_semantic_diagnostics.json, fix the environment/cache, "
+                "then rerun the CLIP check."
+            )
+    return payload
 
 
 def _phase1c_attack_settings(
@@ -186,6 +226,8 @@ def _run_phase1c_attack_start(
     result_path = folder / "start_result.json"
     if is_complete(folder) and result_path.exists() and not force:
         payload = read_json(result_path)
+        if clip_scorer is not None and any(not bool(row.get("clip_available", False)) for row in payload.get("checkpoint_rows", [])):
+            payload = _rescore_cached_phase1c_start(root, folder, clip_scorer)
         return payload["best_row"], payload["checkpoint_rows"]
 
     folder.mkdir(parents=True, exist_ok=True)
@@ -365,6 +407,109 @@ def _run_phase1c_attack_start(
     except Exception as error:
         mark_failed(folder, error)
         raise
+
+
+def _rescore_cached_phase1c_start(root: Path, folder: Path, clip_scorer: ClipSemanticScorer) -> dict[str, Any]:
+    """Recompute semantic scores for a completed Phase 1C start from saved images."""
+    result_path = folder / "start_result.json"
+    payload = read_json(result_path)
+    checkpoint_rows = payload.get("checkpoint_rows", [])
+    rescored_rows: list[dict[str, Any]] = []
+    for row in checkpoint_rows:
+        paths = {
+            "original": root / row["path_original"],
+            "original_edited": root / row["path_original_edited"],
+            "perturbed": root / row["path_perturbed"],
+            "perturbed_edited": root / row["path_perturbed_edited"],
+        }
+        if not all(path.exists() for path in paths.values()):
+            rescored_rows.append(row)
+            continue
+        original = load_rgb(paths["original"])
+        clean_edit = load_rgb(paths["original_edited"])
+        perturbed = load_rgb(paths["perturbed"])
+        perturbed_edit = load_rgb(paths["perturbed_edited"])
+        input_values = image_metrics(original, perturbed)
+        output_values = image_metrics(clean_edit, perturbed_edit)
+        displacement = {
+            key: row[key]
+            for key in (
+                "max_disp_px",
+                "mean_disp_px",
+                "p95_disp_px",
+                "foldover_fraction_det_below_0",
+                "jacobian_det_mean",
+                "jacobian_det_min",
+                "low_det_fraction_below_0p2",
+                "target_input_ssim",
+                "max_disp_px_budget",
+            )
+            if key in row
+        }
+        if "max_disp_px_budget" not in displacement:
+            displacement["max_disp_px_budget"] = 6.0 if str(row.get("budget", "")).lower() == "strong" else 4.0
+        if "target_input_ssim" not in displacement:
+            displacement["target_input_ssim"] = row.get("target_input_ssim", 0.90)
+        semantic = score_final_edit_case(
+            row.get("prompt", row.get("prompt_slug", "")),
+            original,
+            clean_edit,
+            perturbed,
+            perturbed_edit,
+            input_values,
+            output_values,
+            displacement,
+            optional_clip_model=clip_scorer,
+        )
+        updated = {**row, **semantic}
+        write_json((root / row["path_perturbed"]).parent / "semantic_score.json", semantic)
+        rescored_rows.append(updated)
+
+    optimized_rows = [row for row in rescored_rows if int(row.get("iter", 0)) > 0]
+    budget_rows = [
+        row for row in optimized_rows
+        if float(row.get("input_ssim", 0.0)) >= float(row.get("target_input_ssim", 0.90))
+        and float(row.get("max_disp_px", 999.0)) <= float(row.get("max_disp_px_budget", 999.0)) + 1e-4
+        and float(row.get("foldover_fraction_det_below_0", 0.0)) == 0.0
+    ]
+    pool = budget_rows or optimized_rows or rescored_rows
+    best_row = max(pool, key=lambda item: float(item.get("final_attack_score", item.get("attack_score", 0.0))))
+    initial_row = next((row for row in rescored_rows if int(row.get("iter", 0)) == 0), rescored_rows[0])
+    best_folder = folder / "best"
+    best_folder.mkdir(parents=True, exist_ok=True)
+    best_checkpoint = (root / best_row["path_perturbed"]).parent
+    for filename in (
+        "original.png",
+        "original_edited.png",
+        "perturbed.png",
+        "perturbed_edited.png",
+        "flow.png",
+        "metrics.json",
+        "score.json",
+        "semantic_score.json",
+    ):
+        copy_if_exists(best_checkpoint / filename, best_folder / filename)
+    attack_sheet(
+        best_folder / "sheet.jpg",
+        load_rgb(best_folder / "original.png"),
+        load_rgb(best_folder / "original_edited.png"),
+        load_rgb(best_folder / "perturbed.png"),
+        load_rgb(best_folder / "perturbed_edited.png"),
+        load_rgb(best_folder / "flow.png"),
+        f"final={float(best_row.get('final_attack_score', 0.0)):.3f}, {best_row.get('decision_label', '')}",
+    )
+    best_row = {
+        **best_row,
+        "best_folder": relative_path(best_folder, root),
+        "initial_final_attack_score": initial_row.get("final_attack_score", 0.0),
+        "final_attack_score_gain_from_initial": float(best_row.get("final_attack_score", 0.0)) - float(initial_row.get("final_attack_score", 0.0)),
+        "budget_admissible": bool(budget_rows),
+        "semantic_rescored_from_cache": True,
+    }
+    write_csv(folder / "checkpoint_rows.csv", rescored_rows)
+    new_payload = {"best_row": best_row, "checkpoint_rows": rescored_rows}
+    write_json(result_path, new_payload)
+    return new_payload
 
 
 def _selected_phase1c_prompts(root: Path, config: dict[str, Any]) -> list[dict[str, Any]]:
@@ -614,6 +759,9 @@ def run_phase1c_screening(root: Path, force: bool = False) -> list[dict[str, Any
         return read_json(output / "phase1c_summary.json", {}).get("best_rows", [])
     config = _load_phase1c_config(root)
     parallel = _load_parallel_config(root)
+    semantic = _load_semantic_config(root)
+    if bool(semantic.get("require_clip_for_phase1c", True)):
+        check_clip_semantic_preflight(root, require_available=True)
     if bool(parallel.get("parallel_experimental", False)):
         run_phase1c_parallel_smoke(root, force=force)
     jobs = _make_screening_jobs(root, output, config)

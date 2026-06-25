@@ -19,6 +19,7 @@ from phase1.src.runners import (
     run_summary,
 )
 from phase1.src.phase1c_runner import (
+    check_clip_semantic_preflight,
     rescore_legacy_phase1ab,
     run_phase1c_screening,
     run_phase1d_deepen,
@@ -61,6 +62,7 @@ def _run_one(root: Path, mode: str, force: bool, identity: bool) -> object:
         "phase1a": lambda: run_phase1a(root, force=force),
         "scale_probe": lambda: run_scale_probe(root, force=force),
         "phase1b": lambda: run_phase1b(root, force=force),
+        "check_clip_semantic": lambda: check_clip_semantic_preflight(root, require_available=True),
         "rescore_legacy_phase1ab": lambda: rescore_legacy_phase1ab(root, force=force),
         "phase1c": lambda: run_phase1c_screening(root, force=force),
         "phase1d": lambda: run_phase1d_deepen(root, force=force),
@@ -87,6 +89,7 @@ def main() -> None:
             "phase1a",
             "phase1b",
             "rescore_legacy_phase1ab",
+            "check_clip_semantic",
             "phase1c",
             "phase1d",
             "final_validation",
@@ -127,6 +130,7 @@ def main() -> None:
                 "scale_probe": "Push the scale-probe outputs for review before rerunning Phase 1A.",
                 "phase1a": "Run --mode phase1b.",
                 "phase1b": "Run --mode final_validation.",
+                "check_clip_semantic": "If this passed, run --mode rescore_legacy_phase1ab or --mode phase1c.",
                 "rescore_legacy_phase1ab": "Inspect semantic_rescore_report.md, then run --mode phase1c.",
                 "phase1c": "Inspect phase1c_semantic_top_sheet.jpg, then run --mode phase1d only if semantic candidates exist.",
                 "phase1d": "Inspect phase1d_decision_report.md, then run --mode summarize_phase1c.",
