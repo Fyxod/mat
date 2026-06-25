@@ -16,3 +16,10 @@ $MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Deskto
 $MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1b
 $MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode final_validation
 $MM run -p "$ENV" python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode summarize
+
+new
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python scripts/check_env.py
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.rescore_legacy_phase1ab --root /home/interns/Desktop/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1c_screening --root /home/interns/Desktop/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.summarize_phase1c --root /home/interns/Desktop/mat
