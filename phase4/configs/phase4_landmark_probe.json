@@ -1,0 +1,114 @@
+{
+  "model": {
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "height": 512,
+    "width": 512,
+    "torch_dtype": "float16",
+    "seed": 1234
+  },
+  "case_selection": {
+    "source_csv": "phase3/outputs/clean_discovery/phase3_clean_selected_cases.csv",
+    "max_cases": 12,
+    "allowed_prompts": [
+      "add black sunglasses",
+      "add round glasses",
+      "add headphones",
+      "add a small beard",
+      "make the person smile slightly"
+    ],
+    "minimum_type_targets": {
+      "glasses": 3,
+      "headphones": 3,
+      "beard": 2,
+      "smile": 2
+    }
+  },
+  "budgets": [
+    {
+      "name": "strong",
+      "max_disp_px": 8.0,
+      "target_input_ssim": 0.88
+    },
+    {
+      "name": "existence_probe",
+      "max_disp_px": 14.0,
+      "target_input_ssim": 0.78
+    }
+  ],
+  "phase4a": {
+    "generations": 4,
+    "population": 20,
+    "elite": 4,
+    "sample_std": 0.9,
+    "min_std": 0.08,
+    "std_smoothing": 0.65,
+    "seed": 41001,
+    "eval_initial": true
+  },
+  "phase4b": {
+    "max_source_cases": 3,
+    "budgets": [
+      {
+        "name": "strong",
+        "max_disp_px": 8.0,
+        "target_input_ssim": 0.88
+      },
+      {
+        "name": "tightened",
+        "max_disp_px": 6.0,
+        "target_input_ssim": 0.9
+      },
+      {
+        "name": "medium",
+        "max_disp_px": 4.0,
+        "target_input_ssim": 0.94
+      }
+    ],
+    "generations": 5,
+    "population": 24,
+    "elite": 5,
+    "sample_std": 0.55,
+    "min_std": 0.05,
+    "std_smoothing": 0.65,
+    "seed": 42001,
+    "eval_initial": true
+  },
+  "geometry": {
+    "methods": [
+      "landmark_semantic_tps",
+      "landmark_piecewise_affine"
+    ],
+    "edge_stabilizer_points": true,
+    "action_strength": 0.72,
+    "tps_regularization": 0.0001
+  },
+  "scoring": {
+    "semantic_drop_weight": 8.0,
+    "output_disruption_weight": 0.5,
+    "input_damage_penalty_weight": 3.0,
+    "geometry_excess_penalty_weight": 0.75,
+    "weak_semantic_drop": 0.02,
+    "strong_semantic_drop": 0.05,
+    "visible_failure_semantic_drop": 0.07,
+    "visible_failure_perturbed_margin": -0.015,
+    "existence_success_semantic_drop": 0.07,
+    "existence_success_perturbed_margin": -0.015,
+    "existence_success_min_input_ssim": 0.75,
+    "require_clip": true,
+    "crop_clip_scoring": true
+  },
+  "clip": {
+    "model_id": "openai/clip-vit-base-patch32",
+    "revision": "d15b5f29721ca72dac15f8526b284be910de18be",
+    "use_safetensors": true,
+    "device": "cuda"
+  },
+  "landmarks": {
+    "detector": "mediapipe_or_template",
+    "min_successful_faces": 3,
+    "draw_region_boxes": true,
+    "draw_landmark_indices": false
+  }
+}

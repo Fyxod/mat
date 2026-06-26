@@ -1,0 +1,67 @@
+{
+  "all_actions": [
+    "eye_spread",
+    "eye_compress",
+    "eye_raise_left",
+    "eye_raise_right",
+    "eye_squint",
+    "nose_bridge_shift_x",
+    "mouth_corner_raise",
+    "mouth_corner_lower",
+    "mouth_width_expand",
+    "mouth_width_compress",
+    "chin_raise",
+    "chin_lower",
+    "jaw_expand",
+    "jaw_compress",
+    "face_side_push_left",
+    "face_side_push_right",
+    "head_top_raise",
+    "head_top_lower",
+    "asymmetry_twist",
+    "lower_face_shift"
+  ],
+  "prompt_action_sets": {
+    "glasses": [
+      "eye_spread",
+      "eye_compress",
+      "eye_squint",
+      "eye_raise_left",
+      "eye_raise_right",
+      "nose_bridge_shift_x",
+      "asymmetry_twist"
+    ],
+    "smile": [
+      "mouth_corner_raise",
+      "mouth_corner_lower",
+      "mouth_width_expand",
+      "mouth_width_compress",
+      "chin_raise",
+      "chin_lower"
+    ],
+    "beard": [
+      "jaw_expand",
+      "jaw_compress",
+      "chin_raise",
+      "chin_lower",
+      "mouth_width_expand",
+      "lower_face_shift"
+    ],
+    "headphones": [
+      "face_side_push_left",
+      "face_side_push_right",
+      "head_top_raise",
+      "head_top_lower",
+      "jaw_expand",
+      "jaw_compress",
+      "asymmetry_twist"
+    ]
+  },
+  "prompt_type_aliases": {
+    "add black sunglasses": "glasses",
+    "add round glasses": "glasses",
+    "make the person smile slightly": "smile",
+    "add a small beard": "beard",
+    "add headphones": "headphones"
+  }
+}

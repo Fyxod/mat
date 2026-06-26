@@ -1,0 +1,9 @@
+{
+  "parallel_experimental": false,
+  "parallel_workers": 2,
+  "max_parallel_workers": 2,
+  "worker_start_method": "spawn",
+  "worker_loads_own_pipeline": true,
+  "cuda_device": "cuda:0",
+  "retry_serial_on_parallel_failure": true
+}

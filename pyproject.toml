@@ -9,4 +9,17 @@ description = "Phase 1 geometric white-box attacks against InstructPix2Pix"
 requires-python = ">=3.10"
 
 [tool.setuptools]
-packages = ["phase1", "phase1.src", "phase1.scripts"]
+packages = [
+  "phase1",
+  "phase1.src",
+  "phase1.scripts",
+  "phase2",
+  "phase2.src",
+  "phase2.scripts",
+  "phase3",
+  "phase3.src",
+  "phase3.scripts",
+  "phase4",
+  "phase4.src",
+  "phase4.scripts",
+]
