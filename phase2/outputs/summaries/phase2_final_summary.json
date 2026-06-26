@@ -1,0 +1,15 @@
+{
+  "phase1c_final_report_exists": true,
+  "phase2a_decision_counts": {
+    "metric_only_candidate": 415,
+    "reject_input_damage": 15,
+    "weak_candidate": 14
+  },
+  "phase2b_decision_counts": {
+    "metric_only_candidate": 37,
+    "reject_input_damage": 10,
+    "weak_candidate": 50
+  },
+  "phase2b_skipped": false,
+  "updated_at": "2026-06-26T17:50:12.552973+00:00"
+}

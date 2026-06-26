@@ -1,0 +1,41 @@
+{
+  "best_candidate_this_generation": "cand_034_g03_m02",
+  "best_score_this_generation": 0.26704548422268415,
+  "budget": "medium",
+  "cem_state": {
+    "mean_abs": 0.33625802397727966,
+    "method_probs": [
+      0.5819833333333333,
+      0.04753888888888888,
+      0.02984444444444444,
+      0.09809444444444443,
+      0.24253888888888891
+    ],
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ],
+    "std_max": 0.550000011920929,
+    "std_mean": 0.3473713994026184,
+    "std_min": 0.11470028758049011
+  },
+  "decision_counts": {
+    "metric_only_candidate": 7,
+    "reject_input_damage": 3,
+    "weak_candidate": 6
+  },
+  "elapsed_seconds": 95.21536269597709,
+  "elite": 4,
+  "elite_candidate_names": [
+    "cand_034_g03_m02",
+    "cand_036_g03_m04",
+    "cand_040_g03_m08",
+    "cand_045_g03_m13"
+  ],
+  "generation": 3,
+  "population": 16,
+  "prompt": "add headphones"
+}

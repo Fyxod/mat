@@ -1,0 +1,93 @@
+{
+  "best_folder": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06",
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06",
+  "candidate_index": 22,
+  "candidate_name": "cand_022_g02_m06",
+  "clean_clip_positive_margin": 0.027842342853546143,
+  "clean_semantic_success_score": 0.027842342853546143,
+  "clip_available": true,
+  "clip_semantic_drop": 0.023181915283203125,
+  "clip_warning": null,
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "decision_label": "weak_candidate",
+  "decision_reasons": [],
+  "edit_failure_score": 0.023181915283203125,
+  "elapsed_seconds": 5.258884938433766,
+  "final_attack_score": 0.19100129958041762,
+  "generation": 2,
+  "geometry_excess_penalty": 0.0,
+  "geometry_excess_penalty_weight": 1.0,
+  "geometry_method": "combined_all",
+  "identity_or_face_health_available": false,
+  "initial_candidate": false,
+  "input_damage_penalty": 0.0,
+  "input_damage_penalty_weight": 3.0,
+  "input_l2": 0.005050429399455326,
+  "input_max_abs": 0.21176469326019287,
+  "input_mean_abs": 0.0018076682463288307,
+  "input_preservation_score": 0.8776276906331382,
+  "input_psnr": 45.933433911345496,
+  "input_ssim": 0.9926576614379883,
+  "max_disp_px": 0.8697308301925659,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.12815728783607483,
+  "member": 6,
+  "mesh_size": 4,
+  "output_disruption_score": 0.09827363844760512,
+  "output_disruption_weight": 1.0,
+  "output_l2": 0.015393868972977632,
+  "output_max_abs": 0.4862745404243469,
+  "output_mean_abs": 0.008463416248559952,
+  "output_psnr": 36.25304428635444,
+  "output_ssim": 0.9633018374443054,
+  "p95_disp_px": 0.5543338656425476,
+  "path_flow": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06/flow.png",
+  "path_original": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06/original.png",
+  "path_original_edited": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06/original_edited.png",
+  "path_perturbed": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06/perturbed.png",
+  "path_perturbed_edited": "phase2/outputs/phase2b_cem/add_headphones/medium/seed_00/candidates/cand_022_g02_m06/perturbed_edited.png",
+  "perturbed_clip_positive_margin": 0.004660427570343018,
+  "perturbed_semantic_success_score": 0.004660427570343018,
+  "phase": "phase2b_cem",
+  "phase2_final_score": 0.19100129958041762,
+  "phase2_output_disruption": 0.09827363844760512,
+  "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
+  "prompt": "add headphones",
+  "prompt_priority": 1,
+  "prompt_slug": "add_headphones",
+  "region_count": 3,
+  "region_key": "headphones",
+  "scale_factor": 0.22187009453773499,
+  "seed": 23001,
+  "semantic_drop": 0.023181915283203125,
+  "semantic_drop_weight": 4.0,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}
