@@ -60,6 +60,10 @@ def load_phase2_config(root: Path) -> dict[str, Any]:
     return read_json(config_path(root, "phase2_final_edit_cem.json"), {})
 
 
+def load_phase2c_config(root: Path) -> dict[str, Any]:
+    return read_json(config_path(root, "phase2c_headphone_failure_probe.json"), {})
+
+
 def load_parallel_config(root: Path) -> dict[str, Any]:
     return read_json(config_path(root, "phase2_parallel.json"), {})
 
@@ -74,6 +78,7 @@ __all__ = [
     "failed_path",
     "load_parallel_config",
     "load_phase2_config",
+    "load_phase2c_config",
     "load_region_config",
     "mark_done",
     "mark_failed",
@@ -90,4 +95,3 @@ __all__ = [
     "write_json",
     "write_text",
 ]
-

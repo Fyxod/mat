@@ -76,6 +76,7 @@ def decision_report(title: str, rows: list[dict[str, Any]]) -> str:
         f"# {title} decision report",
         "",
         f"- Total candidates: {len(rows)}",
+        f"- Visible failure candidates: {counts.get('visible_failure_candidate', 0)}",
         f"- Strong semantic candidates: {counts.get('strong_candidate', 0)}",
         f"- Weak semantic candidates: {counts.get('weak_candidate', 0)}",
         f"- Metric-only candidates: {counts.get('metric_only_candidate', 0)}",
@@ -84,7 +85,7 @@ def decision_report(title: str, rows: list[dict[str, Any]]) -> str:
         "Rows are ranked by `phase2_final_score`, which prioritizes semantic/final-edit failure over generic output difference.",
         "",
     ]
-    for label in ("strong_candidate", "weak_candidate", "metric_only_candidate", "reject_input_damage"):
+    for label in ("visible_failure_candidate", "strong_candidate", "weak_candidate", "metric_only_candidate", "reject_input_damage"):
         subset = [row for row in rows if row.get("decision_label") == label][:10]
         if not subset:
             continue
@@ -156,4 +157,3 @@ __all__ = [
     "top_sheet",
     "write_aggregate_outputs",
 ]
-
