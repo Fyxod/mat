@@ -1,0 +1,37 @@
+{
+  "best_candidate_this_generation": "cand_016_g02_m08",
+  "best_score_this_generation": 0.3782555505871983,
+  "budget": "medium",
+  "cem_state": {
+    "mean_abs": 0.5234445333480835,
+    "method_probs": [
+      0.15060000000000004,
+      0.0596,
+      0.0596,
+      0.6706000000000001,
+      0.0596
+    ],
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ],
+    "std_max": 0.6499999761581421,
+    "std_mean": 0.32427889108657837,
+    "std_min": 0.11053052544593811
+  },
+  "decision_counts": {
+    "metric_only_candidate": 8
+  },
+  "elapsed_seconds": 43.219615725800395,
+  "elite": 2,
+  "elite_candidate_names": [
+    "cand_016_g02_m08",
+    "cand_015_g02_m07"
+  ],
+  "generation": 2,
+  "population": 8,
+  "prompt": "add a hoodie"
+}

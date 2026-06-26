@@ -1,0 +1,37 @@
+{
+  "best_candidate_this_generation": "cand_014_g02_m06",
+  "best_score_this_generation": 0.18051683598705504,
+  "budget": "medium",
+  "cem_state": {
+    "mean_abs": 0.43319225311279297,
+    "method_probs": [
+      0.1506,
+      0.05959999999999999,
+      0.6706,
+      0.05959999999999999,
+      0.05959999999999999
+    ],
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ],
+    "std_max": 0.6499999761581421,
+    "std_mean": 0.3185715675354004,
+    "std_min": 0.0812201276421547
+  },
+  "decision_counts": {
+    "metric_only_candidate": 8
+  },
+  "elapsed_seconds": 49.068244732916355,
+  "elite": 2,
+  "elite_candidate_names": [
+    "cand_014_g02_m06",
+    "cand_015_g02_m07"
+  ],
+  "generation": 2,
+  "population": 8,
+  "prompt": "add a small beard"
+}

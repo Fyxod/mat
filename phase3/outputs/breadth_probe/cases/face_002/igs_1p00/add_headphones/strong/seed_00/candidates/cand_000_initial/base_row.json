@@ -1,0 +1,63 @@
+{
+  "budget": "strong",
+  "budget_max_disp_px": 6.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase3/outputs/breadth_probe/cases/face_002/igs_1p00/add_headphones/strong/seed_00/candidates/cand_000_initial",
+  "candidate_index": 0,
+  "candidate_name": "cand_000_initial",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 4.818508746102452,
+  "generation": 0,
+  "geometry_method": "combined_tps_dct",
+  "initial_candidate": true,
+  "input_l2": 0.0,
+  "input_max_abs": 0.0,
+  "input_mean_abs": 0.0,
+  "input_psnr": 100.0,
+  "input_ssim": 1.0,
+  "max_disp_px": 0.0,
+  "max_disp_px_budget": 6.0,
+  "mean_disp_px": 0.0,
+  "member": 0,
+  "mesh_size": 4,
+  "output_l2": 0.0,
+  "output_max_abs": 0.0,
+  "output_mean_abs": 0.0,
+  "output_psnr": 100.0,
+  "output_ssim": 1.0,
+  "p95_disp_px": 0.0,
+  "phase": "phase3_breadth_probe",
+  "prompt": "add headphones",
+  "prompt_priority": 1,
+  "prompt_slug": "add_headphones",
+  "region_count": 3,
+  "region_key": "headphones",
+  "scale_factor": 0.5750000476837158,
+  "seed": 33101,
+  "target_input_ssim": 0.9,
+  "tps_size": 4
+}

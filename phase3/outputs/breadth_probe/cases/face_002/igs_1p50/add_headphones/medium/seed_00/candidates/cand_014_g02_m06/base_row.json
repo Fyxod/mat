@@ -1,0 +1,63 @@
+{
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase3/outputs/breadth_probe/cases/face_002/igs_1p50/add_headphones/medium/seed_00/candidates/cand_014_g02_m06",
+  "candidate_index": 14,
+  "candidate_name": "cand_014_g02_m06",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 4.773190259933472,
+  "generation": 2,
+  "geometry_method": "region_local_tps",
+  "initial_candidate": false,
+  "input_l2": 0.022014766316499543,
+  "input_max_abs": 0.7254902124404907,
+  "input_mean_abs": 0.008241395466029644,
+  "input_psnr": 33.145718403038366,
+  "input_ssim": 0.9381342530250549,
+  "max_disp_px": 2.8511104583740234,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.46017786860466003,
+  "member": 6,
+  "mesh_size": 4,
+  "output_l2": 0.03414839265567765,
+  "output_max_abs": 0.7960784435272217,
+  "output_mean_abs": 0.014560005627572536,
+  "output_psnr": 29.332594669633224,
+  "output_ssim": 0.9107379913330078,
+  "p95_disp_px": 1.8568708896636963,
+  "phase": "phase3_breadth_probe",
+  "prompt": "add headphones",
+  "prompt_priority": 1,
+  "prompt_slug": "add_headphones",
+  "region_count": 3,
+  "region_key": "headphones",
+  "scale_factor": 0.7273240089416504,
+  "seed": 34001,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}

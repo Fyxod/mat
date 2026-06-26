@@ -1,0 +1,35 @@
+{
+  "completed_at": "2026-06-26T21:36:50.972038+00:00",
+  "detected_face_count": 8,
+  "detected_face_ids": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006",
+    "face_007",
+    "face_008"
+  ],
+  "elapsed_seconds": 836.0055618323386,
+  "evaluated_clean_cases": 198,
+  "new_image_folder_count": 7,
+  "phase": "phase3_clean_discovery",
+  "primary_faces": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006"
+  ],
+  "prompt_restricted_faces": [
+    "face_007",
+    "face_008"
+  ],
+  "rejected_clean_cases": 19,
+  "selected_clean_cases": 24,
+  "skipped_incompatible_cases": 18,
+  "status": "completed",
+  "updated_at": "2026-06-26T21:36:50.971091+00:00"
+}

@@ -1,0 +1,63 @@
+{
+  "budget": "strong",
+  "budget_max_disp_px": 6.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase3/outputs/breadth_probe/cases/face_001/igs_1p50/make_the_person_smile_slightly/strong/seed_00/candidates/cand_009_g02_m01",
+  "candidate_index": 9,
+  "candidate_name": "cand_009_g02_m01",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 4.954732920974493,
+  "generation": 2,
+  "geometry_method": "region_local_tps",
+  "initial_candidate": false,
+  "input_l2": 0.017735095803751526,
+  "input_max_abs": 0.5647059082984924,
+  "input_mean_abs": 0.00330446008592844,
+  "input_psnr": 35.023329223143556,
+  "input_ssim": 0.9730339050292969,
+  "max_disp_px": 2.7892987728118896,
+  "max_disp_px_budget": 6.0,
+  "mean_disp_px": 0.1924794316291809,
+  "member": 1,
+  "mesh_size": 4,
+  "output_l2": 0.023137619147314024,
+  "output_max_abs": 0.8352941274642944,
+  "output_mean_abs": 0.0072696395218372345,
+  "output_psnr": 32.71362663662279,
+  "output_ssim": 0.9656909108161926,
+  "p95_disp_px": 1.793562650680542,
+  "phase": "phase3_breadth_probe",
+  "prompt": "make the person smile slightly",
+  "prompt_priority": 9,
+  "prompt_slug": "make_the_person_smile_slightly",
+  "region_count": 1,
+  "region_key": "smile",
+  "scale_factor": 0.4798438847064972,
+  "seed": 32101,
+  "target_input_ssim": 0.9,
+  "tps_size": 4
+}
