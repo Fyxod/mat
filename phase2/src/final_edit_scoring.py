@@ -51,6 +51,11 @@ def score_phase2_candidate(
         displacement_metrics=displacement_metrics,
         optional_clip_model=clip_scorer,
     )
+    if bool(scoring_config.get("require_clip", True)) and not bool(semantic.get("clip_available", False)):
+        raise RuntimeError(
+            "Phase 2 requires working CLIP semantic scoring, but candidate scoring fell back to metric-only. "
+            f"warning={semantic.get('clip_warning')!r}"
+        )
     output_disruption = (1.0 - float(output_values["ssim"])) + min(float(output_values["l2"]) / 0.25, 2.0)
     semantic_drop = float(semantic.get("semantic_drop", 0.0))
     target_input_ssim = float(displacement_metrics.get("target_input_ssim", 0.90))
@@ -114,4 +119,3 @@ def score_phase2_candidate(
 
 
 __all__ = ["load_clip_scorer", "score_phase2_candidate"]
-

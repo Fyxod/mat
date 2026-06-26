@@ -173,11 +173,14 @@ class ClipSemanticScorer:
                 padding=True,
             )
             inputs = {key: value.to(self.device) for key, value in inputs.items()}
-            image_features = self.model.get_image_features(pixel_values=inputs["pixel_values"])
-            text_features = self.model.get_text_features(
+            outputs = self.model(
                 input_ids=inputs["input_ids"],
                 attention_mask=inputs["attention_mask"],
+                pixel_values=inputs["pixel_values"],
+                return_dict=True,
             )
+            image_features = outputs.image_embeds
+            text_features = outputs.text_embeds
             image_features = image_features / image_features.norm(dim=-1, keepdim=True).clamp_min(1e-8)
             text_features = text_features / text_features.norm(dim=-1, keepdim=True).clamp_min(1e-8)
             similarities = (image_features @ text_features.T).float().cpu().numpy()[0]
@@ -373,8 +376,16 @@ def diagnose_clip_load(
         inputs = processor(text=["a portrait", "a landscape"], images=image, return_tensors="pt", padding=True)
         inputs = {key: value.to(result["resolved_device"]) for key, value in inputs.items()}
         with torch.no_grad():
-            image_features = model.get_image_features(pixel_values=inputs["pixel_values"])
-            text_features = model.get_text_features(input_ids=inputs["input_ids"], attention_mask=inputs["attention_mask"])
+            outputs = model(
+                input_ids=inputs["input_ids"],
+                attention_mask=inputs["attention_mask"],
+                pixel_values=inputs["pixel_values"],
+                return_dict=True,
+            )
+            image_features = outputs.image_embeds
+            text_features = outputs.text_embeds
+            _ = image_features / image_features.norm(dim=-1, keepdim=True).clamp_min(1e-8)
+            _ = text_features / text_features.norm(dim=-1, keepdim=True).clamp_min(1e-8)
         result["test_image_feature_shape"] = list(image_features.shape)
         result["test_text_feature_shape"] = list(text_features.shape)
         step("test_forward", "ok")

@@ -236,6 +236,61 @@ def _score_and_persist(root: Path, row: dict[str, Any], scoring_config: dict[str
     return merged
 
 
+def _needs_semantic_rescore(row: dict[str, Any], scoring_config: dict[str, Any]) -> bool:
+    return bool(scoring_config.get("require_clip", True)) and not bool(row.get("clip_available", False))
+
+
+def _rescore_completed_candidate(
+    root: Path,
+    folder: Path,
+    row: dict[str, Any],
+    scoring_config: dict[str, Any],
+    clip_scorer: Any,
+) -> dict[str, Any]:
+    original = load_rgb(folder / "original.png")
+    clean_edit = load_rgb(folder / "original_edited.png", size=original.size)
+    perturbed = load_rgb(folder / "perturbed.png", size=original.size)
+    perturbed_edit = load_rgb(folder / "perturbed_edited.png", size=original.size)
+    metrics = read_json(folder / "metrics.json", {})
+    displacement = dict(metrics.get("displacement", {}))
+    if not displacement:
+        displacement = {
+            "max_disp_px": row.get("max_disp_px", 0.0),
+            "mean_disp_px": row.get("mean_disp_px", 0.0),
+            "p95_disp_px": row.get("p95_disp_px", 0.0),
+            "target_input_ssim": row.get("target_input_ssim", 0.90),
+            "max_disp_px_budget": row.get("max_disp_px_budget", row.get("budget_max_disp_px", 0.0)),
+            "budget_max_disp_px": row.get("budget_max_disp_px", row.get("max_disp_px_budget", 0.0)),
+        }
+    semantic = score_phase2_candidate(
+        prompt=str(row["prompt"]),
+        original=original,
+        clean_edit=clean_edit,
+        perturbed=perturbed,
+        perturbed_edit=perturbed_edit,
+        displacement_metrics=displacement,
+        scoring_config=scoring_config,
+        clip_scorer=clip_scorer,
+    )
+    merged = {**row, **semantic, "semantic_rescored_from_cache": True}
+    merged["candidate_folder"] = relative_path(folder, root)
+    merged["best_folder"] = merged["candidate_folder"]
+    for key, filename in (
+        ("path_original", "original.png"),
+        ("path_original_edited", "original_edited.png"),
+        ("path_perturbed", "perturbed.png"),
+        ("path_perturbed_edited", "perturbed_edited.png"),
+        ("path_flow", "flow.png"),
+    ):
+        merged[key] = relative_path(folder / filename, root)
+    write_json(folder / "semantic_score.json", semantic)
+    write_json(folder / "score.json", {"phase2_final_score": merged["phase2_final_score"], "decision_label": merged["decision_label"]})
+    write_json(folder / "candidate_row.json", merged)
+    candidate_sheet(folder, merged)
+    mark_done(folder, {"candidate_name": merged["candidate_name"], "phase2_final_score": merged["phase2_final_score"], "decision_label": merged["decision_label"], "semantic_rescored_from_cache": True})
+    return merged
+
+
 def _load_completed_candidate(folder: Path) -> dict[str, Any] | None:
     row_path = folder / "candidate_row.json"
     if done_path(folder).exists() and row_path.exists():
@@ -307,6 +362,8 @@ def _evaluate_samples(
         folder = Path(job["candidate_folder_abs"])
         existing = _load_completed_candidate(folder)
         if existing is not None:
+            if _needs_semantic_rescore(existing, scoring_config):
+                existing = _rescore_completed_candidate(root, folder, existing, scoring_config, clip_scorer)
             cached.append((sample, existing))
             continue
         jobs.append(job)
@@ -846,4 +903,3 @@ def summarize_phase2(root_value: str | Path) -> dict[str, Any]:
 
 
 __all__ = ["benchmark_parallel", "run_phase2a_probe", "run_phase2b_cem", "summarize_phase2"]
-
