@@ -58,6 +58,46 @@ PROMPT_TEXT_PAIRS: dict[str, dict[str, list[str]]] = {
             "a portrait of a person without headphones",
         ],
     },
+    "add_a_black_jacket": {
+        "positive": [
+            "a portrait of a person wearing a black jacket",
+            "a person in a black jacket",
+        ],
+        "negative": [
+            "a portrait of a person without a jacket",
+            "a person not wearing a black jacket",
+        ],
+    },
+    "add_a_red_scarf": {
+        "positive": [
+            "a portrait of a person wearing a red scarf",
+            "a person with a red scarf around the neck",
+        ],
+        "negative": [
+            "a portrait of a person without a scarf",
+            "a person not wearing a red scarf",
+        ],
+    },
+    "add_a_hoodie": {
+        "positive": [
+            "a portrait of a person wearing a hoodie",
+            "a person in a hooded sweatshirt",
+        ],
+        "negative": [
+            "a portrait of a person without a hoodie",
+            "a person not wearing a hooded sweatshirt",
+        ],
+    },
+    "add_a_white_shirt": {
+        "positive": [
+            "a portrait of a person wearing a white shirt",
+            "a person in a white shirt",
+        ],
+        "negative": [
+            "a portrait of a person without a white shirt",
+            "a person not wearing a white shirt",
+        ],
+    },
     "add_a_small_earring": {
         "positive": [
             "a portrait of a person wearing an earring",

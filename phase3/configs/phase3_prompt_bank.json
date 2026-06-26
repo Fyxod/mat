@@ -1,0 +1,58 @@
+{
+  "prompts": [
+    {
+      "prompt": "add headphones",
+      "prompt_type": "headphones",
+      "priority": 1
+    },
+    {
+      "prompt": "add black sunglasses",
+      "prompt_type": "glasses",
+      "priority": 2
+    },
+    {
+      "prompt": "add round glasses",
+      "prompt_type": "glasses",
+      "priority": 3
+    },
+    {
+      "prompt": "add a small beard",
+      "prompt_type": "beard",
+      "priority": 4
+    },
+    {
+      "prompt": "add a black jacket",
+      "prompt_type": "clothing",
+      "priority": 5
+    },
+    {
+      "prompt": "add a red scarf",
+      "prompt_type": "clothing",
+      "priority": 6
+    },
+    {
+      "prompt": "add a hoodie",
+      "prompt_type": "clothing",
+      "priority": 7
+    },
+    {
+      "prompt": "add a white shirt",
+      "prompt_type": "clothing",
+      "priority": 8
+    },
+    {
+      "prompt": "make the person smile slightly",
+      "prompt_type": "smile",
+      "priority": 9
+    }
+  ],
+  "avoid_prompts_for_existing_glasses": [
+    "add black sunglasses",
+    "add round glasses",
+    "add thin eyeglasses"
+  ],
+  "avoid_prompts_for_existing_facial_hair": [
+    "add a small beard",
+    "add light stubble"
+  ]
+}

@@ -25,6 +25,10 @@ def prompt_region_key(prompt: str) -> str:
         return "glasses"
     if "beard" in value:
         return "beard"
+    if any(token in value for token in ("jacket", "scarf", "hoodie", "shirt")):
+        return "clothing"
+    if "smile" in value:
+        return "smile"
     return "default"
 
 
@@ -266,4 +270,3 @@ __all__ = [
     "region_mask",
     "regions_for_prompt",
 ]
-

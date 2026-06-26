@@ -1,0 +1,34 @@
+{
+  "data_manifest": "data/phase3_image_manifest.json",
+  "canonical_input": "instruct_512.png",
+  "primary_face_ids": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006"
+  ],
+  "secondary_prompt_restricted_face_ids": [
+    "face_007",
+    "face_008"
+  ],
+  "baseline_face_ids": [
+    "face_001"
+  ],
+  "manual_restrictions": {
+    "face_007": {
+      "existing_glasses": true,
+      "existing_facial_hair": true
+    },
+    "face_008": {
+      "existing_glasses": true,
+      "existing_facial_hair": true
+    }
+  },
+  "notes": [
+    "Use face IDs in outputs, not person names.",
+    "Names and source URLs from data metadata are attribution only and are not used in scoring.",
+    "Use instruct_512.png as the canonical InstructPix2Pix input."
+  ]
+}
