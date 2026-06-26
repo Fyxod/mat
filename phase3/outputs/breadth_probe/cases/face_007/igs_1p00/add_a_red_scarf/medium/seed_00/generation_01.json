@@ -1,0 +1,37 @@
+{
+  "best_candidate_this_generation": "cand_004_g01_m04",
+  "best_score_this_generation": 0.15335197367096942,
+  "budget": "medium",
+  "cem_state": {
+    "mean_abs": 0.32598161697387695,
+    "method_probs": [
+      0.09599999999999997,
+      0.09599999999999997,
+      0.09599999999999997,
+      0.356,
+      0.356
+    ],
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ],
+    "std_max": 0.6499999761581421,
+    "std_mean": 0.46015802025794983,
+    "std_min": 0.23175010085105896
+  },
+  "decision_counts": {
+    "metric_only_candidate": 8
+  },
+  "elapsed_seconds": 43.22550069913268,
+  "elite": 2,
+  "elite_candidate_names": [
+    "cand_004_g01_m04",
+    "cand_003_g01_m03"
+  ],
+  "generation": 1,
+  "population": 8,
+  "prompt": "add a red scarf"
+}

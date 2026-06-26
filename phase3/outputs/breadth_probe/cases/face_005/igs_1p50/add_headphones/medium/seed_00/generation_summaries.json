@@ -1,0 +1,76 @@
+[
+  {
+    "best_candidate_this_generation": "cand_007_g01_m07",
+    "best_score_this_generation": 0.24754238394625105,
+    "budget": "medium",
+    "cem_state": {
+      "mean_abs": 0.4409988820552826,
+      "method_probs": [
+        0.096,
+        0.096,
+        0.096,
+        0.096,
+        0.616
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.44170036911964417,
+      "std_min": 0.22894084453582764
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 48.47046962752938,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_007_g01_m07",
+      "cand_004_g01_m04"
+    ],
+    "generation": 1,
+    "population": 8,
+    "prompt": "add headphones"
+  },
+  {
+    "best_candidate_this_generation": "cand_010_g02_m02",
+    "best_score_this_generation": 0.2362820315082057,
+    "budget": "medium",
+    "cem_state": {
+      "mean_abs": 0.5019524097442627,
+      "method_probs": [
+        0.0596,
+        0.0596,
+        0.0596,
+        0.31960000000000005,
+        0.5016
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.31375670433044434,
+      "std_min": 0.11769343912601471
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 47.140156047418714,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_010_g02_m02",
+      "cand_013_g02_m05"
+    ],
+    "generation": 2,
+    "population": 8,
+    "prompt": "add headphones"
+  }
+]

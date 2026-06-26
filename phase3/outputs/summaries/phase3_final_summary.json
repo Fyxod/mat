@@ -1,0 +1,12 @@
+{
+  "phase2c_candidate_count": 895,
+  "phase2c_negative": true,
+  "phase3_breadth_candidate_count": 816,
+  "phase3_clean_selected_cases": 24,
+  "phase3_decision_counts": {
+    "metric_only_candidate": 773,
+    "reject_input_damage": 43
+  },
+  "phase3_strong_candidate_count": 0,
+  "updated_at": "2026-06-26T22:53:21.861865+00:00"
+}

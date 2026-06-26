@@ -1,0 +1,76 @@
+[
+  {
+    "best_candidate_this_generation": "cand_002_g01_m02",
+    "best_score_this_generation": 0.1848824853259519,
+    "budget": "strong",
+    "cem_state": {
+      "mean_abs": 0.40641072392463684,
+      "method_probs": [
+        0.35600000000000004,
+        0.096,
+        0.096,
+        0.096,
+        0.35600000000000004
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.4486783444881439,
+      "std_min": 0.23140159249305725
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 42.79124522395432,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_002_g01_m02",
+      "cand_005_g01_m05"
+    ],
+    "generation": 1,
+    "population": 8,
+    "prompt": "add black sunglasses"
+  },
+  {
+    "best_candidate_this_generation": "cand_010_g02_m02",
+    "best_score_this_generation": 0.2125841715510561,
+    "budget": "strong",
+    "cem_state": {
+      "mean_abs": 0.528597354888916,
+      "method_probs": [
+        0.1506,
+        0.0596,
+        0.0596,
+        0.31960000000000005,
+        0.4106
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.34803250432014465,
+      "std_min": 0.09456638246774673
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 42.65998404286802,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_010_g02_m02",
+      "cand_013_g02_m05"
+    ],
+    "generation": 2,
+    "population": 8,
+    "prompt": "add black sunglasses"
+  }
+]

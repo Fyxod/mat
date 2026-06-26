@@ -1,0 +1,63 @@
+{
+  "budget": "strong",
+  "budget_max_disp_px": 6.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase3/outputs/breadth_probe/cases/face_008/igs_1p00/add_a_red_scarf/strong/seed_00/candidates/cand_006_g01_m06",
+  "candidate_index": 6,
+  "candidate_name": "cand_006_g01_m06",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 4.624527020379901,
+  "generation": 1,
+  "geometry_method": "region_local_dct",
+  "initial_candidate": false,
+  "input_l2": 0.003900105073385125,
+  "input_max_abs": 0.09411764144897461,
+  "input_mean_abs": 0.0010035247541964054,
+  "input_psnr": 48.17847384830771,
+  "input_ssim": 0.9964706301689148,
+  "max_disp_px": 0.6411120295524597,
+  "max_disp_px_budget": 6.0,
+  "mean_disp_px": 0.07394219189882278,
+  "member": 6,
+  "mesh_size": 4,
+  "output_l2": 0.01136176378001944,
+  "output_max_abs": 0.5215686559677124,
+  "output_mean_abs": 0.004160882905125618,
+  "output_psnr": 38.89108488575629,
+  "output_ssim": 0.9859594702720642,
+  "p95_disp_px": 0.4452601373195648,
+  "phase": "phase3_breadth_probe",
+  "prompt": "add a red scarf",
+  "prompt_priority": 6,
+  "prompt_slug": "add_a_red_scarf",
+  "region_count": 1,
+  "region_key": "clothing",
+  "scale_factor": 0.2009267807006836,
+  "seed": 54101,
+  "target_input_ssim": 0.9,
+  "tps_size": 4
+}

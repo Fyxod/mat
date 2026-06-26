@@ -1,0 +1,43 @@
+{
+  "info": {
+    "dct_modes": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "geometry_method": "region_local_dct",
+    "mesh_size": 4,
+    "region_count": 1,
+    "scale_factor": 0.48781073093414307,
+    "tps_size": 4
+  },
+  "regions": [
+    {
+      "center_x": 0.5,
+      "center_y": 0.84,
+      "radius_x": 0.42,
+      "radius_y": 0.22
+    }
+  ]
+}

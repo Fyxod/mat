@@ -1,0 +1,76 @@
+[
+  {
+    "best_candidate_this_generation": "cand_004_g01_m04",
+    "best_score_this_generation": 0.15335197367096942,
+    "budget": "medium",
+    "cem_state": {
+      "mean_abs": 0.32598161697387695,
+      "method_probs": [
+        0.09599999999999997,
+        0.09599999999999997,
+        0.09599999999999997,
+        0.356,
+        0.356
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.46015802025794983,
+      "std_min": 0.23175010085105896
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 43.22550069913268,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_004_g01_m04",
+      "cand_003_g01_m03"
+    ],
+    "generation": 1,
+    "population": 8,
+    "prompt": "add a red scarf"
+  },
+  {
+    "best_candidate_this_generation": "cand_014_g02_m06",
+    "best_score_this_generation": 0.202367324450987,
+    "budget": "medium",
+    "cem_state": {
+      "mean_abs": 0.42734745144844055,
+      "method_probs": [
+        0.05959999999999999,
+        0.05959999999999999,
+        0.05959999999999999,
+        0.4106,
+        0.4106
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.3199596703052521,
+      "std_min": 0.08760596066713333
+    },
+    "decision_counts": {
+      "metric_only_candidate": 8
+    },
+    "elapsed_seconds": 42.69596898928285,
+    "elite": 2,
+    "elite_candidate_names": [
+      "cand_014_g02_m06",
+      "cand_012_g02_m04"
+    ],
+    "generation": 2,
+    "population": 8,
+    "prompt": "add a red scarf"
+  }
+]
