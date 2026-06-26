@@ -1,0 +1,97 @@
+{
+  "best_folder": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04",
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04",
+  "candidate_index": 4,
+  "candidate_name": "cand_004_g01_m04",
+  "clean_clip_positive_margin": 0.0,
+  "clean_semantic_success_score": 0.0,
+  "clip_available": false,
+  "clip_semantic_drop": 0.0,
+  "clip_warning": "'BaseModelOutputWithPooling' object has no attribute 'norm'",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "decision_label": "metric_only_candidate",
+  "decision_reasons": [
+    "clip_unavailable_semantic_fallback",
+    "clip_warning:'BaseModelOutputWithPooling' object has no attribute 'norm'",
+    "clean_edit_clip_margin_nonpositive:0.0000"
+  ],
+  "edit_failure_score": 0.0,
+  "elapsed_seconds": 6.690203908830881,
+  "final_attack_score": 0.13696569442574125,
+  "generation": 1,
+  "geometry_excess_penalty": 0.0,
+  "geometry_excess_penalty_weight": 1.0,
+  "geometry_method": "region_local_dct",
+  "identity_or_face_health_available": false,
+  "initial_candidate": false,
+  "input_damage_penalty": 0.0,
+  "input_damage_penalty_weight": 3.0,
+  "input_l2": 0.011547301598895119,
+  "input_max_abs": 0.49803924560546875,
+  "input_mean_abs": 0.004091654438525438,
+  "input_preservation_score": 0.49656029542287233,
+  "input_psnr": 38.75038981781843,
+  "input_ssim": 0.9697936177253723,
+  "max_disp_px": 1.340564489364624,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.28536203503608704,
+  "member": 4,
+  "mesh_size": 4,
+  "output_disruption_score": 0.13696569442574125,
+  "output_disruption_weight": 1.0,
+  "output_l2": 0.020384654998342053,
+  "output_max_abs": 0.7568627595901489,
+  "output_mean_abs": 0.010540790855884552,
+  "output_psnr": 33.81393268799828,
+  "output_ssim": 0.944572925567627,
+  "p95_disp_px": 1.1499278545379639,
+  "path_flow": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04/flow.png",
+  "path_original": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04/original.png",
+  "path_original_edited": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04/original_edited.png",
+  "path_perturbed": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04/perturbed.png",
+  "path_perturbed_edited": "phase2/outputs/phase2a_probe/parallel_benchmark/parallel_2/candidates/cand_004_g01_m04/perturbed_edited.png",
+  "perturbed_clip_positive_margin": 0.0,
+  "perturbed_semantic_success_score": 0.0,
+  "phase": "benchmark_parallel_2",
+  "phase2_final_score": 0.13696569442574125,
+  "phase2_output_disruption": 0.13696569442574125,
+  "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
+  "prompt": "add headphones",
+  "prompt_priority": 1,
+  "prompt_slug": "add_headphones",
+  "region_count": 3,
+  "region_key": "headphones",
+  "scale_factor": 0.5659709572792053,
+  "seed": 99901,
+  "semantic_drop": 0.0,
+  "semantic_drop_weight": 4.0,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}

@@ -1,0 +1,63 @@
+{
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase2/outputs/phase2a_probe/add_black_sunglasses/medium/seed_00/candidates/cand_026_g03_m02",
+  "candidate_index": 26,
+  "candidate_name": "cand_026_g03_m02",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 5.892449911683798,
+  "generation": 3,
+  "geometry_method": "combined_tps_dct",
+  "initial_candidate": false,
+  "input_l2": 0.019637740665354775,
+  "input_max_abs": 0.7333333492279053,
+  "input_mean_abs": 0.003994198050349951,
+  "input_psnr": 34.13816959066756,
+  "input_ssim": 0.967597484588623,
+  "max_disp_px": 3.258188247680664,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.2880079746246338,
+  "member": 2,
+  "mesh_size": 4,
+  "output_l2": 0.021573564327135464,
+  "output_max_abs": 0.658823549747467,
+  "output_mean_abs": 0.00752125633880496,
+  "output_psnr": 33.32156191971634,
+  "output_ssim": 0.9658229351043701,
+  "p95_disp_px": 2.6253063678741455,
+  "phase": "phase2a_probe",
+  "prompt": "add black sunglasses",
+  "prompt_priority": 2,
+  "prompt_slug": "add_black_sunglasses",
+  "region_count": 1,
+  "region_key": "glasses",
+  "scale_factor": 0.8317526578903198,
+  "seed": 23001,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}
