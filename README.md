@@ -1,19 +1,22 @@
-# MAT: geometric white-box attacks on InstructPix2Pix
+# MAT: geometric attacks on InstructPix2Pix
 
-This repository is a focused Phase 1 research workflow: can visually small, face-local geometric warps disrupt a cleanly working InstructPix2Pix edit?
+This repository is a focused research workflow: can visually small, face-local geometric warps disrupt a cleanly working InstructPix2Pix edit?
 
 The attack changes only geometric transformation parameters. It does not add pixel noise, adversarial patches, LoRA, finetuning, or train model weights.
 
-The canonical Phase 1 input is [data/face_001/instruct_512.png](data/face_001/instruct_512.png). The Phase 1 implementation lives in [phase1](phase1/README.md).
+The canonical input is [data/face_001/instruct_512.png](data/face_001/instruct_512.png).
+
+- [Phase 1](phase1/README.md) preserves the true white-box internal-objective diagnostics.
+- [Phase 2](phase2/README.md) adds final-edit black-box CEM search over geometry-only warps.
 
 ## Windows development
 
-This Windows machine is for code changes, import checks, and very small diagnostics only. Do not run the Phase 1A or Phase 1B sweep on a 4 GB GPU.
+This Windows machine is for code changes, import checks, and very small diagnostics only. Do not run Phase 1 sweeps or Phase 2 final-edit CEM on a laptop GPU.
 
 From the project root:
 
 ```powershell
-python -m compileall phase1 scripts
+python -m compileall phase1 phase2 scripts
 python scripts/check_env.py
 ```
 
@@ -44,6 +47,14 @@ $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/ma
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode phase1b
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode final_validation
 $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.a6000_run --root /home/interns/Desktop/mat --mode summarize
+```
+
+For Phase 2 final-edit search:
+
+```bash
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase2.scripts.run_phase2a_probe --root /home/interns/Desktop/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase2.scripts.run_phase2b_cem --root /home/interns/Desktop/mat
+$HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase2.scripts.summarize_phase2 --root /home/interns/Desktop/mat
 ```
 
 Each mode records a timestamped log and a success/failure marker. It skips completed work until called with `--force`.

@@ -1,0 +1,14 @@
+{
+  "benchmark_before_phase2a": true,
+  "benchmark_candidates": 8,
+  "parallel_experimental": true,
+  "parallel_workers": 2,
+  "max_parallel_workers": 2,
+  "worker_start_method": "spawn",
+  "worker_loads_own_pipeline": true,
+  "cuda_device": "cuda:0",
+  "minimum_speedup_for_parallel": 1.15,
+  "retry_serial_on_parallel_failure": true,
+  "allow_three_workers": false
+}
+

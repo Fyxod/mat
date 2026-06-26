@@ -1,0 +1,90 @@
+{
+  "input_image": "data/face_001/instruct_512.png",
+  "prompts": [
+    "add headphones",
+    "add black sunglasses",
+    "add round glasses",
+    "add a small beard"
+  ],
+  "prompt_priority": [
+    "add headphones",
+    "add black sunglasses",
+    "add round glasses",
+    "add a small beard"
+  ],
+  "budgets": [
+    {
+      "name": "medium",
+      "max_disp_px": 4.0,
+      "target_input_ssim": 0.94
+    },
+    {
+      "name": "strong",
+      "max_disp_px": 6.0,
+      "target_input_ssim": 0.90
+    },
+    {
+      "name": "existence_probe",
+      "max_disp_px": 8.0,
+      "target_input_ssim": 0.86
+    }
+  ],
+  "phase2a": {
+    "generations": 3,
+    "population": 12,
+    "elite": 3,
+    "seeds_per_prompt_budget": 1,
+    "sample_std": 0.65,
+    "min_std": 0.08,
+    "std_smoothing": 0.65,
+    "seed": 22001,
+    "eval_initial": true
+  },
+  "phase2b": {
+    "generations": 6,
+    "population": 16,
+    "elite": 4,
+    "sample_std": 0.55,
+    "min_std": 0.06,
+    "std_smoothing": 0.65,
+    "seed": 23001,
+    "eval_initial": true,
+    "promising_weak_semantic_drop": 0.025
+  },
+  "geometry": {
+    "tps_size": 4,
+    "mesh_size": 4,
+    "dct_modes": [
+      [1, 0],
+      [0, 1],
+      [1, 1],
+      [2, 0],
+      [0, 2],
+      [2, 1]
+    ],
+    "edge_falloff": 0.12,
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ]
+  },
+  "scoring": {
+    "semantic_drop_weight": 4.0,
+    "output_disruption_weight": 1.0,
+    "input_damage_penalty_weight": 3.0,
+    "geometry_excess_penalty_weight": 1.0,
+    "strong_semantic_drop": 0.04,
+    "weak_semantic_drop": 0.015,
+    "require_clip": true
+  },
+  "clip": {
+    "model_id": "openai/clip-vit-base-patch32",
+    "revision": "d15b5f29721ca72dac15f8526b284be910de18be",
+    "use_safetensors": true,
+    "device": "cuda"
+  }
+}
+

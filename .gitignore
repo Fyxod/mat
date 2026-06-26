@@ -29,5 +29,8 @@ phase1/outputs/logs/*.log
 phase1/outputs/**/checkpoints/
 phase1/outputs/**/best/theta.pt
 phase1/outputs/**/optimizer_state.pt
+phase2/outputs/logs/*.log
+phase2/outputs/**/theta.pt
+phase2/outputs/**/optimizer_state.pt
 *.tmp
 *.bak
