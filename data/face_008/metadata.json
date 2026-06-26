@@ -1,0 +1,29 @@
+{
+  "face_id": "face_008",
+  "display_name": "Sunil Abraham",
+  "source_page": "https://en.wikipedia.org/wiki/Sunil_Abraham",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Wikimedia_Summit_2019_-_Portrait_Sunil_Abraham_%282%29.jpg",
+  "license_note": "Wikimedia Commons image linked from Wikipedia; verify exact file license on Commons page before publication.",
+  "why": "high-resolution frontal portrait with existing glasses; useful for headphones/clothing, but avoid glasses prompts.",
+  "priority": "low_for_glasses_medium_for_headphones",
+  "source_original_filename": "source_original.jpg",
+  "source_original_size_px": [
+    3585,
+    4660
+  ],
+  "crop_strategy": "center square crop with mild top bias, then resized to 1024/512/768",
+  "master_size_px": [
+    1024,
+    1024
+  ],
+  "instruct_size_px": [
+    512,
+    512
+  ],
+  "flux_size_px": [
+    768,
+    768
+  ],
+  "recommended_phase3_use": "Use instruct_512.png for InstructPix2Pix clean discovery / Phase 3; use flux_768.png only if/when testing FLUX.",
+  "notes": "Research input image only; keep attribution/source metadata if used in a report or public repo."
+}
