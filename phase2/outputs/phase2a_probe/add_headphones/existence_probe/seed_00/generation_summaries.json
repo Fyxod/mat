@@ -26,7 +26,7 @@
     "decision_counts": {
       "metric_only_candidate": 12
     },
-    "elapsed_seconds": 73.22467126138508,
+    "elapsed_seconds": 5.826892431825399,
     "elite": 3,
     "elite_candidate_names": [
       "cand_010_g01_m10",
@@ -38,16 +38,16 @@
     "prompt": "add headphones"
   },
   {
-    "best_candidate_this_generation": "cand_019_g02_m07",
-    "best_score_this_generation": 0.23575477265367864,
+    "best_candidate_this_generation": "cand_013_g02_m01",
+    "best_score_this_generation": 0.2884988391171522,
     "budget": "existence_probe",
     "cem_state": {
-      "mean_abs": 0.3574411869049072,
+      "mean_abs": 0.3470320701599121,
       "method_probs": [
-        0.2352857142857143,
         0.04957142857142857,
-        0.11457142857142857,
-        0.551,
+        0.04957142857142857,
+        0.6717142857142857,
+        0.17957142857142858,
         0.04957142857142857
       ],
       "methods": [
@@ -58,18 +58,19 @@
         "combined_all"
       ],
       "std_max": 0.6499999761581421,
-      "std_mean": 0.3833812475204468,
-      "std_min": 0.1242896169424057
+      "std_mean": 0.37164899706840515,
+      "std_min": 0.11575567722320557
     },
     "decision_counts": {
-      "metric_only_candidate": 12
+      "metric_only_candidate": 9,
+      "weak_candidate": 3
     },
-    "elapsed_seconds": 71.2473324034363,
+    "elapsed_seconds": 5.513511270284653,
     "elite": 3,
     "elite_candidate_names": [
-      "cand_019_g02_m07",
-      "cand_017_g02_m05",
-      "cand_016_g02_m04"
+      "cand_013_g02_m01",
+      "cand_022_g02_m10",
+      "cand_014_g02_m02"
     ],
     "generation": 2,
     "population": 12,
@@ -80,13 +81,13 @@
     "best_score_this_generation": 0.2863270266897503,
     "budget": "existence_probe",
     "cem_state": {
-      "mean_abs": 0.38875749707221985,
+      "mean_abs": 0.35419589281082153,
       "method_probs": [
-        0.47235,
-        0.03592142857142857,
-        0.05867142857142857,
-        0.39713571428571426,
-        0.03592142857142857
+        0.035921428571428576,
+        0.035921428571428576,
+        0.8108142857142858,
+        0.08142142857142859,
+        0.035921428571428576
       ],
       "methods": [
         "region_local_tps",
@@ -96,13 +97,13 @@
         "combined_all"
       ],
       "std_max": 0.6499999761581421,
-      "std_mean": 0.3127221465110779,
+      "std_mean": 0.3053955137729645,
       "std_min": 0.07999999821186066
     },
     "decision_counts": {
       "metric_only_candidate": 12
     },
-    "elapsed_seconds": 69.17290307022631,
+    "elapsed_seconds": 5.731947368010879,
     "elite": 3,
     "elite_candidate_names": [
       "cand_029_g03_m05",

@@ -3,13 +3,13 @@
   "best_score_this_generation": 0.24798815706506833,
   "budget": "strong",
   "cem_state": {
-    "mean_abs": 0.26878368854522705,
+    "mean_abs": 0.26582857966423035,
     "method_probs": [
       0.08857142857142856,
       0.08857142857142856,
-      0.08857142857142856,
+      0.2742857142857143,
       0.46,
-      0.2742857142857143
+      0.08857142857142856
     ],
     "methods": [
       "region_local_tps",
@@ -19,19 +19,20 @@
       "combined_all"
     ],
     "std_max": 0.6499999761581421,
-    "std_mean": 0.5134038329124451,
-    "std_min": 0.2371680736541748
+    "std_mean": 0.5114321112632751,
+    "std_min": 0.23849834501743317
   },
   "decision_counts": {
-    "metric_only_candidate": 11,
-    "reject_input_damage": 1
+    "metric_only_candidate": 10,
+    "reject_input_damage": 1,
+    "weak_candidate": 1
   },
-  "elapsed_seconds": 72.02493186481297,
+  "elapsed_seconds": 5.607871340587735,
   "elite": 3,
   "elite_candidate_names": [
     "cand_008_g01_m08",
     "cand_012_g01_m12",
-    "cand_003_g01_m03"
+    "cand_002_g01_m02"
   ],
   "generation": 1,
   "population": 12,

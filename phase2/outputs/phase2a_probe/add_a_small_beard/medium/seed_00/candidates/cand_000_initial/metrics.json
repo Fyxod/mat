@@ -1,0 +1,24 @@
+{
+  "displacement": {
+    "budget_max_disp_px": 4.0,
+    "max_disp_px": 0.0,
+    "max_disp_px_budget": 4.0,
+    "mean_disp_px": 0.0,
+    "p95_disp_px": 0.0,
+    "target_input_ssim": 0.94
+  },
+  "input": {
+    "l2": 0.0,
+    "max_abs": 0.0,
+    "mean_abs": 0.0,
+    "psnr": 100.0,
+    "ssim": 1.0
+  },
+  "output": {
+    "l2": 0.0009632685084726304,
+    "max_abs": 0.0156862735748291,
+    "mean_abs": 0.0002342971129110083,
+    "psnr": 60.32505275192481,
+    "ssim": 0.9995112419128418
+  }
+}

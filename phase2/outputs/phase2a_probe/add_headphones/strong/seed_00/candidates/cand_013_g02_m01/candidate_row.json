@@ -5,11 +5,11 @@
   "candidate_folder": "phase2/outputs/phase2a_probe/add_headphones/strong/seed_00/candidates/cand_013_g02_m01",
   "candidate_index": 13,
   "candidate_name": "cand_013_g02_m01",
-  "clean_clip_positive_margin": 0.0,
-  "clean_semantic_success_score": 0.0,
-  "clip_available": false,
-  "clip_semantic_drop": 0.0,
-  "clip_warning": "'BaseModelOutputWithPooling' object has no attribute 'norm'",
+  "clean_clip_positive_margin": 0.027842342853546143,
+  "clean_semantic_success_score": 0.027842342853546143,
+  "clip_available": true,
+  "clip_semantic_drop": -0.0020220577716827393,
+  "clip_warning": null,
   "dct_modes": [
     [
       1,
@@ -38,9 +38,8 @@
   ],
   "decision_label": "metric_only_candidate",
   "decision_reasons": [
-    "clip_unavailable_semantic_fallback",
-    "clip_warning:'BaseModelOutputWithPooling' object has no attribute 'norm'",
-    "clean_edit_clip_margin_nonpositive:0.0000"
+    "semantic_drop_nonpositive:-0.0020",
+    "semantic_drop_nonpositive:-0.0020"
   ],
   "edit_failure_score": 0.0,
   "elapsed_seconds": 4.926721911877394,
@@ -77,8 +76,8 @@
   "path_original_edited": "phase2/outputs/phase2a_probe/add_headphones/strong/seed_00/candidates/cand_013_g02_m01/original_edited.png",
   "path_perturbed": "phase2/outputs/phase2a_probe/add_headphones/strong/seed_00/candidates/cand_013_g02_m01/perturbed.png",
   "path_perturbed_edited": "phase2/outputs/phase2a_probe/add_headphones/strong/seed_00/candidates/cand_013_g02_m01/perturbed_edited.png",
-  "perturbed_clip_positive_margin": 0.0,
-  "perturbed_semantic_success_score": 0.0,
+  "perturbed_clip_positive_margin": 0.029864400625228882,
+  "perturbed_semantic_success_score": 0.029864400625228882,
   "phase": "phase2a_probe",
   "phase2_final_score": 0.23170669292017482,
   "phase2_output_disruption": 0.23170669292017482,
@@ -90,8 +89,9 @@
   "region_key": "headphones",
   "scale_factor": 0.7150994539260864,
   "seed": 22101,
-  "semantic_drop": 0.0,
+  "semantic_drop": -0.0020220577716827393,
   "semantic_drop_weight": 4.0,
+  "semantic_rescored_from_cache": true,
   "target_input_ssim": 0.9,
   "tps_size": 4
 }

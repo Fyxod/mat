@@ -1,14 +1,13 @@
 {
-  "clean_clip_positive_margin": 0.0,
-  "clean_semantic_success_score": 0.0,
-  "clip_available": false,
-  "clip_semantic_drop": 0.0,
-  "clip_warning": "'BaseModelOutputWithPooling' object has no attribute 'norm'",
+  "clean_clip_positive_margin": 0.027842342853546143,
+  "clean_semantic_success_score": 0.027842342853546143,
+  "clip_available": true,
+  "clip_semantic_drop": -0.0012203752994537354,
+  "clip_warning": null,
   "decision_label": "reject_input_damage",
   "decision_reasons": [
     "input_ssim_below_target:0.9395<0.9400",
-    "clip_unavailable_semantic_fallback",
-    "clip_warning:'BaseModelOutputWithPooling' object has no attribute 'norm'"
+    "semantic_drop_nonpositive:-0.0012"
   ],
   "edit_failure_score": 0.0,
   "final_attack_score": 0.1644575286011985,
@@ -31,12 +30,12 @@
   "output_mean_abs": 0.011000428348779678,
   "output_psnr": 31.567335956597084,
   "output_ssim": 0.9280861020088196,
-  "perturbed_clip_positive_margin": 0.0,
-  "perturbed_semantic_success_score": 0.0,
+  "perturbed_clip_positive_margin": 0.029062718152999878,
+  "perturbed_semantic_success_score": 0.029062718152999878,
   "phase2_final_score": 0.1644575286011985,
   "phase2_output_disruption": 0.17752101660778902,
   "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
-  "semantic_drop": 0.0,
+  "semantic_drop": -0.0012203752994537354,
   "semantic_drop_weight": 4.0,
   "target_input_ssim": 0.94
 }

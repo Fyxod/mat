@@ -1,0 +1,63 @@
+{
+  "budget": "strong",
+  "budget_max_disp_px": 6.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase2/outputs/phase2a_probe/add_round_glasses/strong/seed_00/candidates/cand_035_g03_m11",
+  "candidate_index": 35,
+  "candidate_name": "cand_035_g03_m11",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 5.114482814446092,
+  "generation": 3,
+  "geometry_method": "combined_all",
+  "initial_candidate": false,
+  "input_l2": 0.01778244360878718,
+  "input_max_abs": 0.6666666865348816,
+  "input_mean_abs": 0.003478181315585971,
+  "input_psnr": 35.00017119702106,
+  "input_ssim": 0.972392737865448,
+  "max_disp_px": 3.2177236080169678,
+  "max_disp_px_budget": 6.0,
+  "mean_disp_px": 0.21239164471626282,
+  "member": 11,
+  "mesh_size": 4,
+  "output_l2": 0.02612243299565115,
+  "output_max_abs": 0.8117647171020508,
+  "output_mean_abs": 0.007471082732081413,
+  "output_psnr": 31.659727522382106,
+  "output_ssim": 0.9553115367889404,
+  "p95_disp_px": 1.9112465381622314,
+  "phase": "phase2a_probe",
+  "prompt": "add round glasses",
+  "prompt_priority": 3,
+  "prompt_slug": "add_round_glasses",
+  "region_count": 1,
+  "region_key": "glasses",
+  "scale_factor": 0.966984748840332,
+  "seed": 24101,
+  "target_input_ssim": 0.9,
+  "tps_size": 4
+}

@@ -1,7 +1,8 @@
 {
   "candidate_name": "cand_034_g03_m10",
-  "completed_at": "2026-06-26T16:54:39.994774+00:00",
+  "completed_at": "2026-06-26T17:28:58.353712+00:00",
   "decision_label": "reject_input_damage",
-  "phase2_final_score": -0.017770722125019456,
+  "phase2_final_score": 0.02588240840629158,
+  "semantic_rescored_from_cache": true,
   "status": "completed"
 }

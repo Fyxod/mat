@@ -3,13 +3,13 @@
   "best_score_this_generation": 0.26876000231925967,
   "budget": "strong",
   "cem_state": {
-    "mean_abs": 0.37548306584358215,
+    "mean_abs": 0.4434351623058319,
     "method_probs": [
-      0.03592142857142857,
-      0.03592142857142857,
-      0.03592142857142857,
-      0.64785,
-      0.2443857142857143
+      0.035921428571428576,
+      0.035921428571428576,
+      0.3093857142857143,
+      0.5828500000000001,
+      0.035921428571428576
     ],
     "methods": [
       "region_local_tps",
@@ -19,19 +19,19 @@
       "combined_all"
     ],
     "std_max": 0.6499999761581421,
-    "std_mean": 0.3569565415382385,
-    "std_min": 0.09768670052289963
+    "std_mean": 0.36456745862960815,
+    "std_min": 0.09367084503173828
   },
   "decision_counts": {
     "metric_only_candidate": 11,
     "reject_input_damage": 1
   },
-  "elapsed_seconds": 73.1932989358902,
+  "elapsed_seconds": 5.741183120757341,
   "elite": 3,
   "elite_candidate_names": [
     "cand_029_g03_m05",
     "cand_026_g03_m02",
-    "cand_025_g03_m01"
+    "cand_033_g03_m09"
   ],
   "generation": 3,
   "population": 12,

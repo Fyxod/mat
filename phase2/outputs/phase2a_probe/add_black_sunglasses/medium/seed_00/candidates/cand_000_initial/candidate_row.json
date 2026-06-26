@@ -5,11 +5,11 @@
   "candidate_folder": "phase2/outputs/phase2a_probe/add_black_sunglasses/medium/seed_00/candidates/cand_000_initial",
   "candidate_index": 0,
   "candidate_name": "cand_000_initial",
-  "clean_clip_positive_margin": 0.0,
-  "clean_semantic_success_score": 0.0,
-  "clip_available": false,
-  "clip_semantic_drop": 0.0,
-  "clip_warning": "'BaseModelOutputWithPooling' object has no attribute 'norm'",
+  "clean_clip_positive_margin": 0.03148290514945984,
+  "clean_semantic_success_score": 0.03148290514945984,
+  "clip_available": true,
+  "clip_semantic_drop": -0.000280916690826416,
+  "clip_warning": null,
   "dct_modes": [
     [
       1,
@@ -38,9 +38,8 @@
   ],
   "decision_label": "metric_only_candidate",
   "decision_reasons": [
-    "clip_unavailable_semantic_fallback",
-    "clip_warning:'BaseModelOutputWithPooling' object has no attribute 'norm'",
-    "clean_edit_clip_margin_nonpositive:0.0000"
+    "semantic_drop_nonpositive:-0.0003",
+    "semantic_drop_nonpositive:-0.0003"
   ],
   "edit_failure_score": 0.0,
   "elapsed_seconds": 5.178618673235178,
@@ -77,8 +76,8 @@
   "path_original_edited": "phase2/outputs/phase2a_probe/add_black_sunglasses/medium/seed_00/candidates/cand_000_initial/original_edited.png",
   "path_perturbed": "phase2/outputs/phase2a_probe/add_black_sunglasses/medium/seed_00/candidates/cand_000_initial/perturbed.png",
   "path_perturbed_edited": "phase2/outputs/phase2a_probe/add_black_sunglasses/medium/seed_00/candidates/cand_000_initial/perturbed_edited.png",
-  "perturbed_clip_positive_margin": 0.0,
-  "perturbed_semantic_success_score": 0.0,
+  "perturbed_clip_positive_margin": 0.031763821840286255,
+  "perturbed_semantic_success_score": 0.031763821840286255,
   "phase": "phase2a_probe",
   "phase2_final_score": 0.009611583027250417,
   "phase2_output_disruption": 0.009611583027250417,
@@ -90,8 +89,9 @@
   "region_key": "glasses",
   "scale_factor": 0.5750000476837158,
   "seed": 23001,
-  "semantic_drop": 0.0,
+  "semantic_drop": -0.000280916690826416,
   "semantic_drop_weight": 4.0,
+  "semantic_rescored_from_cache": true,
   "target_input_ssim": 0.94,
   "tps_size": 4
 }

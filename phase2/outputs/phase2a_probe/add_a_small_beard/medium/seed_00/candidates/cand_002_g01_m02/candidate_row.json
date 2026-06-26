@@ -1,0 +1,97 @@
+{
+  "best_folder": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02",
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02",
+  "candidate_index": 2,
+  "candidate_name": "cand_002_g01_m02",
+  "clean_clip_positive_margin": 0.026591509580612183,
+  "clean_semantic_success_score": 0.026591509580612183,
+  "clip_available": true,
+  "clip_semantic_drop": -0.00013083219528198242,
+  "clip_warning": null,
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "decision_label": "metric_only_candidate",
+  "decision_reasons": [
+    "semantic_drop_nonpositive:-0.0001",
+    "semantic_drop_nonpositive:-0.0001"
+  ],
+  "edit_failure_score": 0.0,
+  "elapsed_seconds": 5.1095442324876785,
+  "final_attack_score": 0.10690676344135287,
+  "generation": 1,
+  "geometry_excess_penalty": 0.0,
+  "geometry_excess_penalty_weight": 1.0,
+  "geometry_method": "region_local_mesh",
+  "identity_or_face_health_available": false,
+  "initial_candidate": false,
+  "input_damage_penalty": 0.0,
+  "input_damage_penalty_weight": 3.0,
+  "input_l2": 0.008692486048310273,
+  "input_max_abs": 0.5176470875740051,
+  "input_mean_abs": 0.0018381454283371568,
+  "input_preservation_score": 0.7612943251927696,
+  "input_psnr": 41.21711995398519,
+  "input_ssim": 0.9856776595115662,
+  "max_disp_px": 1.4513112306594849,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.12041038274765015,
+  "member": 2,
+  "mesh_size": 4,
+  "output_disruption_score": 0.10690676344135287,
+  "output_disruption_weight": 1.0,
+  "output_l2": 0.017488909693307884,
+  "output_max_abs": 0.6196078658103943,
+  "output_mean_abs": 0.0058456831611692905,
+  "output_psnr": 35.14474529577782,
+  "output_ssim": 0.9630488753318787,
+  "p95_disp_px": 1.0053927898406982,
+  "path_flow": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02/flow.png",
+  "path_original": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02/original.png",
+  "path_original_edited": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02/original_edited.png",
+  "path_perturbed": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02/perturbed.png",
+  "path_perturbed_edited": "phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_002_g01_m02/perturbed_edited.png",
+  "perturbed_clip_positive_margin": 0.026722341775894165,
+  "perturbed_semantic_success_score": 0.026722341775894165,
+  "phase": "phase2a_probe",
+  "phase2_final_score": 0.10690676344135287,
+  "phase2_output_disruption": 0.10690676344135287,
+  "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
+  "prompt": "add a small beard",
+  "prompt_priority": 4,
+  "prompt_slug": "add_a_small_beard",
+  "region_count": 1,
+  "region_key": "beard",
+  "scale_factor": 0.390002965927124,
+  "seed": 25001,
+  "semantic_drop": -0.00013083219528198242,
+  "semantic_drop_weight": 4.0,
+  "semantic_rescored_from_cache": true,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}

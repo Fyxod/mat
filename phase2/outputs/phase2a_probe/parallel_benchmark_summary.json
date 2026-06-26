@@ -1,0 +1,9 @@
+{
+  "benchmark_candidates": 8,
+  "parallel_seconds": 54.61425582319498,
+  "serial_seconds": 49.62384637631476,
+  "speedup": 0.9086244173492745,
+  "status": "completed",
+  "use_parallel": false,
+  "workers": 2
+}

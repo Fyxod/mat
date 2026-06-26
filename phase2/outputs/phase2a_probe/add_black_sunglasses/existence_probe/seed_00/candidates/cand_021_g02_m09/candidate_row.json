@@ -1,0 +1,97 @@
+{
+  "best_folder": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09",
+  "budget": "existence_probe",
+  "budget_max_disp_px": 8.0,
+  "candidate_folder": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09",
+  "candidate_index": 21,
+  "candidate_name": "cand_021_g02_m09",
+  "clean_clip_positive_margin": 0.03148290514945984,
+  "clean_semantic_success_score": 0.03148290514945984,
+  "clip_available": true,
+  "clip_semantic_drop": -0.007380247116088867,
+  "clip_warning": null,
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "decision_label": "metric_only_candidate",
+  "decision_reasons": [
+    "semantic_drop_nonpositive:-0.0074",
+    "semantic_drop_nonpositive:-0.0074"
+  ],
+  "edit_failure_score": 0.0,
+  "elapsed_seconds": 5.177034547552466,
+  "final_attack_score": 0.10470730216344999,
+  "generation": 2,
+  "geometry_excess_penalty": 0.0,
+  "geometry_excess_penalty_weight": 1.0,
+  "geometry_method": "region_local_dct",
+  "identity_or_face_health_available": false,
+  "initial_candidate": false,
+  "input_damage_penalty": 0.0,
+  "input_damage_penalty_weight": 3.0,
+  "input_l2": 0.01597354364320695,
+  "input_max_abs": 0.7176470756530762,
+  "input_mean_abs": 0.0031507406383752823,
+  "input_preservation_score": 0.8060375452041626,
+  "input_psnr": 35.93197454639713,
+  "input_ssim": 0.9728452563285828,
+  "max_disp_px": 1.9305816888809204,
+  "max_disp_px_budget": 8.0,
+  "mean_disp_px": 0.1525886505842209,
+  "member": 9,
+  "mesh_size": 4,
+  "output_disruption_score": 0.10470730216344999,
+  "output_disruption_weight": 1.0,
+  "output_l2": 0.019164622205100474,
+  "output_max_abs": 0.6274510025978088,
+  "output_mean_abs": 0.0059116496704518795,
+  "output_psnr": 34.34999475267195,
+  "output_ssim": 0.9719511866569519,
+  "p95_disp_px": 1.3378887176513672,
+  "path_flow": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09/flow.png",
+  "path_original": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09/original.png",
+  "path_original_edited": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09/original_edited.png",
+  "path_perturbed": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09/perturbed.png",
+  "path_perturbed_edited": "phase2/outputs/phase2a_probe/add_black_sunglasses/existence_probe/seed_00/candidates/cand_021_g02_m09/perturbed_edited.png",
+  "perturbed_clip_positive_margin": 0.038863152265548706,
+  "perturbed_semantic_success_score": 0.038863152265548706,
+  "phase": "phase2a_probe",
+  "phase2_final_score": 0.10470730216344999,
+  "phase2_output_disruption": 0.10470730216344999,
+  "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
+  "prompt": "add black sunglasses",
+  "prompt_priority": 2,
+  "prompt_slug": "add_black_sunglasses",
+  "region_count": 1,
+  "region_key": "glasses",
+  "scale_factor": 0.782720685005188,
+  "seed": 23201,
+  "semantic_drop": -0.007380247116088867,
+  "semantic_drop_weight": 4.0,
+  "semantic_rescored_from_cache": true,
+  "target_input_ssim": 0.86,
+  "tps_size": 4
+}

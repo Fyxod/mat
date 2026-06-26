@@ -1,0 +1,97 @@
+{
+  "best_folder": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08",
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08",
+  "candidate_index": 8,
+  "candidate_name": "cand_008_g01_m08",
+  "clean_clip_positive_margin": 0.02973318099975586,
+  "clean_semantic_success_score": 0.02973318099975586,
+  "clip_available": true,
+  "clip_semantic_drop": 0.0011931359767913818,
+  "clip_warning": null,
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "decision_label": "metric_only_candidate",
+  "decision_reasons": [
+    "semantic_drop_small:0.0012",
+    "semantic_drop_small:0.0012"
+  ],
+  "edit_failure_score": 0.0011931359767913818,
+  "elapsed_seconds": 5.085569703951478,
+  "final_attack_score": 0.13305100369433007,
+  "generation": 1,
+  "geometry_excess_penalty": 0.0,
+  "geometry_excess_penalty_weight": 1.0,
+  "geometry_method": "combined_all",
+  "identity_or_face_health_available": false,
+  "initial_candidate": false,
+  "input_damage_penalty": 0.0,
+  "input_damage_penalty_weight": 3.0,
+  "input_l2": 0.016297668056619537,
+  "input_max_abs": 0.7098039388656616,
+  "input_mean_abs": 0.003292243229225278,
+  "input_preservation_score": 0.5374202728271489,
+  "input_psnr": 35.75749063902907,
+  "input_ssim": 0.9722452163696289,
+  "max_disp_px": 2.103473424911499,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.19022920727729797,
+  "member": 8,
+  "mesh_size": 4,
+  "output_disruption_score": 0.12827845978716454,
+  "output_disruption_weight": 1.0,
+  "output_l2": 0.0220727686285462,
+  "output_max_abs": 0.8156862854957581,
+  "output_mean_abs": 0.006225107237696648,
+  "output_psnr": 33.12286378109199,
+  "output_ssim": 0.9600126147270203,
+  "p95_disp_px": 1.7194193601608276,
+  "path_flow": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08/flow.png",
+  "path_original": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08/original.png",
+  "path_original_edited": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08/original_edited.png",
+  "path_perturbed": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08/perturbed.png",
+  "path_perturbed_edited": "phase2/outputs/phase2a_probe/add_round_glasses/medium/seed_00/candidates/cand_008_g01_m08/perturbed_edited.png",
+  "perturbed_clip_positive_margin": 0.028540045022964478,
+  "perturbed_semantic_success_score": 0.028540045022964478,
+  "phase": "phase2a_probe",
+  "phase2_final_score": 0.13305100369433007,
+  "phase2_output_disruption": 0.12827845978716454,
+  "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
+  "prompt": "add round glasses",
+  "prompt_priority": 3,
+  "prompt_slug": "add_round_glasses",
+  "region_count": 1,
+  "region_key": "glasses",
+  "scale_factor": 0.590723991394043,
+  "seed": 24001,
+  "semantic_drop": 0.0011931359767913818,
+  "semantic_drop_weight": 4.0,
+  "semantic_rescored_from_cache": true,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}

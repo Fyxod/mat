@@ -26,10 +26,10 @@
         1
       ]
     ],
-    "geometry_method": "combined_tps_dct",
+    "geometry_method": "combined_all",
     "mesh_size": 4,
     "region_count": 3,
-    "scale_factor": 0.8929052352905273,
+    "scale_factor": 0.7381546497344971,
     "tps_size": 4
   },
   "regions": [

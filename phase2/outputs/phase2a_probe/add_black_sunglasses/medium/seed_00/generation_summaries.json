@@ -26,7 +26,7 @@
     "decision_counts": {
       "metric_only_candidate": 12
     },
-    "elapsed_seconds": 69.4995895549655,
+    "elapsed_seconds": 5.4689794685691595,
     "elite": 3,
     "elite_candidate_names": [
       "cand_010_g01_m10",
@@ -64,7 +64,7 @@
     "decision_counts": {
       "metric_only_candidate": 12
     },
-    "elapsed_seconds": 69.32135961577296,
+    "elapsed_seconds": 5.424452910199761,
     "elite": 3,
     "elite_candidate_names": [
       "cand_023_g02_m11",
@@ -102,7 +102,7 @@
     "decision_counts": {
       "metric_only_candidate": 12
     },
-    "elapsed_seconds": 69.40142518281937,
+    "elapsed_seconds": 5.58982609026134,
     "elite": 3,
     "elite_candidate_names": [
       "cand_036_g03_m12",

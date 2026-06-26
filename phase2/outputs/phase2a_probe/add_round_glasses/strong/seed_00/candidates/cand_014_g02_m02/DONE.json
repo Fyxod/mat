@@ -1,0 +1,8 @@
+{
+  "candidate_name": "cand_014_g02_m02",
+  "completed_at": "2026-06-26T17:30:47.849863+00:00",
+  "decision_label": "metric_only_candidate",
+  "phase2_final_score": 0.1736458350662482,
+  "semantic_rescored_from_cache": true,
+  "status": "completed"
+}

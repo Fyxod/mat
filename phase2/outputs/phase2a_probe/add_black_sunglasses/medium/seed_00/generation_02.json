@@ -25,7 +25,7 @@
   "decision_counts": {
     "metric_only_candidate": 12
   },
-  "elapsed_seconds": 69.32135961577296,
+  "elapsed_seconds": 5.424452910199761,
   "elite": 3,
   "elite_candidate_names": [
     "cand_023_g02_m11",

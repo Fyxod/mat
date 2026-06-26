@@ -1,0 +1,39 @@
+{
+  "best_candidate_this_generation": "cand_036_g03_m12",
+  "best_score_this_generation": 0.2948804998085375,
+  "budget": "existence_probe",
+  "cem_state": {
+    "mean_abs": 0.36823156476020813,
+    "method_probs": [
+      0.10092142857142856,
+      0.05867142857142857,
+      0.5601,
+      0.2443857142857143,
+      0.03592142857142857
+    ],
+    "methods": [
+      "region_local_tps",
+      "region_local_dct",
+      "region_local_mesh",
+      "combined_tps_dct",
+      "combined_all"
+    ],
+    "std_max": 0.6499999761581421,
+    "std_mean": 0.3316088020801544,
+    "std_min": 0.08564771711826324
+  },
+  "decision_counts": {
+    "metric_only_candidate": 11,
+    "weak_candidate": 1
+  },
+  "elapsed_seconds": 5.183621035888791,
+  "elite": 3,
+  "elite_candidate_names": [
+    "cand_036_g03_m12",
+    "cand_030_g03_m06",
+    "cand_026_g03_m02"
+  ],
+  "generation": 3,
+  "population": 12,
+  "prompt": "add round glasses"
+}

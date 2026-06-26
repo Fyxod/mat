@@ -1,9 +1,9 @@
 {
-  "best_candidate_this_generation": "cand_006_g01_m06",
-  "best_score_this_generation": 0.16335888472824017,
+  "best_candidate_this_generation": "cand_008_g01_m08",
+  "best_score_this_generation": 0.26388737076613,
   "budget": "medium",
   "cem_state": {
-    "mean_abs": 0.3021104037761688,
+    "mean_abs": 0.3111291229724884,
     "method_probs": [
       0.2742857142857143,
       0.08857142857142856,
@@ -19,19 +19,20 @@
       "combined_all"
     ],
     "std_max": 0.6499999761581421,
-    "std_mean": 0.5216101408004761,
-    "std_min": 0.24942977726459503
+    "std_mean": 0.5104056596755981,
+    "std_min": 0.2553926706314087
   },
   "decision_counts": {
-    "metric_only_candidate": 9,
-    "reject_input_damage": 3
+    "metric_only_candidate": 4,
+    "reject_input_damage": 3,
+    "weak_candidate": 5
   },
-  "elapsed_seconds": 73.78958377987146,
+  "elapsed_seconds": 5.851242687553167,
   "elite": 3,
   "elite_candidate_names": [
-    "cand_006_g01_m06",
     "cand_008_g01_m08",
-    "cand_009_g01_m09"
+    "cand_006_g01_m06",
+    "cand_010_g01_m10"
   ],
   "generation": 1,
   "population": 12,

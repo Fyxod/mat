@@ -1,0 +1,63 @@
+{
+  "budget": "medium",
+  "budget_max_disp_px": 4.0,
+  "candidate_folder_abs": "/home/interns/Desktop/mat/phase2/outputs/phase2a_probe/add_a_small_beard/medium/seed_00/candidates/cand_012_g01_m12",
+  "candidate_index": 12,
+  "candidate_name": "cand_012_g01_m12",
+  "dct_modes": [
+    [
+      1,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "elapsed_seconds": 5.126326367259026,
+  "generation": 1,
+  "geometry_method": "region_local_mesh",
+  "initial_candidate": false,
+  "input_l2": 0.010650218037319734,
+  "input_max_abs": 0.5843137502670288,
+  "input_mean_abs": 0.002383018843829632,
+  "input_psnr": 39.45283002021284,
+  "input_ssim": 0.981769323348999,
+  "max_disp_px": 1.851499319076538,
+  "max_disp_px_budget": 4.0,
+  "mean_disp_px": 0.17051297426223755,
+  "member": 12,
+  "mesh_size": 4,
+  "output_l2": 0.02095371574406316,
+  "output_max_abs": 0.5568627715110779,
+  "output_mean_abs": 0.007456223014742136,
+  "output_psnr": 33.574779039583895,
+  "output_ssim": 0.957167387008667,
+  "p95_disp_px": 1.4274541139602661,
+  "phase": "phase2a_probe",
+  "prompt": "add a small beard",
+  "prompt_priority": 4,
+  "prompt_slug": "add_a_small_beard",
+  "region_count": 1,
+  "region_key": "beard",
+  "scale_factor": 0.47232121229171753,
+  "seed": 25001,
+  "target_input_ssim": 0.94,
+  "tps_size": 4
+}

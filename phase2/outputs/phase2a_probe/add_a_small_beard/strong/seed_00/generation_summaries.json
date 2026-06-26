@@ -1,0 +1,116 @@
+[
+  {
+    "best_candidate_this_generation": "cand_006_g01_m06",
+    "best_score_this_generation": 0.19217159573067935,
+    "budget": "strong",
+    "cem_state": {
+      "mean_abs": 0.30846932530403137,
+      "method_probs": [
+        0.2742857142857143,
+        0.08857142857142856,
+        0.46,
+        0.08857142857142856,
+        0.08857142857142856
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.48837804794311523,
+      "std_min": 0.24362395703792572
+    },
+    "decision_counts": {
+      "metric_only_candidate": 12
+    },
+    "elapsed_seconds": 63.81352196633816,
+    "elite": 3,
+    "elite_candidate_names": [
+      "cand_006_g01_m06",
+      "cand_010_g01_m10",
+      "cand_001_g01_m01"
+    ],
+    "generation": 1,
+    "population": 12,
+    "prompt": "add a small beard"
+  },
+  {
+    "best_candidate_this_generation": "cand_016_g02_m04",
+    "best_score_this_generation": 0.20130486370110762,
+    "budget": "strong",
+    "cem_state": {
+      "mean_abs": 0.39067989587783813,
+      "method_probs": [
+        0.30028571428571427,
+        0.04957142857142857,
+        0.3652857142857143,
+        0.2352857142857143,
+        0.04957142857142857
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.3918057382106781,
+      "std_min": 0.14732107520103455
+    },
+    "decision_counts": {
+      "metric_only_candidate": 12
+    },
+    "elapsed_seconds": 63.55291731283069,
+    "elite": 3,
+    "elite_candidate_names": [
+      "cand_016_g02_m04",
+      "cand_014_g02_m02",
+      "cand_021_g02_m09"
+    ],
+    "generation": 2,
+    "population": 12,
+    "prompt": "add a small beard"
+  },
+  {
+    "best_candidate_this_generation": "cand_032_g03_m08",
+    "best_score_this_generation": 0.23998472065786092,
+    "budget": "strong",
+    "cem_state": {
+      "mean_abs": 0.3678535521030426,
+      "method_probs": [
+        0.6808142857142857,
+        0.03592142857142857,
+        0.1464214285714286,
+        0.10092142857142856,
+        0.03592142857142857
+      ],
+      "methods": [
+        "region_local_tps",
+        "region_local_dct",
+        "region_local_mesh",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.6499999761581421,
+      "std_mean": 0.32581183314323425,
+      "std_min": 0.09456536918878555
+    },
+    "decision_counts": {
+      "metric_only_candidate": 12
+    },
+    "elapsed_seconds": 63.283118795603514,
+    "elite": 3,
+    "elite_candidate_names": [
+      "cand_032_g03_m08",
+      "cand_031_g03_m07",
+      "cand_027_g03_m03"
+    ],
+    "generation": 3,
+    "population": 12,
+    "prompt": "add a small beard"
+  }
+]

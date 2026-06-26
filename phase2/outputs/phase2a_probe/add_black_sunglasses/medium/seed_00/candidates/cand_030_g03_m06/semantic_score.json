@@ -1,14 +1,13 @@
 {
-  "clean_clip_positive_margin": 0.0,
-  "clean_semantic_success_score": 0.0,
-  "clip_available": false,
-  "clip_semantic_drop": 0.0,
-  "clip_warning": "'BaseModelOutputWithPooling' object has no attribute 'norm'",
+  "clean_clip_positive_margin": 0.03148290514945984,
+  "clean_semantic_success_score": 0.03148290514945984,
+  "clip_available": true,
+  "clip_semantic_drop": -0.0077581703662872314,
+  "clip_warning": null,
   "decision_label": "metric_only_candidate",
   "decision_reasons": [
-    "clip_unavailable_semantic_fallback",
-    "clip_warning:'BaseModelOutputWithPooling' object has no attribute 'norm'",
-    "clean_edit_clip_margin_nonpositive:0.0000"
+    "semantic_drop_nonpositive:-0.0078",
+    "semantic_drop_nonpositive:-0.0078"
   ],
   "edit_failure_score": 0.0,
   "final_attack_score": 0.13136060518752513,
@@ -31,12 +30,12 @@
   "output_mean_abs": 0.008051952347159386,
   "output_psnr": 32.3674089285627,
   "output_ssim": 0.9649534225463867,
-  "perturbed_clip_positive_margin": 0.0,
-  "perturbed_semantic_success_score": 0.0,
+  "perturbed_clip_positive_margin": 0.03924107551574707,
+  "perturbed_semantic_success_score": 0.03924107551574707,
   "phase2_final_score": 0.13136060518752513,
   "phase2_output_disruption": 0.13136060518752513,
   "phase2_score_formula": "4*max(0,semantic_drop)+1*output_disruption-3*input_damage_penalty-1*geometry_excess_penalty",
-  "semantic_drop": 0.0,
+  "semantic_drop": -0.0077581703662872314,
   "semantic_drop_weight": 4.0,
   "target_input_ssim": 0.94
 }
