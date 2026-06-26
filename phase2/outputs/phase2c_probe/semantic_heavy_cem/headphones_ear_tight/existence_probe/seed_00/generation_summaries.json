@@ -1,0 +1,150 @@
+[
+  {
+    "best_candidate_this_generation": "cand_016_g01_m16",
+    "best_score_this_generation": 0.16495593258253477,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.47302284836769104,
+      "method_probs": [
+        0.7836046511627908,
+        0.03261627906976745,
+        0.18377906976744185
+      ],
+      "methods": [
+        "region_local_tps",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.44999998807907104,
+      "std_mean": 0.3600735068321228,
+      "std_min": 0.21589934825897217
+    },
+    "decision_counts": {
+      "metric_only_candidate": 13,
+      "weak_candidate": 3
+    },
+    "elapsed_seconds": 97.47871501185,
+    "elite": 4,
+    "elite_candidate_names": [
+      "cand_016_g01_m16",
+      "cand_007_g01_m07",
+      "cand_014_g01_m14",
+      "cand_008_g01_m08"
+    ],
+    "generation": 1,
+    "population": 16,
+    "prompt": "add headphones",
+    "region_variant": "headphones_ear_tight"
+  },
+  {
+    "best_candidate_this_generation": "cand_032_g02_m16",
+    "best_score_this_generation": 0.20223392233879345,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.4737628102302551,
+      "method_probs": [
+        0.7428662790697674,
+        0.02653197674418605,
+        0.2306017441860465
+      ],
+      "methods": [
+        "region_local_tps",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.44999998807907104,
+      "std_mean": 0.3063390552997589,
+      "std_min": 0.15184640884399414
+    },
+    "decision_counts": {
+      "metric_only_candidate": 12,
+      "weak_candidate": 4
+    },
+    "elapsed_seconds": 102.88025838695467,
+    "elite": 4,
+    "elite_candidate_names": [
+      "cand_032_g02_m16",
+      "cand_017_g02_m01",
+      "cand_030_g02_m14",
+      "cand_024_g02_m08"
+    ],
+    "generation": 2,
+    "population": 16,
+    "prompt": "add headphones",
+    "region_variant": "headphones_ear_tight"
+  },
+  {
+    "best_candidate_this_generation": "cand_045_g03_m13",
+    "best_score_this_generation": 0.22311202114792725,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.47087499499320984,
+      "method_probs": [
+        0.7286078488372093,
+        0.024402470930232564,
+        0.24698968023255816
+      ],
+      "methods": [
+        "region_local_tps",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.44999998807907104,
+      "std_mean": 0.2672134041786194,
+      "std_min": 0.0769132450222969
+    },
+    "decision_counts": {
+      "metric_only_candidate": 12,
+      "weak_candidate": 4
+    },
+    "elapsed_seconds": 104.37910120934248,
+    "elite": 4,
+    "elite_candidate_names": [
+      "cand_045_g03_m13",
+      "cand_036_g03_m04",
+      "cand_040_g03_m08",
+      "cand_041_g03_m09"
+    ],
+    "generation": 3,
+    "population": 16,
+    "prompt": "add headphones",
+    "region_variant": "headphones_ear_tight"
+  },
+  {
+    "best_candidate_this_generation": "cand_058_g04_m10",
+    "best_score_this_generation": 0.19751604188784816,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.4778045415878296,
+      "method_probs": [
+        0.8747801889534884,
+        0.023657143895348842,
+        0.1015626671511628
+      ],
+      "methods": [
+        "region_local_tps",
+        "combined_tps_dct",
+        "combined_all"
+      ],
+      "std_max": 0.44999998807907104,
+      "std_mean": 0.22925250232219696,
+      "std_min": 0.07355520874261856
+    },
+    "decision_counts": {
+      "metric_only_candidate": 11,
+      "weak_candidate": 5
+    },
+    "elapsed_seconds": 103.99768692068756,
+    "elite": 4,
+    "elite_candidate_names": [
+      "cand_058_g04_m10",
+      "cand_059_g04_m11",
+      "cand_063_g04_m15",
+      "cand_062_g04_m14"
+    ],
+    "generation": 4,
+    "population": 16,
+    "prompt": "add headphones",
+    "region_variant": "headphones_ear_tight"
+  }
+]

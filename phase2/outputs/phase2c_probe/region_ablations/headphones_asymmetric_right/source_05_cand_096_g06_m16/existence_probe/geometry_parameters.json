@@ -1,0 +1,46 @@
+{
+  "info": {
+    "dct_modes": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "geometry_method": "region_local_tps",
+    "mesh_size": 4,
+    "phase2c_applied_scale": 1.75,
+    "phase2c_geometry_source": "phase2b_theta_region_ablation",
+    "region_count": 1,
+    "region_variant": "headphones_asymmetric_right",
+    "scale_factor": 0.4895287752151489,
+    "tps_size": 4
+  },
+  "regions": [
+    {
+      "center_x": 0.77,
+      "center_y": 0.5,
+      "radius_x": 0.13,
+      "radius_y": 0.26
+    }
+  ]
+}

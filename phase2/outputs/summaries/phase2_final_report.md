@@ -7,13 +7,16 @@ Phase 1A/1B/1C are preserved as diagnostic internal-objective results. The curre
 ## Phase 2A probe
 
 - Decision counts: {'metric_only_candidate': 415, 'reject_input_damage': 15, 'weak_candidate': 14}
-- weak_candidate: add headphones / combined_all / strong score=0.3254, semantic_drop=0.0267
-- weak_candidate: add headphones / combined_tps_dct / strong score=0.3041, semantic_drop=0.0231
-- weak_candidate: add round glasses / combined_tps_dct / existence_probe score=0.2949, semantic_drop=0.0165
 
 ## Phase 2B
 
 - Decision counts: {'metric_only_candidate': 37, 'reject_input_damage': 10, 'weak_candidate': 50}
+- Visual verdict: weak headphone weakening/shift only, not a convincing visible edit failure.
+
+## Phase 2C
+
+Phase 2C did not find a visible headphone edit failure. The best candidates only weaken or shift the headphones. Do not spend more A6000 time on the same InstructPix2Pix/headphones setup.
+- Decision counts: {'metric_only_candidate': 529, 'reject_input_damage': 52, 'weak_candidate': 314}
 
 ## Interpretation rule
 

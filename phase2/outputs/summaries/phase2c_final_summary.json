@@ -1,0 +1,26 @@
+{
+  "phase2a_decision_counts": {
+    "metric_only_candidate": 415,
+    "reject_input_damage": 15,
+    "weak_candidate": 14
+  },
+  "phase2b_decision_counts": {
+    "metric_only_candidate": 37,
+    "reject_input_damage": 10,
+    "weak_candidate": 50
+  },
+  "phase2c_candidate_count": 895,
+  "phase2c_conclusion": "Phase 2C did not find a visible headphone edit failure. The best candidates only weaken or shift the headphones. Do not spend more A6000 time on the same InstructPix2Pix/headphones setup.",
+  "phase2c_decision_counts": {
+    "metric_only_candidate": 529,
+    "reject_input_damage": 52,
+    "weak_candidate": 314
+  },
+  "phase2c_expected_evaluations": {
+    "amplification": 315,
+    "region_ablations": 60,
+    "semantic_heavy_cem": 520,
+    "total": 895
+  },
+  "updated_at": "2026-06-26T20:09:22.851132+00:00"
+}
