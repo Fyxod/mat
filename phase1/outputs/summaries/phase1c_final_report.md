@@ -1,20 +1,23 @@
 # Phase 1C final-edit-aligned report
 
-Status: code and reporting workflow are prepared; A6000 Phase 1C results have not been run yet.
+## Interpretation rule
 
-## Legacy Phase 1A/1B interpretation
+A candidate is only convincing if the clean original edit succeeds, the perturbed input remains close enough, and the perturbed edit visibly weakens or fails. If final images look the same, this report treats the row as metric-only even when CSV scores improved.
 
-Phase 1B exists and is preserved as `phase1/outputs/phase1b_deepen/`. It is labeled as legacy internal-surrogate diagnostic data in `phase1/outputs/legacy_internal_surrogate_phase1b/README.md`.
+## Legacy Phase 1A/1B semantic rescore
 
-Visual inspection of `phase1/outputs/phase1b_deepen/phase1b_top_sheet.jpg` shows the old failure mode: output metrics changed, but clean edits and perturbed edits often still visibly preserve the requested edit. Treat Phase 1B as diagnostic unless semantic rescoring says otherwise.
+- phase1a: {'metric_only_candidate': 106, 'weak_candidate': 2}
+- phase1b: {'metric_only_candidate': 48}
 
-## Pending A6000 steps
+## Phase 1C screening
 
-Run:
+- Decision counts: {'metric_only_candidate': 68, 'reject_input_damage': 1, 'weak_candidate': 27}
 
-1. `python -m phase1.scripts.rescore_legacy_phase1ab --root /home/interns/Desktop/mat`
-2. `python -m phase1.scripts.run_phase1c_screening --root /home/interns/Desktop/mat`
-3. `python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat`
-4. `python -m phase1.scripts.summarize_phase1c --root /home/interns/Desktop/mat`
+## Phase 1D deepening
 
-After those commands, this report should be regenerated with actual semantic rescore, Phase 1C, Phase 1D, and final-validation conclusions.
+- Decision counts: {}
+- Final validation candidates: 0
+
+## Next interpretation
+
+The white-box internal objectives produced measurable output differences but not a convincing visible edit failure yet, unless manual inspection of the sheets says otherwise.

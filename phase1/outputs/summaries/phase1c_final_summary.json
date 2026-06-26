@@ -1,0 +1,19 @@
+{
+  "final_validation_count": 0,
+  "phase1c_decision_counts": {
+    "metric_only_candidate": 68,
+    "reject_input_damage": 1,
+    "weak_candidate": 27
+  },
+  "phase1d_decision_counts": {},
+  "semantic_rescore_decisions": {
+    "phase1a": {
+      "metric_only_candidate": 106,
+      "weak_candidate": 2
+    },
+    "phase1b": {
+      "metric_only_candidate": 48
+    }
+  },
+  "status": "complete"
+}
