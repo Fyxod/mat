@@ -12,4 +12,4 @@ scikit-image>=0.24
 matplotlib>=3.9
 scipy>=1.14
 opencv-python-headless>=4.10
-mediapipe>=0.10.14
+mediapipe==0.10.14

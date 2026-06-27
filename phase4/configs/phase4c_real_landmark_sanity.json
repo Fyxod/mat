@@ -1,0 +1,108 @@
+{
+  "model": {
+    "model_id": "timbrooks/instruct-pix2pix",
+    "num_inference_steps": 20,
+    "guidance_scale": 7.5,
+    "height": 512,
+    "width": 512,
+    "torch_dtype": "float16",
+    "seed": 1234
+  },
+  "case_selection": {
+    "source_csv": "phase3/outputs/clean_discovery/phase3_clean_selected_cases.csv",
+    "max_cases": 6,
+    "preferred_faces": [
+      "face_002",
+      "face_003",
+      "face_005",
+      "face_006"
+    ],
+    "prompt_priority": [
+      "add headphones",
+      "add black sunglasses",
+      "add a small beard",
+      "make the person smile slightly"
+    ],
+    "allowed_prompts": [
+      "add headphones",
+      "add black sunglasses",
+      "add a small beard",
+      "make the person smile slightly"
+    ],
+    "minimum_type_targets": {
+      "headphones": 2,
+      "glasses": 2,
+      "beard": 1,
+      "smile": 1
+    }
+  },
+  "budgets": [
+    {
+      "name": "strong",
+      "max_disp_px": 8.0,
+      "target_input_ssim": 0.88
+    },
+    {
+      "name": "existence_probe",
+      "max_disp_px": 14.0,
+      "target_input_ssim": 0.78
+    }
+  ],
+  "phase4c": {
+    "generations": 2,
+    "population": 12,
+    "elite": 3,
+    "sample_std": 0.9,
+    "min_std": 0.08,
+    "std_smoothing": 0.65,
+    "seed": 43001,
+    "eval_initial": true
+  },
+  "geometry": {
+    "methods": [
+      "landmark_semantic_tps",
+      "landmark_piecewise_affine"
+    ],
+    "require_real_landmarks": true,
+    "edge_stabilizer_points": true,
+    "action_strength": 0.72,
+    "tps_regularization": 0.0001
+  },
+  "scoring": {
+    "semantic_drop_weight": 8.0,
+    "output_disruption_weight": 0.5,
+    "input_damage_penalty_weight": 3.0,
+    "geometry_excess_penalty_weight": 0.75,
+    "weak_semantic_drop": 0.02,
+    "strong_semantic_drop": 0.05,
+    "visible_failure_semantic_drop": 0.07,
+    "visible_failure_perturbed_margin": -0.015,
+    "existence_success_semantic_drop": 0.07,
+    "existence_success_perturbed_margin": -0.015,
+    "existence_success_min_input_ssim": 0.75,
+    "require_clip": true,
+    "crop_clip_scoring": true
+  },
+  "clip": {
+    "model_id": "openai/clip-vit-base-patch32",
+    "revision": "d15b5f29721ca72dac15f8526b284be910de18be",
+    "use_safetensors": true,
+    "device": "cuda"
+  },
+  "parallel": {
+    "parallel_experimental": true,
+    "parallel_workers": 2,
+    "max_parallel_workers": 2,
+    "worker_start_method": "spawn",
+    "worker_loads_own_pipeline": true,
+    "cuda_device": "cuda:0",
+    "retry_serial_on_parallel_failure": true
+  },
+  "landmarks": {
+    "detector": "mediapipe_only",
+    "require_real_landmarks": true,
+    "min_successful_faces": 3,
+    "draw_region_boxes": true,
+    "draw_landmark_indices": false
+  }
+}

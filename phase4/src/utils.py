@@ -51,8 +51,15 @@ def write_csv(path: Path, rows: Iterable[dict[str, Any]]) -> None:
         writer.writerows(data)
 
 
-def load_phase4_config(root: Path) -> dict[str, Any]:
-    return read_json(config_path(root, "phase4_landmark_probe.json"), {})
+REAL_LANDMARK_DETECTORS = {
+    "mediapipe_solutions_face_mesh",
+    "mediapipe_python_solutions_face_mesh",
+    "mediapipe_tasks_face_landmarker",
+}
+
+
+def load_phase4_config(root: Path, name: str = "phase4_landmark_probe.json") -> dict[str, Any]:
+    return read_json(config_path(root, name), {})
 
 
 def load_action_config(root: Path) -> dict[str, Any]:
@@ -102,11 +109,28 @@ def load_landmark_statuses(root: Path) -> dict[str, dict[str, Any]]:
     return statuses
 
 
-def successful_landmark_faces(root: Path) -> set[str]:
+def status_success(status: dict[str, Any]) -> bool:
+    success_value = status.get("success", False)
+    return str(success_value).lower() not in {"", "0", "false", "none", "no"}
+
+
+def status_has_real_landmarks(status: dict[str, Any]) -> bool:
+    try:
+        landmark_count = int(status.get("landmark_count", 0))
+    except Exception:
+        landmark_count = 0
+    return (
+        status_success(status)
+        and str(status.get("detector", "")) in REAL_LANDMARK_DETECTORS
+        and landmark_count >= 468
+    )
+
+
+def successful_landmark_faces(root: Path, *, require_real: bool = False) -> set[str]:
     return {
         face_id
         for face_id, status in load_landmark_statuses(root).items()
-        if bool(status.get("success", False))
+        if (status_has_real_landmarks(status) if require_real else status_success(status))
     }
 
 
@@ -133,10 +157,11 @@ __all__ = [
     "read_json",
     "relative_path",
     "setting_slug",
+    "status_success",
+    "status_has_real_landmarks",
     "successful_landmark_faces",
     "utc_now",
     "write_csv",
     "write_json",
     "write_text",
 ]
-

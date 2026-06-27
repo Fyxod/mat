@@ -14,10 +14,35 @@ import numpy as np
 
 from phase2.src.geometry_regions import apply_flow, displacement_stats, flow_to_image
 
+from .landmarks import is_real_landmark_record
 from .semantic_actions import action_parameter_names, decode_action_values
 
 
 Array = np.ndarray
+
+
+REQUIRED_REGIONS_BY_ACTION: dict[str, tuple[str, ...]] = {
+    "eye_spread": ("left_eye_region", "right_eye_region", "eyes_region"),
+    "eye_compress": ("left_eye_region", "right_eye_region", "eyes_region"),
+    "eye_raise_left": ("left_eye_region",),
+    "eye_raise_right": ("right_eye_region",),
+    "eye_squint": ("left_eye_region", "right_eye_region"),
+    "nose_bridge_shift_x": ("nose_bridge_region",),
+    "mouth_corner_raise": ("mouth_region",),
+    "mouth_corner_lower": ("mouth_region",),
+    "mouth_width_expand": ("mouth_region",),
+    "mouth_width_compress": ("mouth_region",),
+    "chin_raise": ("jaw_chin_region", "lower_face_region"),
+    "chin_lower": ("jaw_chin_region", "lower_face_region"),
+    "jaw_expand": ("jaw_chin_region",),
+    "jaw_compress": ("jaw_chin_region",),
+    "face_side_push_left": ("head_side_region", "face_outline_region"),
+    "face_side_push_right": ("head_side_region", "face_outline_region"),
+    "head_top_raise": ("head_top_region",),
+    "head_top_lower": ("head_top_region",),
+    "asymmetry_twist": ("head_side_region", "jaw_chin_region"),
+    "lower_face_shift": ("lower_face_region",),
+}
 
 
 def _grid(height: int, width: int) -> tuple[Array, Array]:
@@ -93,6 +118,23 @@ def semantic_anchors(record: dict[str, Any]) -> dict[str, np.ndarray]:
         "head_right": head_side["right"],
         "head_top": head_top["top"],
     }
+
+
+def _validate_real_regions(record: dict[str, Any], action_names: tuple[str, ...]) -> None:
+    if not is_real_landmark_record(record):
+        raise ValueError(
+            "Phase 4C requires real MediaPipe landmarks, but this record is "
+            f"detector={record.get('detector')} count={record.get('landmark_count')}"
+        )
+    required = sorted({region for action in action_names for region in REQUIRED_REGIONS_BY_ACTION.get(action, ())})
+    regions = dict(record.get("regions", {}))
+    missing = [
+        region
+        for region in required
+        if int(dict(regions.get(region, {})).get("point_count", 0)) < 2
+    ]
+    if missing:
+        raise ValueError(f"Real MediaPipe landmarks are missing usable semantic regions: {missing}")
 
 
 def _add(acc: dict[str, np.ndarray], key: str, dx: float = 0.0, dy: float = 0.0) -> None:
@@ -276,6 +318,7 @@ class LandmarkGeometryCodec:
     action_names: tuple[str, ...]
     action_strength: float = 0.72
     tps_regularization: float = 1e-4
+    require_real_landmarks: bool = False
 
     @classmethod
     def from_config(cls, *, action_names: list[str], geometry_config: dict[str, Any]) -> "LandmarkGeometryCodec":
@@ -283,6 +326,7 @@ class LandmarkGeometryCodec:
             action_names=tuple(action_names),
             action_strength=float(geometry_config.get("action_strength", 0.72)),
             tps_regularization=float(geometry_config.get("tps_regularization", 1e-4)),
+            require_real_landmarks=bool(geometry_config.get("require_real_landmarks", False)),
         )
 
     @property
@@ -304,6 +348,8 @@ class LandmarkGeometryCodec:
         max_disp_px: float,
     ) -> tuple[Array, dict[str, Any]]:
         theta = np.asarray(theta, dtype=np.float32)
+        if self.require_real_landmarks:
+            _validate_real_regions(landmarks, self.action_names)
         scale_factor = float(0.20 + 0.80 * (np.tanh(float(theta[0])) * 0.5 + 0.5)) if len(theta) else 1.0
         action_values = decode_action_values(theta, list(self.action_names), start_index=1, scale=scale_factor)
         source, displacement, info = action_displacements(
@@ -321,6 +367,9 @@ class LandmarkGeometryCodec:
         flow = _cap_flow(flow.astype(np.float32), float(max_disp_px))
         info.update({
             "geometry_method": method,
+            "landmark_detector": landmarks.get("detector"),
+            "landmark_count": int(landmarks.get("landmark_count", 0)),
+            "require_real_landmarks": self.require_real_landmarks,
             "scale_factor": scale_factor,
             "action_names": list(self.action_names),
             "action_values": action_values,
@@ -340,4 +389,3 @@ __all__ = [
     "flow_to_image",
     "semantic_anchors",
 ]
-

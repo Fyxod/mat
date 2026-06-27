@@ -88,6 +88,7 @@ def copy_candidate_best(source: Path, destination: Path) -> None:
         "flow.png",
         "landmarks_overlay_original.jpg",
         "landmarks_overlay_perturbed.jpg",
+        "regions_overlay_original.jpg",
         "action_vector.json",
         "geometry_params.json",
         "metrics.json",
@@ -185,6 +186,7 @@ def attach_candidate_paths(root: Path, row: dict[str, Any], folder: Path) -> dic
         ("path_flow", "flow.png"),
         ("path_landmarks_overlay_original", "landmarks_overlay_original.jpg"),
         ("path_landmarks_overlay_perturbed", "landmarks_overlay_perturbed.jpg"),
+        ("path_regions_overlay_original", "regions_overlay_original.jpg"),
     ):
         payload[key] = relative_path(folder / filename, root)
     return payload

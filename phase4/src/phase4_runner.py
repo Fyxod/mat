@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import gc
 import multiprocessing as mp
+import shutil
 import time
 import traceback
 from pathlib import Path
@@ -14,11 +15,16 @@ from phase1.src.config import ModelSettings
 from phase1.src.data import load_rgb
 from phase1.src.instruct_pipeline import generate_edit, load_instruct_pix2pix
 from phase1.src.metrics import image_metrics
-from phase1.src.reporting import save_rgb
+from phase1.src.reporting import image_sheet, save_rgb
 from phase2.src.cem import CEMState, CandidateSample
 
 from .landmark_geometry import LandmarkGeometryCodec, apply_flow, displacement_stats, flow_to_image
-from .landmarks import draw_transformed_landmarks_overlay, save_landmarks_for_face
+from .landmarks import (
+    draw_transformed_landmarks_overlay,
+    is_real_landmark_record,
+    mediapipe_backend_report,
+    save_landmarks_for_face,
+)
 from .reporting import attach_candidate_paths, candidate_sheet, copy_candidate_best, write_aggregate_outputs
 from .scoring import load_clip_scorer, score_phase4_candidate
 from .semantic_actions import actions_for_prompt, prompt_type
@@ -28,6 +34,7 @@ from .utils import (
     landmark_json_path,
     landmark_output_folder,
     load_action_config,
+    load_landmark_statuses,
     load_parallel_config,
     load_phase4_config,
     mark_done,
@@ -40,6 +47,7 @@ from .utils import (
     read_json,
     relative_path,
     setting_slug,
+    status_has_real_landmarks,
     successful_landmark_faces,
     utc_now,
     write_csv,
@@ -88,6 +96,57 @@ class SerialEvaluator:
         _clear_cuda()
 
 
+def _landmark_overlay_sheet(root: Path, rows: list[dict[str, Any]], destination: Path) -> None:
+    labels: list[str] = []
+    images = []
+    for row in rows:
+        face_id = str(row.get("face_id", ""))
+        overlay = landmark_output_folder(root, face_id) / "landmarks_overlay.jpg"
+        if not overlay.exists():
+            continue
+        detector = str(row.get("detector", "unknown"))
+        count = int(row.get("landmark_count", 0) or 0)
+        real = "real" if status_has_real_landmarks(row) else "not-real"
+        warnings = list(row.get("overlay_sanity_warnings", []) or [])
+        labels.append(f"{face_id}\n{detector}\n{count} pts / {real}" + (f"\nwarn={len(warnings)}" if warnings else ""))
+        images.append(load_rgb(overlay))
+    if images:
+        image_sheet(destination, [(labels, images)], columns=min(4, max(1, len(images))), cell_width=180, cell_height=180)
+
+
+def _landmark_report(rows: list[dict[str, Any]], *, require_real_landmarks: bool) -> str:
+    real = [row for row in rows if status_has_real_landmarks(row)]
+    templates = [row for row in rows if str(row.get("detector")) == "template"]
+    failed = [row for row in rows if not bool(row.get("success", False))]
+    lines = [
+        "# Phase 4 real landmark detection report",
+        "",
+        f"- Require real landmarks: {require_real_landmarks}",
+        f"- Total faces checked: {len(rows)}",
+        f"- Real MediaPipe landmark faces: {len(real)}",
+        f"- Template fallback faces: {len(templates)}",
+        f"- Failed faces: {len(failed)}",
+        "",
+        "## Backend check",
+        "",
+        "```json",
+    ]
+    import json
+
+    lines.append(json.dumps(mediapipe_backend_report(), indent=2))
+    lines.extend(["```", "", "## Per-face status", ""])
+    for row in rows:
+        warnings = list(row.get("overlay_sanity_warnings", []) or [])
+        suffix = f"; warnings={warnings}" if warnings else ""
+        lines.append(
+            "- "
+            f"{row.get('face_id')}: success={row.get('success')} detector={row.get('detector')} "
+            f"count={row.get('landmark_count')} real={status_has_real_landmarks(row)} "
+            f"failure={row.get('failure_reason')}{suffix}"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def _candidate_name(sample: CandidateSample) -> str:
     return "cand_000_initial" if sample.initial else f"cand_{sample.candidate_index:03d}_g{sample.generation:02d}_m{sample.member:02d}"
 
@@ -96,7 +155,14 @@ def _model_payload(config: dict[str, Any], image_guidance_scale: float) -> dict[
     return phase4_model_payload(config, image_guidance_scale=image_guidance_scale)
 
 
-def detect_phase4_landmarks(root_value: str | Path, *, force: bool = False, dry_run: bool = False, limit: int | None = None) -> list[dict[str, Any]]:
+def detect_phase4_landmarks(
+    root_value: str | Path,
+    *,
+    force: bool = False,
+    dry_run: bool = False,
+    limit: int | None = None,
+    require_real_landmarks: bool = False,
+) -> list[dict[str, Any]]:
     root = project_root(root_value)
     config = load_phase4_config(root)
     detector_mode = str(config.get("landmarks", {}).get("detector", "mediapipe_or_template"))
@@ -105,6 +171,10 @@ def detect_phase4_landmarks(root_value: str | Path, *, force: bool = False, dry_
     face_ids = face_ids_from_data(root)
     if limit is not None:
         face_ids = face_ids[: int(limit)]
+    output = outputs_root(root) / "landmarks"
+    legacy_status = output / "landmark_status.csv"
+    if require_real_landmarks and force and legacy_status.exists() and not (output / "legacy_template_landmark_status_before_phase4c.csv").exists() and not dry_run:
+        shutil.copy2(legacy_status, output / "legacy_template_landmark_status_before_phase4c.csv")
     for face_id in face_ids:
         folder = landmark_output_folder(root, face_id)
         status_path = folder / "status.json"
@@ -118,35 +188,62 @@ def detect_phase4_landmarks(root_value: str | Path, *, force: bool = False, dry_
             image_path=image_path,
             output=folder,
             prefer_mediapipe=prefer_mediapipe,
+            require_real_landmarks=require_real_landmarks,
             dry_run=dry_run,
         )
         rows.append(status)
     success = [row for row in rows if bool(row.get("success", False))]
+    real_success = [row for row in rows if status_has_real_landmarks(row)]
+    templates = [row for row in rows if str(row.get("detector")) == "template"]
     if not dry_run:
-        output = outputs_root(root) / "landmarks"
         write_csv(output / "landmark_status.csv", rows)
+        if require_real_landmarks:
+            write_csv(output / "real_landmark_status.csv", rows)
+            write_text(output / "real_landmark_detection_report.md", _landmark_report(rows, require_real_landmarks=True))
+            _landmark_overlay_sheet(root, rows, output / "real_landmarks_overlay_sheet.jpg")
         write_json(output / "landmark_summary.json", {
             "face_count": len(rows),
             "successful_faces": [row.get("face_id") for row in success],
             "success_count": len(success),
+            "real_landmark_faces": [row.get("face_id") for row in real_success],
+            "real_landmark_count": len(real_success),
+            "template_fallback_faces": [row.get("face_id") for row in templates],
+            "template_fallback_count": len(templates),
             "detectors": sorted({str(row.get("detector")) for row in rows if row.get("detector")}),
             "updated_at": utc_now(),
         })
         min_success = int(config.get("landmarks", {}).get("min_successful_faces", 3))
-        if len(success) < min_success:
+        if require_real_landmarks:
+            if len(real_success) < min_success:
+                raise RuntimeError(f"Only {len(real_success)} real MediaPipe landmark detections succeeded; need at least {min_success}.")
+        elif len(success) < min_success:
             raise RuntimeError(f"Only {len(success)} Phase 4 landmark detections succeeded; need at least {min_success}.")
     print(f"Phase 4 landmarks: {len(success)} / {len(rows)} successful")
+    print(f"Real MediaPipe landmarks detected for {len(real_success)} faces.")
+    print(f"Template fallback used for {len(templates)} faces.")
     return rows
 
 
-def _selected_cases(root: Path, config: dict[str, Any], action_config: dict[str, Any]) -> list[dict[str, Any]]:
+def _selected_cases(
+    root: Path,
+    config: dict[str, Any],
+    action_config: dict[str, Any],
+    *,
+    require_real_landmarks: bool = False,
+) -> list[dict[str, Any]]:
     selection = dict(config.get("case_selection", {}))
     source_csv = root / str(selection.get("source_csv", "phase3/outputs/clean_discovery/phase3_clean_selected_cases.csv"))
     rows = read_csv(source_csv)
-    success_faces = successful_landmark_faces(root)
+    success_faces = successful_landmark_faces(root, require_real=require_real_landmarks)
     if not success_faces:
+        if require_real_landmarks:
+            raise RuntimeError("No real MediaPipe Phase 4 landmarks found. Run detect_phase4_landmarks --require-real-landmarks --force first.")
         raise RuntimeError("No successful Phase 4 landmarks found. Run phase4.scripts.detect_phase4_landmarks first.")
     allowed = {str(prompt).lower() for prompt in selection.get("allowed_prompts", [])}
+    preferred_faces = [str(face_id) for face_id in selection.get("preferred_faces", [])]
+    prompt_priority = [str(prompt).lower() for prompt in selection.get("prompt_priority", [])]
+    face_rank = {face_id: index for index, face_id in enumerate(preferred_faces)}
+    prompt_rank = {prompt: index for index, prompt in enumerate(prompt_priority)}
     candidates = [
         row for row in rows
         if str(row.get("face_id")) in success_faces
@@ -162,11 +259,15 @@ def _selected_cases(root: Path, config: dict[str, Any], action_config: dict[str,
     for kind, count in targets.items():
         subset = sorted(
             [row for row in candidates if row.get("phase4_prompt_type") == kind],
-            key=lambda row: (row.get("face_id"), -float(row.get("clean_clip_margin_float", 0.0))),
+            key=lambda row: (
+                face_rank.get(str(row.get("face_id")), 999),
+                prompt_rank.get(str(row.get("prompt", "")).lower(), 999),
+                -float(row.get("clean_clip_margin_float", 0.0)),
+            ),
         )
         seen_faces: set[str] = set()
         ordered: list[dict[str, Any]] = []
-        for row in sorted(subset, key=lambda row: float(row.get("clean_clip_margin_float", 0.0)), reverse=True):
+        for row in subset:
             face_id = str(row.get("face_id"))
             if face_id not in seen_faces:
                 ordered.append(row)
@@ -177,7 +278,14 @@ def _selected_cases(root: Path, config: dict[str, Any], action_config: dict[str,
             if key not in used_keys and len(selected) < max_cases:
                 selected.append(row)
                 used_keys.add(key)
-    remaining = sorted(candidates, key=lambda row: float(row.get("clean_clip_margin_float", 0.0)), reverse=True)
+    remaining = sorted(
+        candidates,
+        key=lambda row: (
+            prompt_rank.get(str(row.get("prompt", "")).lower(), 999),
+            face_rank.get(str(row.get("face_id")), 999),
+            -float(row.get("clean_clip_margin_float", 0.0)),
+        ),
+    )
     for row in remaining:
         if len(selected) >= max_cases:
             break
@@ -289,11 +397,12 @@ def _evaluate_base_candidate(job: dict[str, Any], pipe: Any, device: Any) -> dic
     save_rgb(folder / "flow.png", flow_to_image(flow))
     landmark_source = Path(job["landmarks_path"]).parent / "landmarks_overlay.jpg"
     if landmark_source.exists():
-        import shutil
-
         shutil.copy2(landmark_source, folder / "landmarks_overlay_original.jpg")
     else:
         save_rgb(folder / "landmarks_overlay_original.jpg", original)
+    region_source = Path(job["landmarks_path"]).parent / "regions_overlay.jpg"
+    if region_source.exists():
+        shutil.copy2(region_source, folder / "regions_overlay_original.jpg")
     draw_transformed_landmarks_overlay(
         perturbed,
         landmarks,
@@ -320,6 +429,9 @@ def _evaluate_base_candidate(job: dict[str, Any], pipe: Any, device: Any) -> dic
         "member": job["member"],
         "initial_candidate": job["initial_candidate"],
         "geometry_method": job["geometry_method"],
+        "landmark_detector": landmarks.get("detector"),
+        "landmark_count": int(landmarks.get("landmark_count", 0)),
+        "real_landmarks": is_real_landmark_record(landmarks),
         "candidate_folder_abs": str(folder),
         "elapsed_seconds": float(time.monotonic() - began),
         "theta_names": job["theta_names"],
@@ -582,8 +694,14 @@ def _run_matrix(
     return rows
 
 
-def _open_evaluator(root: Path, config: dict[str, Any], cases: list[dict[str, Any]]):
+def _parallel_config(root: Path, config: dict[str, Any]) -> dict[str, Any]:
     parallel = load_parallel_config(root)
+    parallel.update(dict(config.get("parallel", {})))
+    return parallel
+
+
+def _open_evaluator(root: Path, config: dict[str, Any], cases: list[dict[str, Any]]):
+    parallel = _parallel_config(root, config)
     device_name = str(parallel.get("cuda_device", "cuda:0"))
     model_payload = _model_payload(config, float(cases[0].get("image_guidance_scale", 1.5)))
     if bool(parallel.get("parallel_experimental", False)):
@@ -627,7 +745,7 @@ def run_phase4a_existence_probe(root_value: str | Path, *, force: bool = False) 
             force=force,
         )
     except Exception as error:
-        parallel = load_parallel_config(root)
+        parallel = _parallel_config(root, config)
         if pool is not None and bool(parallel.get("retry_serial_on_parallel_failure", True)):
             write_text(
                 output / "phase4a_parallel_fallback.md",
@@ -669,6 +787,108 @@ def run_phase4a_existence_probe(root_value: str | Path, *, force: bool = False) 
     mark_done(output, {"candidate_count": len(ranked), "selected_case_count": len(cases)})
     print(f"Phase 4A candidates: {len(ranked)}")
     print("Inspect phase4/outputs/phase4a_existence_probe/phase4a_semantic_top_sheet.jpg")
+    return ranked
+
+
+def _real_landmark_status_rows(root: Path) -> list[dict[str, Any]]:
+    status_path = outputs_root(root) / "landmarks" / "real_landmark_status.csv"
+    rows = read_csv(status_path)
+    if rows:
+        return rows
+    return list(load_landmark_statuses(root).values())
+
+
+def _ensure_phase4c_real_landmarks(root: Path, config: dict[str, Any]) -> None:
+    min_faces = int(config.get("landmarks", {}).get("min_successful_faces", 3))
+    rows = _real_landmark_status_rows(root)
+    real = [row for row in rows if status_has_real_landmarks(row)]
+    if len(real) < min_faces:
+        raise RuntimeError(
+            f"Phase 4C requires at least {min_faces} real MediaPipe landmark faces, "
+            f"but found {len(real)}. Run detect_phase4_landmarks --require-real-landmarks --force first."
+        )
+
+
+def run_phase4c_real_landmark_sanity(root_value: str | Path, *, force: bool = False) -> list[dict[str, Any]]:
+    root = project_root(root_value)
+    config = load_phase4_config(root, "phase4c_real_landmark_sanity.json")
+    if not config:
+        raise RuntimeError("Missing phase4/configs/phase4c_real_landmark_sanity.json")
+    action_config = load_action_config(root)
+    output = outputs_root(root) / "phase4c_real_landmark_sanity"
+    if done_path(output).exists() and (output / "phase4c_all_candidates.csv").exists() and not force:
+        rows = read_csv(output / "phase4c_all_candidates.csv")
+        print(f"Phase 4C already complete: {len(rows)} candidates")
+        return rows
+    _ensure_phase4c_real_landmarks(root, config)
+    cases = _selected_cases(root, config, action_config, require_real_landmarks=True)
+    if not cases:
+        raise RuntimeError("Phase 4C has no selected clean-success cases with real MediaPipe landmarks.")
+    output.mkdir(parents=True, exist_ok=True)
+    write_csv(output / "phase4c_selected_cases.csv", cases)
+    clip_scorer = load_clip_scorer(config)
+    evaluator = None
+    pool = None
+    rows: list[dict[str, Any]] = []
+    try:
+        evaluator, pool = _open_evaluator(root, config, cases)
+        rows = _run_matrix(
+            root=root,
+            phase="phase4c_real_landmark_sanity",
+            output=output,
+            cases=cases,
+            budgets=list(config.get("budgets", [])),
+            cem_config=dict(config.get("phase4c", {})),
+            config=config,
+            action_config=action_config,
+            evaluator=evaluator,
+            pool=pool,
+            clip_scorer=clip_scorer,
+            force=force,
+        )
+    except Exception as error:
+        parallel = _parallel_config(root, config)
+        if pool is not None and bool(parallel.get("retry_serial_on_parallel_failure", True)):
+            write_text(
+                output / "phase4c_parallel_fallback.md",
+                "# Phase 4C parallel fallback\n\nParallel execution failed; retrying serial.\n\n"
+                f"```\n{traceback.format_exc()}\n```\n",
+            )
+            try:
+                pool.terminate()
+                pool.join()
+            except Exception:
+                pass
+            pool = None
+            evaluator = SerialEvaluator(_model_payload(config, float(cases[0].get("image_guidance_scale", 1.5))), str(parallel.get("cuda_device", "cuda:0")))
+            rows = _run_matrix(
+                root=root,
+                phase="phase4c_real_landmark_sanity",
+                output=output,
+                cases=cases,
+                budgets=list(config.get("budgets", [])),
+                cem_config=dict(config.get("phase4c", {})),
+                config=config,
+                action_config=action_config,
+                evaluator=evaluator,
+                pool=None,
+                clip_scorer=clip_scorer,
+                force=force,
+            )
+        else:
+            mark_failed(output, error)
+            write_text(output / "phase4c_error_traceback.txt", traceback.format_exc())
+            raise
+    finally:
+        if pool is not None:
+            pool.close()
+            pool.join()
+        if evaluator is not None:
+            evaluator.close()
+    ranked = write_aggregate_outputs(root, output, "phase4c", rows)
+    mark_done(output, {"candidate_count": len(ranked), "selected_case_count": len(cases)})
+    print(f"Phase 4C candidates: {len(ranked)}")
+    print("Inspect phase4/outputs/phase4c_real_landmark_sanity/phase4c_semantic_top_sheet.jpg")
     return ranked
 
 
@@ -736,7 +956,7 @@ def run_phase4b_tighten(root_value: str | Path, *, force: bool = False) -> list[
                     initial_method=method,
                 ))
     except Exception as error:
-        parallel = load_parallel_config(root)
+        parallel = _parallel_config(root, config)
         if pool is not None and bool(parallel.get("retry_serial_on_parallel_failure", True)):
             write_text(
                 output / "phase4b_parallel_fallback.md",
@@ -832,9 +1052,59 @@ def summarize_phase4(root_value: str | Path) -> dict[str, Any]:
     return payload
 
 
+def summarize_phase4c(root_value: str | Path) -> dict[str, Any]:
+    root = project_root(root_value)
+    output = outputs_root(root) / "phase4c_real_landmark_sanity"
+    summary = read_json(output / "phase4c_summary.json", {})
+    selected_cases = read_csv(output / "phase4c_selected_cases.csv")
+    real_status_rows = _real_landmark_status_rows(root)
+    real_faces = [row.get("face_id") for row in real_status_rows if status_has_real_landmarks(row)]
+    counts = dict(summary.get("decision_counts", {}))
+    visible = int(summary.get("visible_failure_count", 0) or 0)
+    existence = int(summary.get("existence_success_count", 0) or 0)
+    strong = int(counts.get("strong_candidate", 0) or 0)
+    conclusion = (
+        "Phase 4C found at least one real-landmark visible/existence/strong candidate. Do not broaden automatically; inspect and decide whether to tighten."
+        if (visible or existence or strong)
+        else "Real MediaPipe landmarks were fixed and tested in a small sanity subset. They still did not produce visible final-edit failures."
+    )
+    payload = {
+        "real_landmark_faces": real_faces,
+        "selected_case_count": len(selected_cases),
+        "decision_counts": counts,
+        "visible_failure_count": visible,
+        "existence_success_count": existence,
+        "strong_candidate_count": strong,
+        "conclusion": conclusion,
+        "updated_at": utc_now(),
+    }
+    lines = [
+        "# Phase 4C real MediaPipe landmark sanity summary",
+        "",
+        f"- Real MediaPipe landmark faces: {real_faces}",
+        f"- Selected cases: {len(selected_cases)}",
+        f"- Decision counts: {counts}",
+        f"- Visible failures: {visible}",
+        f"- Existence successes: {existence}",
+        f"- Strong candidates: {strong}",
+        "",
+        conclusion,
+        "",
+    ]
+    if not summary:
+        lines.append("Phase 4C summary artifacts were not found yet.")
+    summary_dir = outputs_root(root) / "summaries"
+    write_json(summary_dir / "phase4c_summary.json", payload)
+    write_text(summary_dir / "phase4c_summary.md", "\n".join(lines).rstrip() + "\n")
+    print("Wrote phase4/outputs/summaries/phase4c_summary.md")
+    return payload
+
+
 __all__ = [
     "detect_phase4_landmarks",
     "run_phase4a_existence_probe",
     "run_phase4b_tighten",
+    "run_phase4c_real_landmark_sanity",
     "summarize_phase4",
+    "summarize_phase4c",
 ]
