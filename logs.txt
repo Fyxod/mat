@@ -1,29 +1,17 @@
-      Phase 1C screening rows: 96
-Inspect phase1/outputs/phase1c_screening/phase1c_semantic_top_sheet.jpg
-/home/interns/Desktop/mat/.micromamba/envs/mat-a6000/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
-  warnings.warn('resource_tracker: There appear to be %d '
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-^Cinterns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ ^C
-interns@workstation003:~/Desktop/mat$ $HOME/.local/bin/micromamba run -p /home/interns/Desktop/mat/.micromamba/envs/mat-a6000 python -m phase1.scripts.run_phase1d_deepen --root /home/interns/Desktop/mat
-Phase 1D deepening rows: 0
-Inspect phase1/outputs/phase1d_deepen/phase1d_decision_report.md
-interns@workstation003:~/Desktop/mat$ 
+Successfully installed mediapipe-0.10.35 opencv-contrib-python-4.13.0.92 sounddevice-0.5.5
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1782518032.297077 4117020 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1782518035.303826 4117020 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1782518050.704553 4117020 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+Phase 4 landmarks: 8 / 8 successful
+Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4383.65it/s]
+Loading weights: 100%|██████████| 196/196 [00:00<00:00, 805.92it/s] 1.53s/it]
+Loading pipeline components...: 100%|██████████| 6/6 [00:05<00:00,  1.08it/s]
+Phase 4A candidates: 1944
+Inspect phase4/outputs/phase4a_existence_probe/phase4a_semantic_top_sheet.jpg
+Phase 4B skipped: no Phase 4A visible/existence success candidates
+Wrote phase4/outputs/summaries/phase4_summary.md
+## main...origin/main
+?? phase4/outputs/

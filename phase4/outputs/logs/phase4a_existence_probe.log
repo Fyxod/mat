@@ -1,0 +1,8 @@
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4383.65it/s]
+Loading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  3.90it/s]Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  3.67it/s]Loading pipeline components...:  67%|██████▋   | 4/6 [00:05<00:03,  1.53s/it]
+Loading weights:   0%|          | 0/196 [00:00<?, ?it/s][A
+Loading weights:  26%|██▌       | 50/196 [00:00<00:00, 487.37it/s][A
+Loading weights:  79%|███████▊  | 154/196 [00:00<00:00, 768.86it/s][ALoading weights: 100%|██████████| 196/196 [00:00<00:00, 805.92it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:05<00:00,  1.10it/s]Loading pipeline components...: 100%|██████████| 6/6 [00:05<00:00,  1.08it/s]
+Phase 4A candidates: 1944
+Inspect phase4/outputs/phase4a_existence_probe/phase4a_semantic_top_sheet.jpg

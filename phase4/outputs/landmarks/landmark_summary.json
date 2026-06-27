@@ -1,0 +1,18 @@
+{
+  "detectors": [
+    "template"
+  ],
+  "face_count": 8,
+  "success_count": 8,
+  "successful_faces": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006",
+    "face_007",
+    "face_008"
+  ],
+  "updated_at": "2026-06-26T23:54:26.591695+00:00"
+}

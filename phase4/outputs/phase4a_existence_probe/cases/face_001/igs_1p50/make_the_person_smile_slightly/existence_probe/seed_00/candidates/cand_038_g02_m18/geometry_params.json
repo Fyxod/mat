@@ -1,0 +1,133 @@
+{
+  "action_names": [
+    "mouth_corner_raise",
+    "mouth_corner_lower",
+    "mouth_width_expand",
+    "mouth_width_compress",
+    "chin_raise",
+    "chin_lower"
+  ],
+  "action_strength": 0.72,
+  "action_values": {
+    "chin_lower": -0.36268728465258077,
+    "chin_raise": -0.06471223456343089,
+    "mouth_corner_lower": -0.11005982585087017,
+    "mouth_corner_raise": 0.3200473593092244,
+    "mouth_width_compress": -0.20701184850726073,
+    "mouth_width_expand": 0.3165207715256171
+  },
+  "active_actions": {
+    "chin_lower": -0.36268728465258077,
+    "chin_raise": -0.06471223456343089,
+    "mouth_corner_lower": -0.11005982585087017,
+    "mouth_corner_raise": 0.3200473593092244,
+    "mouth_width_compress": -0.20701184850726073,
+    "mouth_width_expand": 0.3165207715256171
+  },
+  "active_anchor_count": 4,
+  "control_point_count": 12,
+  "geometry_method": "landmark_piecewise_affine",
+  "max_disp_px_budget": 14.0,
+  "scale_factor": 0.4397643186650675,
+  "source_control_points": [
+    [
+      204.8000030517578,
+      335.3599853515625
+    ],
+    [
+      307.20001220703125,
+      335.3599853515625
+    ],
+    [
+      256.0,
+      419.8399963378906
+    ],
+    [
+      256.0,
+      376.32000732421875
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      511.0,
+      0.0
+    ],
+    [
+      0.0,
+      511.0
+    ],
+    [
+      511.0,
+      511.0
+    ],
+    [
+      256.0,
+      0.0
+    ],
+    [
+      256.0,
+      511.0
+    ],
+    [
+      0.0,
+      256.0
+    ],
+    [
+      511.0,
+      256.0
+    ]
+  ],
+  "target_control_points": [
+    [
+      199.52279663085938,
+      331.0245056152344
+    ],
+    [
+      312.47723388671875,
+      331.0245056152344
+    ],
+    [
+      256.0,
+      416.8363952636719
+    ],
+    [
+      256.0,
+      374.8182067871094
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      511.0,
+      0.0
+    ],
+    [
+      0.0,
+      511.0
+    ],
+    [
+      511.0,
+      511.0
+    ],
+    [
+      256.0,
+      0.0
+    ],
+    [
+      256.0,
+      511.0
+    ],
+    [
+      0.0,
+      256.0
+    ],
+    [
+      511.0,
+      256.0
+    ]
+  ],
+  "tps_regularization": 0.0001
+}

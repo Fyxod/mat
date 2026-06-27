@@ -1,0 +1,30 @@
+Collecting mediapipe>=0.10.14
+  Downloading mediapipe-0.10.35-py3-none-manylinux_2_28_x86_64.whl.metadata (9.8 kB)
+Requirement already satisfied: absl-py~=2.3 in /home/interns/.local/lib/python3.10/site-packages (from mediapipe>=0.10.14) (2.4.0)
+Requirement already satisfied: certifi in ./.micromamba/envs/mat-a6000/lib/python3.10/site-packages (from mediapipe>=0.10.14) (2026.6.17)
+Requirement already satisfied: numpy in /home/interns/.local/lib/python3.10/site-packages (from mediapipe>=0.10.14) (2.2.6)
+Collecting sounddevice~=0.5 (from mediapipe>=0.10.14)
+  Downloading sounddevice-0.5.5-py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: flatbuffers~=25.9 in ./.micromamba/envs/mat-a6000/lib/python3.10/site-packages (from mediapipe>=0.10.14) (25.12.19)
+Collecting opencv-contrib-python (from mediapipe>=0.10.14)
+  Downloading opencv_contrib_python-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+Requirement already satisfied: matplotlib in /home/interns/.local/lib/python3.10/site-packages (from mediapipe>=0.10.14) (3.10.9)
+Requirement already satisfied: cffi in /home/interns/.local/lib/python3.10/site-packages (from sounddevice~=0.5->mediapipe>=0.10.14) (2.0.0)
+Requirement already satisfied: pycparser in /home/interns/.local/lib/python3.10/site-packages (from cffi->sounddevice~=0.5->mediapipe>=0.10.14) (3.0)
+Requirement already satisfied: contourpy>=1.0.1 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (1.3.2)
+Requirement already satisfied: cycler>=0.10 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (4.63.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (1.5.0)
+Requirement already satisfied: packaging>=20.0 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (26.2)
+Requirement already satisfied: pillow>=8 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (12.2.0)
+Requirement already satisfied: pyparsing>=3 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /home/interns/.local/lib/python3.10/site-packages (from matplotlib->mediapipe>=0.10.14) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in ./.micromamba/envs/mat-a6000/lib/python3.10/site-packages (from python-dateutil>=2.7->matplotlib->mediapipe>=0.10.14) (1.17.0)
+Downloading mediapipe-0.10.35-py3-none-manylinux_2_28_x86_64.whl (12.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 18.5 MB/s  0:00:00
+Downloading sounddevice-0.5.5-py3-none-any.whl (32 kB)
+Downloading opencv_contrib_python-4.13.0.92-cp37-abi3-manylinux_2_28_x86_64.whl (79.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.2/79.2 MB 25.0 MB/s  0:00:03
+Installing collected packages: opencv-contrib-python, sounddevice, mediapipe
+
+Successfully installed mediapipe-0.10.35 opencv-contrib-python-4.13.0.92 sounddevice-0.5.5

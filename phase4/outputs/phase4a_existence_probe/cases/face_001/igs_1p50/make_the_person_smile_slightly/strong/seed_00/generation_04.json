@@ -1,0 +1,35 @@
+{
+  "best_candidate_this_generation": "cand_077_g04_m17",
+  "best_score_this_generation": 0.18989530537151095,
+  "budget": "strong",
+  "cem_state": {
+    "mean_abs": 0.8775320649147034,
+    "method_probs": [
+      0.06318452380952379,
+      0.9368154761904761
+    ],
+    "methods": [
+      "landmark_semantic_tps",
+      "landmark_piecewise_affine"
+    ],
+    "std_max": 0.4239886999130249,
+    "std_mean": 0.3341028392314911,
+    "std_min": 0.15685555338859558
+  },
+  "decision_counts": {
+    "metric_only_candidate": 6,
+    "reject_input_damage": 14
+  },
+  "elapsed_seconds": 64.90191975794733,
+  "elite": 4,
+  "elite_candidate_names": [
+    "cand_077_g04_m17",
+    "cand_067_g04_m07",
+    "cand_062_g04_m02",
+    "cand_068_g04_m08"
+  ],
+  "face_id": "face_001",
+  "generation": 4,
+  "population": 20,
+  "prompt": "make the person smile slightly"
+}

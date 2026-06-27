@@ -1,0 +1,9 @@
+{
+  "detector": "template",
+  "face_id": "face_001",
+  "failure_reason": "mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions'",
+  "image_path": "data/face_001/instruct_512.png",
+  "landmark_count": 24,
+  "success": true,
+  "updated_at": "2026-06-26T23:53:47.499615+00:00"
+}

@@ -1,0 +1,35 @@
+{
+  "best_candidate_this_generation": "cand_049_g03_m09",
+  "best_score_this_generation": 0.2785024535576887,
+  "budget": "existence_probe",
+  "cem_state": {
+    "mean_abs": 0.5359034538269043,
+    "method_probs": [
+      0.1363095238095238,
+      0.8636904761904762
+    ],
+    "methods": [
+      "landmark_semantic_tps",
+      "landmark_piecewise_affine"
+    ],
+    "std_max": 0.8572607040405273,
+    "std_mean": 0.43303847312927246,
+    "std_min": 0.20580986142158508
+  },
+  "decision_counts": {
+    "metric_only_candidate": 15,
+    "reject_input_damage": 5
+  },
+  "elapsed_seconds": 61.28768873587251,
+  "elite": 4,
+  "elite_candidate_names": [
+    "cand_049_g03_m09",
+    "cand_058_g03_m18",
+    "cand_046_g03_m06",
+    "cand_055_g03_m15"
+  ],
+  "face_id": "face_002",
+  "generation": 3,
+  "population": 20,
+  "prompt": "add black sunglasses"
+}

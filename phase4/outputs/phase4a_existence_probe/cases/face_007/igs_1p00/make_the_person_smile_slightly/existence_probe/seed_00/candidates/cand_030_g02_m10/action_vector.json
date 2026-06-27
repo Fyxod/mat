@@ -1,0 +1,153 @@
+{
+  "geometry_info": {
+    "action_names": [
+      "mouth_corner_raise",
+      "mouth_corner_lower",
+      "mouth_width_expand",
+      "mouth_width_compress",
+      "chin_raise",
+      "chin_lower"
+    ],
+    "action_strength": 0.72,
+    "action_values": {
+      "chin_lower": 0.2604010885589561,
+      "chin_raise": 0.29991359335298,
+      "mouth_corner_lower": 0.15537651269016098,
+      "mouth_corner_raise": 0.18807670758434575,
+      "mouth_width_compress": 0.33080065441636125,
+      "mouth_width_expand": 0.3224480724069762
+    },
+    "active_actions": {
+      "chin_lower": 0.2604010885589561,
+      "chin_raise": 0.29991359335298,
+      "mouth_corner_lower": 0.15537651269016098,
+      "mouth_corner_raise": 0.18807670758434575,
+      "mouth_width_compress": 0.33080065441636125,
+      "mouth_width_expand": 0.3224480724069762
+    },
+    "active_anchor_count": 4,
+    "control_point_count": 12,
+    "geometry_method": "landmark_piecewise_affine",
+    "max_disp_px_budget": 14.0,
+    "scale_factor": 0.34761835620126946,
+    "source_control_points": [
+      [
+        204.8000030517578,
+        335.3599853515625
+      ],
+      [
+        307.20001220703125,
+        335.3599853515625
+      ],
+      [
+        256.0,
+        419.8399963378906
+      ],
+      [
+        256.0,
+        376.32000732421875
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        511.0,
+        0.0
+      ],
+      [
+        0.0,
+        511.0
+      ],
+      [
+        511.0,
+        511.0
+      ],
+      [
+        256.0,
+        0.0
+      ],
+      [
+        256.0,
+        511.0
+      ],
+      [
+        0.0,
+        256.0
+      ],
+      [
+        511.0,
+        256.0
+      ]
+    ],
+    "target_control_points": [
+      [
+        204.8842010498047,
+        335.0303649902344
+      ],
+      [
+        307.1158142089844,
+        335.0303649902344
+      ],
+      [
+        256.0,
+        419.44171142578125
+      ],
+      [
+        256.0,
+        376.120849609375
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        511.0,
+        0.0
+      ],
+      [
+        0.0,
+        511.0
+      ],
+      [
+        511.0,
+        511.0
+      ],
+      [
+        256.0,
+        0.0
+      ],
+      [
+        256.0,
+        511.0
+      ],
+      [
+        0.0,
+        256.0
+      ],
+      [
+        511.0,
+        256.0
+      ]
+    ],
+    "tps_regularization": 0.0001
+  },
+  "names": [
+    "scale_logit",
+    "action_mouth_corner_raise",
+    "action_mouth_corner_lower",
+    "action_mouth_width_expand",
+    "action_mouth_width_compress",
+    "action_chin_raise",
+    "action_chin_lower"
+  ],
+  "values": [
+    -0.7429997324943542,
+    0.6056300401687622,
+    0.4809128940105438,
+    1.640856385231018,
+    1.8486665487289429,
+    1.3040684461593628,
+    0.9709022641181946
+  ]
+}

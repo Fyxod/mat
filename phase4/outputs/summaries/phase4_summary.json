@@ -1,0 +1,11 @@
+{
+  "phase4a_decision_counts": {
+    "metric_only_candidate": 1274,
+    "reject_input_damage": 670
+  },
+  "phase4a_existence_success_count": 0,
+  "phase4a_visible_failure_count": 0,
+  "phase4b_decision_counts": {},
+  "phase4b_skipped": true,
+  "updated_at": "2026-06-27T01:40:43.064636+00:00"
+}
