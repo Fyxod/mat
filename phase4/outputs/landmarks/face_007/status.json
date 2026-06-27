@@ -1,9 +1,12 @@
 {
-  "detector": "template",
+  "detector": "mediapipe_python_solutions_face_mesh",
+  "detector_backend": "mediapipe_python_solutions_face_mesh",
   "face_id": "face_007",
-  "failure_reason": "mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions'",
+  "failure_reason": null,
   "image_path": "data/face_007/instruct_512.png",
-  "landmark_count": 24,
+  "landmark_count": 478,
+  "overlay_sanity_warnings": [],
+  "real_landmarks": true,
   "success": true,
-  "updated_at": "2026-06-26T23:54:26.456350+00:00"
+  "updated_at": "2026-06-27T14:07:21.072253+00:00"
 }

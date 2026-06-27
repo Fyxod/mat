@@ -1,0 +1,9 @@
+detector,face_id,failure_reason,image_path,landmark_count,success,updated_at
+template,face_001,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_001/instruct_512.png,24,True,2026-06-26T23:53:47.499615+00:00
+template,face_002,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_002/instruct_512.png,24,True,2026-06-26T23:54:26.086753+00:00
+template,face_003,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_003/instruct_512.png,24,True,2026-06-26T23:54:26.166607+00:00
+template,face_004,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_004/instruct_512.png,24,True,2026-06-26T23:54:26.266744+00:00
+template,face_005,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_005/instruct_512.png,24,True,2026-06-26T23:54:26.333051+00:00
+template,face_006,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_006/instruct_512.png,24,True,2026-06-26T23:54:26.396685+00:00
+template,face_007,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_007/instruct_512.png,24,True,2026-06-26T23:54:26.456350+00:00
+template,face_008,mediapipe_detection_failed:AttributeError:module 'mediapipe' has no attribute 'solutions',data/face_008/instruct_512.png,24,True,2026-06-26T23:54:26.507881+00:00

@@ -1,8 +1,19 @@
 {
   "detectors": [
-    "template"
+    "mediapipe_python_solutions_face_mesh"
   ],
   "face_count": 8,
+  "real_landmark_count": 8,
+  "real_landmark_faces": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006",
+    "face_007",
+    "face_008"
+  ],
   "success_count": 8,
   "successful_faces": [
     "face_001",
@@ -14,5 +25,7 @@
     "face_007",
     "face_008"
   ],
-  "updated_at": "2026-06-26T23:54:26.591695+00:00"
+  "template_fallback_count": 0,
+  "template_fallback_faces": [],
+  "updated_at": "2026-06-27T14:07:22.298732+00:00"
 }

@@ -1,0 +1,185 @@
+{
+  "geometry_info": {
+    "action_names": [
+      "face_side_push_left",
+      "face_side_push_right",
+      "head_top_raise",
+      "head_top_lower",
+      "jaw_expand",
+      "jaw_compress",
+      "asymmetry_twist"
+    ],
+    "action_strength": 0.72,
+    "action_values": {
+      "asymmetry_twist": 0.5581647935861312,
+      "face_side_push_left": -0.24437920292102155,
+      "face_side_push_right": -0.4601907344504468,
+      "head_top_lower": 0.6205256714881154,
+      "head_top_raise": 0.5108814557006104,
+      "jaw_compress": -0.49340733748056204,
+      "jaw_expand": -0.7443258230375925
+    },
+    "active_actions": {
+      "asymmetry_twist": 0.5581647935861312,
+      "face_side_push_left": -0.24437920292102155,
+      "face_side_push_right": -0.4601907344504468,
+      "head_top_lower": 0.6205256714881154,
+      "head_top_raise": 0.5108814557006104,
+      "jaw_compress": -0.49340733748056204,
+      "jaw_expand": -0.7443258230375925
+    },
+    "active_anchor_count": 7,
+    "control_point_count": 15,
+    "geometry_method": "landmark_piecewise_affine",
+    "landmark_count": 478,
+    "landmark_detector": "mediapipe_python_solutions_face_mesh",
+    "max_disp_px_budget": 8.0,
+    "require_real_landmarks": true,
+    "scale_factor": 0.7562468698621361,
+    "source_control_points": [
+      [
+        145.79103088378906,
+        230.60910034179688
+      ],
+      [
+        140.35040283203125,
+        227.01690673828125
+      ],
+      [
+        383.8033447265625,
+        230.60910034179688
+      ],
+      [
+        383.8033447265625,
+        227.01690673828125
+      ],
+      [
+        232.58563232421875,
+        83.65425109863281
+      ],
+      [
+        185.86373901367188,
+        332.8659362792969
+      ],
+      [
+        370.30474853515625,
+        332.8659362792969
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        511.0,
+        0.0
+      ],
+      [
+        0.0,
+        511.0
+      ],
+      [
+        511.0,
+        511.0
+      ],
+      [
+        256.0,
+        0.0
+      ],
+      [
+        256.0,
+        511.0
+      ],
+      [
+        0.0,
+        256.0
+      ],
+      [
+        511.0,
+        256.0
+      ]
+    ],
+    "target_control_points": [
+      [
+        147.1986541748047,
+        227.39407348632812
+      ],
+      [
+        141.4061279296875,
+        227.01690673828125
+      ],
+      [
+        381.15264892578125,
+        233.82412719726562
+      ],
+      [
+        381.8153076171875,
+        227.01690673828125
+      ],
+      [
+        232.58563232421875,
+        84.28580474853516
+      ],
+      [
+        187.3090362548828,
+        331.2584228515625
+      ],
+      [
+        368.8594665527344,
+        334.47344970703125
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        511.0,
+        0.0
+      ],
+      [
+        0.0,
+        511.0
+      ],
+      [
+        511.0,
+        511.0
+      ],
+      [
+        256.0,
+        0.0
+      ],
+      [
+        256.0,
+        511.0
+      ],
+      [
+        0.0,
+        256.0
+      ],
+      [
+        511.0,
+        256.0
+      ]
+    ],
+    "tps_regularization": 0.0001
+  },
+  "names": [
+    "scale_logit",
+    "action_face_side_push_left",
+    "action_face_side_push_right",
+    "action_head_top_raise",
+    "action_head_top_lower",
+    "action_jaw_expand",
+    "action_jaw_compress",
+    "action_asymmetry_twist"
+  ],
+  "values": [
+    0.4125281274318695,
+    -0.33515751361846924,
+    -0.7065663933753967,
+    0.8208799362182617,
+    1.158447265625,
+    -2.4176483154296875,
+    -0.7795392274856567,
+    0.946231484413147
+  ]
+}
