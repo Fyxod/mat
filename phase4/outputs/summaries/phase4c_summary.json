@@ -1,0 +1,22 @@
+{
+  "conclusion": "Real MediaPipe landmarks were fixed and tested in a small sanity subset. They still did not produce visible final-edit failures.",
+  "decision_counts": {
+    "metric_only_candidate": 178,
+    "reject_input_damage": 122
+  },
+  "existence_success_count": 0,
+  "real_landmark_faces": [
+    "face_001",
+    "face_002",
+    "face_003",
+    "face_004",
+    "face_005",
+    "face_006",
+    "face_007",
+    "face_008"
+  ],
+  "selected_case_count": 6,
+  "strong_candidate_count": 0,
+  "updated_at": "2026-06-27T14:33:06.402692+00:00",
+  "visible_failure_count": 0
+}

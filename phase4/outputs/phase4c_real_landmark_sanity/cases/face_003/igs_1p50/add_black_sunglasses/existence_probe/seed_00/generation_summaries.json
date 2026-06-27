@@ -1,0 +1,70 @@
+[
+  {
+    "best_candidate_this_generation": "cand_004_g01_m04",
+    "best_score_this_generation": 0.21389884816174182,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.47745126485824585,
+      "method_probs": [
+        0.1953125,
+        0.8046875
+      ],
+      "methods": [
+        "landmark_semantic_tps",
+        "landmark_piecewise_affine"
+      ],
+      "std_max": 0.8999999761581421,
+      "std_mean": 0.6454372406005859,
+      "std_min": 0.4177194833755493
+    },
+    "decision_counts": {
+      "metric_only_candidate": 7,
+      "reject_input_damage": 5
+    },
+    "elapsed_seconds": 50.14641967974603,
+    "elite": 3,
+    "elite_candidate_names": [
+      "cand_004_g01_m04",
+      "cand_007_g01_m07",
+      "cand_010_g01_m10"
+    ],
+    "face_id": "face_003",
+    "generation": 1,
+    "population": 12,
+    "prompt": "add black sunglasses"
+  },
+  {
+    "best_candidate_this_generation": "cand_020_g02_m08",
+    "best_score_this_generation": 0.18897808219579665,
+    "budget": "existence_probe",
+    "cem_state": {
+      "mean_abs": 0.5726821422576904,
+      "method_probs": [
+        0.291796875,
+        0.708203125
+      ],
+      "methods": [
+        "landmark_semantic_tps",
+        "landmark_piecewise_affine"
+      ],
+      "std_max": 0.8001610636711121,
+      "std_mean": 0.5197223424911499,
+      "std_min": 0.2644060552120209
+    },
+    "decision_counts": {
+      "metric_only_candidate": 7,
+      "reject_input_damage": 5
+    },
+    "elapsed_seconds": 49.85987002775073,
+    "elite": 3,
+    "elite_candidate_names": [
+      "cand_020_g02_m08",
+      "cand_017_g02_m05",
+      "cand_022_g02_m10"
+    ],
+    "face_id": "face_003",
+    "generation": 2,
+    "population": 12,
+    "prompt": "add black sunglasses"
+  }
+]
